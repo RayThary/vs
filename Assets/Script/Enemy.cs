@@ -18,11 +18,9 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         enemyList.Add(this);
-        //rigd2d = GetComponent<Rigidbody2D>();
         player = GameManager.Instance.GetPlayer.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         enemyMoving();
