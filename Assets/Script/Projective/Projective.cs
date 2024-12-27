@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Projective : MonoBehaviour
 {
-    private readonly List<IP_Attribute> p_Attributes = new ();
+    private List<IP_Attribute> p_Attributes;
     public List<IP_Attribute> Attributes { get { return p_Attributes; } }
 
+
+    public void Init()
+    {
+        p_Attributes = new();
+    }
 
     void Update()
     {

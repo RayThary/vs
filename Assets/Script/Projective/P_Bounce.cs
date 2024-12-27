@@ -13,19 +13,22 @@ public class P_Bounce : IP_Attribute
     private Rect rect;
     public Rect Rect { get => rect; set => rect = value; }
 
+    private float radius;
     private float size;
     public float Size { get => size; set => size = value; }
-    private float _Size { get => size * 0.5f; }
+    private float _Size { get => size * radius; }
     private Camera cam;
     // Start is called before the first frame update
     
 
-    public P_Bounce(Projective projective, P_Move p_Move)
+    public P_Bounce(Projective projective, P_Move p_Move, float size)
     {
         CalculateWorldSize();
         cam = Camera.main;
         this.projective = projective;
+        radius = projective.GetComponent<CircleCollider2D>().radius;
         move = p_Move;
+        this.size = size;
     }
 
     void CalculateWorldSize()

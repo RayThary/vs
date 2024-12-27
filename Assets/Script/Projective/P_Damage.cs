@@ -17,8 +17,10 @@ public class P_Damage : IP_Attribute
     {
         if(collider2D.TryGetComponent(out Enemy enemy))
         {
-            enemy.HP -= m_Damage;
-            addon.Statistics += m_Damage;
+            float damage = m_Damage + GameManager.Instance.GetPlayer.Stat.AttackDamage;
+            enemy.HP -= damage;
+            addon.Statistics += damage;
+            GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
         }
     }
 

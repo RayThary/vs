@@ -13,7 +13,7 @@ public class Magic_15 : IAddon
     //대미지
     private readonly float damage;
     //스프라이트
-    public Sprite Sprite { get => GameManager.Instance.magic[14]; }
+    public Sprite Sprite { get => GameManager.Instance.Magic[14]; }
     //딜량
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
@@ -34,13 +34,14 @@ public class Magic_15 : IAddon
         Debug.Log("오브젝트풀링을 사용해야 하는 생성");
         //투사체 설정
         Projective projective = Object.Instantiate(this.projective);
+        projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = Vector2.right;
         
         projective.transform.position = player.transform.position + (Vector3)dir;
         //projective.transform.eulerAngles = new Vector3(0, 0, -angle);
         projective.Attributes.Add(new P_Move(projective, dir, speed));
-        projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault()));
+        projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
         projective.Attributes.Add(new P_Damage(this, damage));
         projectives.Add(projective);
     }
@@ -57,7 +58,6 @@ public class Magic_15 : IAddon
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
-        projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size = 1);
         projectives.ForEach(x => Object.Destroy(x.gameObject));
 
         projectives.Clear();

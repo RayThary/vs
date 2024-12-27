@@ -20,7 +20,7 @@ public class Magic_9 : IAddon
     //공격 딜레마 계산 타이머
     private float timer;
     //스프라이트
-    public Sprite Sprite {  get => GameManager.Instance.magic[8]; }
+    public Sprite Sprite {  get => GameManager.Instance.Magic[8]; }
     //딜량
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
@@ -81,11 +81,11 @@ public class Magic_9 : IAddon
                 Debug.Log("오브젝트풀링을 사용해야 하는 생성");
                 //투사체 설정
                 Projective projective = Object.Instantiate(this.projective);
+                projective.Init();
                 projective.transform.position = player.transform.position + (Vector3)dir;
                 projective.transform.eulerAngles = new Vector3(0, 0, -angle);
                 projective.Attributes.Add(new P_Move(projective, dir, speed));
                 projective.Attributes.Add(new P_Damage(this, damage));
-                //projective.Attributes.Add(new P_EnterDelete(projective));
                 projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
 
                 projectives.Add(projective);

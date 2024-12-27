@@ -51,11 +51,11 @@ public class Armory : MonoBehaviour
         Debug.Log("테스트코드");
         fire = new Magic_9(player, 5, 10f, 1, 1);
         bounce = new Magic_15(player, 3, 1);
-        Addon(fire);
-        
+        magic_8 = new Magic_8(player, 3, 1);
     }
     private Magic_9 fire;
     private Magic_15 bounce;
+    private Magic_8 magic_8;
     private void Update()
     {
         addonList.ForEach (x => x.Update());
@@ -75,6 +75,14 @@ public class Armory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             Remove(bounce);
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Addon(magic_8);
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            Remove(magic_8);
         }
     }
 }

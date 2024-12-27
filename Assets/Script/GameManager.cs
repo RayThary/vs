@@ -14,7 +14,13 @@ public class GameManager : MonoBehaviour
     private Player player;
     public Player GetPlayer { get { return player; } }
 
-    public Sprite[] magic;
+    [SerializeField]
+    private Material material;
+    public Material Material { get { return material; } }
+
+    [SerializeField]
+    private Sprite[] magic;
+    public Sprite[] Magic { get => magic; }
 
     private void Awake()
     {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +32,8 @@ public class ButtonManager : MonoBehaviour
     private readonly List<int> frameRate = new();
     [SerializeField]
     private Dropdown 화면모드;
+    [SerializeField]
+    private Slider 스킬투명도;
 
     //사운드
     [SerializeField]
@@ -62,9 +63,7 @@ public class ButtonManager : MonoBehaviour
 
 
     //캐릭터 3개 로딩
-    [SerializeField]
-    private Charactor[] charactors;
-    [SerializeField]
+    private Character[] charactors;
     private Image[] charactorIcons;
 
     private void Start()
@@ -130,7 +129,7 @@ public class ButtonManager : MonoBehaviour
         Refresh();
 
 
-        charactors = Resources.LoadAll<Charactor>("Charactor");
+        charactors = Resources.LoadAll<Character>("Charactor");
 
     }
 
@@ -149,6 +148,7 @@ public class ButtonManager : MonoBehaviour
                 프레임.value = i;
         }
         화면모드.value = (int)Screen.fullScreenMode;
+        스킬투명도.value = 1; 
     }
 
     private void MenuWindowOff()
@@ -262,6 +262,11 @@ public class ButtonManager : MonoBehaviour
     public void 안티에일리어싱()
     {
         
+    }
+
+    public void OnButton스킬투명도()
+    {
+        player.Setting.Transparency = 스킬투명도.value;
     }
 
     public void OnSound전체음성()
