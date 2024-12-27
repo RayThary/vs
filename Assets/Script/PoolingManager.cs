@@ -20,10 +20,8 @@ public class PoolingManager : MonoBehaviour
 
     [SerializeField] private List<cPoolingClip> m_listPoolingClip;
 
-
- 
-
     public static PoolingManager Instance;
+
     private void OnValidate()
     {
 

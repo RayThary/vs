@@ -9,13 +9,14 @@ public class Damage : MonoBehaviour
     private GameObject back;
     [SerializeField] 
     private GameObject button;
-    [SerializeField]
     private Armory armory;
     private DamageView m_View;
     private readonly List<DamageView> damageViews = new();
 
     private void Start()
     {
+
+        armory = GameManager.Instance.GetPlayer.GetComponent<Armory>();
         m_View = Resources.Load<DamageView>("Damage");
         armory.AddCall += AddWeapon;
         armory.RemoveCall += RemoveWeapon;

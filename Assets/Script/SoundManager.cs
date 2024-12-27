@@ -10,15 +10,7 @@ public class SoundManager : MonoBehaviour
 
     public enum Clips
     {
-        Atk_Cavalry,
-        Atk_Guard,
-        Atk_Magic,
-        Atk_Range,
-        Atk_Sword,
-        Buy,
-        Defeat,
-        Upgrade,
-        Victory,
+     
     }
 
     private AudioSource m_backGroundSource;
@@ -55,6 +47,10 @@ public class SoundManager : MonoBehaviour
         initPoolingClip();
     }
 
+    private void Start()
+    {
+        
+    }
 
     private void initPoolingClip()
     {

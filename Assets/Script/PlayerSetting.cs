@@ -27,8 +27,8 @@ public class PlayerSetting
     public int Transparency { get {  return transparency; } set {  transparency = value; } }
 
     //전체음성
-    private int fullvoice;
-    public int FullVoice { get {  return fullvoice; } set { fullvoice = value; } }
+    private int fullSound;
+    public int FullSound { get {  return fullSound; } set { fullSound = value; } }
     //bgm
     private int bgm;
     public int BGM { get {  return bgm; } set {  bgm = value; } }
