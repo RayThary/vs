@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    [SerializeField]
     private Player player;
 
     //첫 메뉴 인방
@@ -70,6 +69,9 @@ public class ButtonManager : MonoBehaviour
 
     private void Start()
     {
+
+        player = GameManager.Instance.GetPlayer;
+
         //해상도 옵션 초기화
         해상도.options.Clear();
         resolutions.AddRange(Screen.resolutions);
@@ -264,7 +266,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnSound전체음성()
     {
-        player.Setting.FullVoice = (int)(전체음성.value * 100);
+        player.Setting.FullSound = (int)(전체음성.value * 100);
     }
 
     public void OnSoundBGM()

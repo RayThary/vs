@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class ViewArmory : MonoBehaviour
 {
-    [SerializeField]    
+
     private Armory armory;
     [SerializeField]
     private Image armoryBack;
 
-    readonly Dictionary<IAddon, GameObject> pairs = new ();
+    readonly Dictionary<IAddon, GameObject> pairs = new();
 
     private void Start()
     {
+        armory = GameManager.Instance.GetPlayer.GetComponent<Armory>();
+
         armory.AddCall += AddSprite;
         armory.RemoveCall += RemoveSprite;
     }
@@ -26,7 +28,7 @@ public class ViewArmory : MonoBehaviour
     public void ViewWeapon()
     {
         //무기 이미지들이 어디에 있을지
-        if(armoryBack.gameObject.activeSelf)
+        if (armoryBack.gameObject.activeSelf)
         {
             armoryBack.gameObject.SetActive(false);
         }
@@ -45,7 +47,7 @@ public class ViewArmory : MonoBehaviour
     public void AddSprite(IAddon addon)
     {
         Debug.Log("오브젝트풀링을 사용하지 않는 생성");
-        GameObject gameObject = new ("무기 이미지");
+        GameObject gameObject = new("무기 이미지");
         gameObject.transform.parent = armoryBack.transform;
         Image image = gameObject.AddComponent<Image>();
         image.sprite = addon.Sprite;

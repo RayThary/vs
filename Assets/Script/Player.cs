@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int playerExp = 8;
     [SerializeField] private int needExp = 10;
-    // Start is called before the first frame update
+
+    [SerializeField] private Transform selectCharacter;
+
     void Start()
     {
         //세이브로드 필요함
