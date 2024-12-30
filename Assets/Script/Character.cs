@@ -8,6 +8,10 @@ public class Character : MonoBehaviour
     public float MaxHP { get { return maxHp; } set {  maxHp = value; } }
 
     [SerializeField]
+    private Sprite sprite;
+    public Sprite Sprite { get { return sprite; } }
+
+    [SerializeField]
     private float hp;
     public float HP { get => hp; set => hp = value; }
 
@@ -50,6 +54,11 @@ public class Character : MonoBehaviour
                 sheildRecover = Time.time;
                 sheild += maxSheild;
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ButtonManager.Instance.ESC();
         }
     }
 }

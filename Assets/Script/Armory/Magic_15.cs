@@ -14,6 +14,8 @@ public class Magic_15 : IAddon
     private readonly float damage;
     //스프라이트
     public Sprite Sprite { get => GameManager.Instance.Magic[14]; }
+    public bool Weapon => true;
+
     //딜량
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
@@ -22,7 +24,7 @@ public class Magic_15 : IAddon
 
     public Magic_15(Player player, float speed, float damage)
     {
-        projective = Resources.Load<Projective>("Magic_15");
+        projective = Resources.Load<Projective>("Magic/Magic_15");
         this.player = player;
         this.speed = speed;
         this.damage = damage;

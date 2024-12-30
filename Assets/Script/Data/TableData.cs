@@ -6,11 +6,29 @@ using UnityEngine.Networking;
 
 public class TableData : MonoBehaviour
 {
+    private static TableData instance;
+    public static TableData Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new GameObject("Table").AddComponent<TableData>();
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Description description;
+    public Description Description { get => description; }
 
     [SerializeField]
     private UserLevelTable userLevelTable;
+    public UserLevelTable UserLevelTable { get => userLevelTable; }
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -35,6 +53,7 @@ public class UserLevelTable
 {
     [SerializeField]
     private List<UserLevelTable_Part> table = new();
+    public List<UserLevelTable_Part> Table { get => table; }
     private string address = "https://docs.google.com/spreadsheets/d/13-VZhHfaqJzhD2yXfQFsNt6qIlr6f9Gh20h3B1_GF3U/export?format=tsv&&range=B6:Q";
 
     public UserLevelTable(TableData tableData)

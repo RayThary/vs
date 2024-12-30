@@ -9,5 +9,6 @@ public interface IAddon
     public void Remove();
     public void LevelUp();
     public Sprite Sprite { get; }
+    public bool Weapon { get; }
     public float Statistics { get; set; }
 }

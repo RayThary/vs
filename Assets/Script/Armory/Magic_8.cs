@@ -18,11 +18,13 @@ public class Magic_8 : IAddon
     private float statistics;
     public float Statistics { get => statistics; set => statistics = value; }
 
+    public bool Weapon => true;
+
     private List<Projective> projectives = new();
 
     public Magic_8(Player player, float speed, float damage)
     {
-        projective = Resources.Load<Projective>("Magic_8");
+        projective = Resources.Load<Projective>("Magic/Magic_8");
         this.player = player;
         this.speed = speed;
         this.damage = damage;

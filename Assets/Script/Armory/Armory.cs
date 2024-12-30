@@ -50,12 +50,16 @@ public class Armory : MonoBehaviour
         player = GetComponent<Player>();
         Debug.Log("테스트코드");
         fire = new Magic_9(player, 5, 10f, 1, 1);
-        bounce = new Magic_15(player, 3, 1);
+        magic_15 = new Magic_15(player, 3, 1);
         magic_8 = new Magic_8(player, 3, 1);
+        magic_6 = new Magic_6(player, 1);
+        magic_7 = new Magic_7(player);
     }
     private Magic_9 fire;
-    private Magic_15 bounce;
+    private Magic_15 magic_15;
     private Magic_8 magic_8;
+    private Magic_6 magic_6;
+    private Magic_7 magic_7;
     private void Update()
     {
         addonList.ForEach (x => x.Update());
@@ -70,11 +74,11 @@ public class Armory : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Addon(bounce);
+            Addon(magic_15);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Remove(bounce);
+            Remove(magic_15);
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
@@ -83,6 +87,26 @@ public class Armory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
             Remove(magic_8);
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Addon(magic_6);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Remove(magic_6);
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Addon(magic_7);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Remove(magic_7);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            player.AddExp(1);
         }
     }
 }

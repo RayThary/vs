@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     private Sprite[] magic;
     public Sprite[] Magic { get => magic; }
 
+    public float TimeScale { get { return Time.timeScale; } set { Time.timeScale = value; } }
+
     private void Awake()
     {
         instance = this;

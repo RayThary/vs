@@ -21,6 +21,8 @@ public class Magic_9 : IAddon
     private float timer;
     //스프라이트
     public Sprite Sprite {  get => GameManager.Instance.Magic[8]; }
+    public bool Weapon => true;
+
     //딜량
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
@@ -29,7 +31,7 @@ public class Magic_9 : IAddon
 
     public Magic_9(Player player, float range, float speed, float damage, float delay)
     {
-        projective = Resources.Load<Projective>("Magic_9");
+        projective = Resources.Load<Projective>("Magic/Magic_9");
         this.player = player;
         this.range = range;
         this.speed = speed;

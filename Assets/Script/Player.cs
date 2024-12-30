@@ -8,12 +8,18 @@ public class Player : MonoBehaviour
     public PlayerSetting Setting { get { return setting; } }
     private PlayerStat stat;
     public PlayerStat Stat { get { return stat; } }
+    private Armory armory;
+    public Armory Armory { get {  return armory; } }
 
+    [SerializeField] private int level = 0;
     [SerializeField] private int playerExp = 8;
     [SerializeField] private int needExp = 10;
 
     [SerializeField] private Character selectCharacter;
-    public Character SelectCharacter { get { return selectCharacter; } }
+    public Character SelectCharacter { get { return selectCharacter; } set { selectCharacter = value; } }
+
+    [SerializeField]
+    private CardSelect cardSelect;
 
     void Start()
     {
@@ -21,6 +27,8 @@ public class Player : MonoBehaviour
         setting = new PlayerSetting();
         //세이브로드 불필요
         stat = new PlayerStat();
+        //세이브로드 필요할지도
+        armory = GetComponent<Armory>();
     }
 
     // Update is called once per frame
@@ -31,6 +39,13 @@ public class Player : MonoBehaviour
 
     public void AddExp(int _exp)
     {
-        playerExp++;
+        playerExp += _exp;
+        if(playerExp >= needExp)
+        {
+            level++;
+            playerExp -= needExp;
+            needExp = TableData.Instance.UserLevelTable.Table[level].exp;
+            cardSelect.On = true;
+        }
     }
 }

@@ -5,6 +5,17 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
+    private static ButtonManager instance;
+    public static ButtonManager Instance
+    { 
+        get 
+        {
+            if (instance == null)
+                instance = new GameObject("Button").AddComponent<ButtonManager>();
+            return instance; 
+        } 
+    }
+
     private Player player;
 
     //첫 메뉴 인방
@@ -65,6 +76,11 @@ public class ButtonManager : MonoBehaviour
     //캐릭터 3개 로딩
     private Character[] charactors;
     private Image[] charactorIcons;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -129,7 +145,7 @@ public class ButtonManager : MonoBehaviour
         Refresh();
 
 
-        charactors = Resources.LoadAll<Character>("Charactor");
+        charactors = Resources.LoadAll<Character>("Character");
 
     }
 
@@ -289,10 +305,24 @@ public class ButtonManager : MonoBehaviour
         viewArmory.ViewWeapon();
     }
 
+    //esc를 눌렀을때도 작동해야 하니까
+    public void ESC()
+    {
+        if(ingameOptionButton.gameObject.activeSelf)
+        {
+            OnButtonIngameOption();
+        }
+        else
+        {
+            OnButtonIngameClose();
+        }
+    }
+
     public void OnButtonIngameOption()
     {
         //시간 멈춰야 함
         Debug.Log("시간 멈춰야 함");
+        GameManager.Instance.TimeScale = 0;
         armory.gameObject.SetActive(false);
         viewArmory.Close();
         ingameOptionButton.gameObject.SetActive(false);
@@ -301,8 +331,9 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameClose()
     {
-        //시간 멈춰야 함
+        //시간 흘러야 함
         Debug.Log("시간 흘러야 함");
+        GameManager.Instance.TimeScale = 1;
         armory.gameObject.SetActive(true);
         ingameOptionButton.gameObject.SetActive(true);
         ingameOptionWindow.SetActive(false);
@@ -334,5 +365,13 @@ public class ButtonManager : MonoBehaviour
         Debug.Log(charactors[id] + " 선택");
         CharactorSelect.SetActive(false);
         InGameWindowActive();
+        Debug.Log("오브젝트풀링을 사용하지 않는 생성");
+        GameManager.Instance.GetPlayer.SelectCharacter = Instantiate(charactors[id]);
+    }
+
+    public void OnButton돌아가기()
+    {
+        CharactorSelect.SetActive(false);
+        MenuWindowActive();
     }
 }

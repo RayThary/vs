@@ -15,8 +15,11 @@ public class Projective : MonoBehaviour
 
     void Update()
     {
-        p_Attributes.ForEach (a => a.Update ());
-        p_Attributes.ForEach(a => a.LateUpdate ());
+        if(p_Attributes != null)
+        {
+            p_Attributes.ForEach(a => a.Update());
+            p_Attributes.ForEach(a => a.LateUpdate());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
