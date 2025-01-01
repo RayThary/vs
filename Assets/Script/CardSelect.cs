@@ -17,11 +17,11 @@ public class CardSelect : MonoBehaviour
     private List<IAddon> addons = new ();
     private IAddon[] candidate = new IAddon[3];
 
-    private Magic_9 fire;
-    private Magic_15 magic_15;
-    private Magic_8 magic_8;
-    private Magic_6 magic_6;
-    private Magic_7 magic_7;
+    //private Magic_6 magic_6;
+    //private Magic_7 magic_7;
+    //private Magic_8 magic_8;
+    //private Magic_9 magic_9;
+    //private Magic_15 magic_15;
 
     //플레이어에게 무기가 이미 5종류 있는가
     //없다면 전체에서 랜덤 3개
@@ -36,9 +36,24 @@ public class CardSelect : MonoBehaviour
             new Magic_6(GameManager.Instance.GetPlayer, 1),
             //new Magic_7(GameManager.Instance.GetPlayer), 이것은 6번의 업그레이드
             new Magic_8(GameManager.Instance.GetPlayer, 3, 1),
-            new Magic_9(GameManager.Instance.GetPlayer, 5, 10, 1, 1),
-            new Magic_15(GameManager.Instance.GetPlayer, 3, 1),
-            new AttackDamage()
+            //new Magic_9(GameManager.Instance.GetPlayer, 5, 10, 1, 1),
+            //new Magic_15(GameManager.Instance.GetPlayer, 3, 1),
+
+            new Armor(),
+            new AttackCool(),
+            new AttackCount(),
+            new AttackDamage(),
+            new AttackRange(),
+            new AttackSpeed(),
+            new HP(),
+            new HPRecovery(),
+            new LifeAbsorption(),
+            new ShieldPoint(),
+            new SkillAmp(),
+            new SkillCool(),
+            new SkillDamage(),
+            new Speed(),
+            
         };
     }
 
@@ -57,13 +72,13 @@ public class CardSelect : MonoBehaviour
     public void RandomCard()
     {
         //플레이어에게 무기가 5개 미만
-        List<int> list = new ();
 
         if(GameManager.Instance.GetPlayer.Armory.Addons.Count(x => x.Weapon) < 5)
         {
             var random = new System.Random();
 
             candidate = addons
+                .Where(x => x.Level < x.MaxLevel)
                 .OrderBy(_ => random.Next())
                 .Take(3)
                 .ToArray();
@@ -78,9 +93,11 @@ public class CardSelect : MonoBehaviour
             var random = new System.Random();
 
             candidate = GameManager.Instance.GetPlayer.Armory.Addons
-                .OrderBy(_ => random.Next())     // 랜덤 정렬
-                .Take(3)                         // 최대 3개 선택
-                .ToArray();
+                        .Where(x => x.Level < x.MaxLevel)
+                        .Where(x => x.Weapon)
+                        .Concat(addons.Where(x => !x.Weapon).Where(x => x.Level < x.MaxLevel))
+                        .Distinct(new AddonComparer()) // 중복 제거
+                        .ToArray();
 
             card[0].sprite = candidate[0].Sprite;
             card[1].sprite = candidate[1].Sprite;

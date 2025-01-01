@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Magic_15 : IAddon
 {
+    public string AddonName => "15";
+
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
@@ -20,7 +22,12 @@ public class Magic_15 : IAddon
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
 
-    private List<Projective> projectives = new();
+    private readonly List<Projective> projectives = new();
+
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 5;
 
     public Magic_15(Player player, float speed, float damage)
     {
@@ -28,6 +35,7 @@ public class Magic_15 : IAddon
         this.player = player;
         this.speed = speed;
         this.damage = damage;
+        level = 0;
     }
 
     public void Addon()

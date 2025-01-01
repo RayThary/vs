@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class AttackDamage : IAddon
 {
+    public string AddonName => "AttackDamage";
+
     private int hap;
 
-    public Sprite Sprite => null;
+    private Sprite sprite;
+    public Sprite Sprite => sprite;
 
     public bool Weapon => false;
     public float Statistics { get => 0; set { } }
 
-    public AttackDamage() 
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 10;
+
+    public AttackDamage()
     {
+        sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Weapon & Tool/Axe");
         hap = 0;
+        level = 0;
     }
 
     public void Addon()

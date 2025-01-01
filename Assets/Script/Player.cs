@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -23,8 +24,16 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //세이브로드 필요함
-        setting = new PlayerSetting();
+        //if(LoadSaveManager.Instance.Load(ref setting, "setting"))
+        //{
+        //    //로드 성공
+        //}
+        //else
+        //{
+        //    //로드 실패
+            setting = new PlayerSetting();
+        //}
+        
         //세이브로드 불필요
         stat = new PlayerStat();
         //세이브로드 필요할지도
@@ -47,5 +56,10 @@ public class Player : MonoBehaviour
             needExp = TableData.Instance.UserLevelTable.Table[level].exp;
             cardSelect.On = true;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        //LoadSaveManager.Instance.Save(setting, "setting");
     }
 }

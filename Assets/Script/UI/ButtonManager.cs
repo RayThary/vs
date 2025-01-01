@@ -347,6 +347,7 @@ public class ButtonManager : MonoBehaviour
         //플레이어 무기 전부 없애야 함
         //필드 몹 없애야 함
         MenuWindowActive();
+        player.Armory.Clear();
     }
 
     public void OnButtonDamage()

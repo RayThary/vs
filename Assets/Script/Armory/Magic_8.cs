@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Magic_8 : IAddon
 {
+    public string AddonName => "8";
+
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
@@ -20,7 +22,12 @@ public class Magic_8 : IAddon
 
     public bool Weapon => true;
 
-    private List<Projective> projectives = new();
+    private readonly List<Projective> projectives = new();
+
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 5;
 
     public Magic_8(Player player, float speed, float damage)
     {
@@ -28,6 +35,7 @@ public class Magic_8 : IAddon
         this.player = player;
         this.speed = speed;
         this.damage = damage;
+        level = 0;
     }
 
     public void Addon()
@@ -37,35 +45,13 @@ public class Magic_8 : IAddon
 
         for(int i = 0; i < 3; i++)
         {
-            //투사체 설정
-            Projective projective = Object.Instantiate(this.projective);
-            projective.Init();
-            //여기서 방향을 받아옴
-            Vector2 dir = new Vector2(Random.Range(-1, 1f), Random.Range(-1, 1f));
-
-            projective.transform.position = player.transform.position + (Vector3)dir;
-            //projective.transform.eulerAngles = new Vector3(0, 0, -angle);
-            projective.Attributes.Add(new P_Move(projective, dir, speed));
-            projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
-            projective.Attributes.Add(new P_Damage(this, damage));
-            projectives.Add(projective);
+            Fire();
         }
     }
 
     public void LevelUp()
     {
-        //투사체 설정
-        Projective projective = Object.Instantiate(this.projective);
-        projective.Init();
-        //여기서 방향을 받아옴
-        Vector2 dir = new Vector2(Random.Range(-1, 1f), Random.Range(-1, 1f));
-
-        projective.transform.position = player.transform.position + (Vector3)dir;
-        //projective.transform.eulerAngles = new Vector3(0, 0, -angle);
-        projective.Attributes.Add(new P_Move(projective, dir, speed));
-        projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
-        projective.Attributes.Add(new P_Damage(this, damage));
-        projectives.Add(projective);
+        Fire();
     }
 
     public void Remove()
@@ -78,6 +64,33 @@ public class Magic_8 : IAddon
 
     public void Update()
     {
+        if(projectives.Count - 3 - level != player.Stat.AttackCount)
+        {
+            Debug.Log("차이 발생");
+            Debug.Log(player.Stat.AttackCount - (projectives.Count - 3 - level));
+            Debug.Log(player.Stat.AttackCount);
+            Debug.Log(projectives.Count - 3 - level);
 
+            for (int i = 0; i < player.Stat.AttackCount - (projectives.Count - 3 - level); i++)
+            {
+                Fire();
+            }
+        }
+    }
+
+    private void Fire()
+    {
+        //투사체 설정
+        Projective projective = Object.Instantiate(this.projective);
+        projective.Init();
+        //여기서 방향을 받아옴
+        Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));
+
+        projective.transform.position = player.transform.position + (Vector3)dir;
+        //projective.transform.eulerAngles = new Vector3(0, 0, -angle);
+        projective.Attributes.Add(new P_Move(projective, dir, speed));
+        projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
+        projective.Attributes.Add(new P_Damage(this, damage));
+        projectives.Add(projective);
     }
 }

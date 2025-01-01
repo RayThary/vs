@@ -41,7 +41,7 @@ public class P_Move : IP_Attribute
 
     public void Update()
     {
-        projective.transform.position += Time.deltaTime * speed * (Vector3)Direction;
+        projective.transform.position += Time.deltaTime * (speed + GameManager.Instance.GetPlayer.Stat.AttackSpeed) * (Vector3)Direction;
     }
 
     public void LateUpdate()

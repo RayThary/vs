@@ -6,6 +6,8 @@ using UnityEngine;
 //사거리 안의 적을 감지해서 가장 가까운 적에게 발사하는 장비
 public class Magic_9 : IAddon
 {
+    public string AddonName => "9";
+
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
@@ -27,7 +29,12 @@ public class Magic_9 : IAddon
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
 
-    private List<Projective> projectives = new();
+    private readonly List<Projective> projectives = new();
+
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 5;
 
     public Magic_9(Player player, float range, float speed, float damage, float delay)
     {
@@ -37,6 +44,7 @@ public class Magic_9 : IAddon
         this.speed = speed;
         this.damage = damage;
         this.delay = delay;
+        level = 0;
     }
 
     public void Addon()
@@ -60,7 +68,7 @@ public class Magic_9 : IAddon
     public void Update()
     {
         //공격 딜레이가 되었는지
-        if(timer + delay <= Time.time)
+        if(timer + (delay - player.Stat.AttackCool)  <= Time.time)
         {
             //적이 근처에 있는지
             Enemy enemy = DistanceMin(range);
@@ -81,16 +89,20 @@ public class Magic_9 : IAddon
                 timer = Time.time;
 
                 Debug.Log("오브젝트풀링을 사용해야 하는 생성");
-                //투사체 설정
-                Projective projective = Object.Instantiate(this.projective);
-                projective.Init();
-                projective.transform.position = player.transform.position + (Vector3)dir;
-                projective.transform.eulerAngles = new Vector3(0, 0, -angle);
-                projective.Attributes.Add(new P_Move(projective, dir, speed));
-                projective.Attributes.Add(new P_Damage(this, damage));
-                projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
 
-                projectives.Add(projective);
+                //투사체 설정
+                for(int i = 0; i < player.Stat.AttackCount + 1; i++)
+                {
+                    Projective projective = Object.Instantiate(this.projective);
+                    projective.Init();
+                    projective.transform.position = player.transform.position + (Vector3)dir;
+                    projective.transform.eulerAngles = new Vector3(0, 0, -angle);
+                    projective.Attributes.Add(new P_Move(projective, dir, speed));
+                    projective.Attributes.Add(new P_Damage(this, damage));
+                    projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
+
+                    projectives.Add(projective);
+                }
             }
         }
     }

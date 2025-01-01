@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Magic_7 : IAddon
 {
+    public string AddonName => "7";
+
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
-    private List<Projective> projectives = new();
+    private readonly List<Projective> projectives = new();
 
     public Sprite Sprite => GameManager.Instance.Magic[6];
 
@@ -16,10 +18,16 @@ public class Magic_7 : IAddon
 
     public bool Weapon => true;
 
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 5;
+
     public Magic_7(Player player)
     {
         projective = Resources.Load<Projective>("Magic/Magic_7");
         this.player = player;
+        level = 0;
     }
 
     public void Addon()
