@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-    public static GameManager Instance
-    { get { return instance; } }
+    public static GameManager Instance { get { return instance; } }
 
 
     private float playerExpDistance = 3;
@@ -14,20 +13,26 @@ public class GameManager : MonoBehaviour
     private Player player;
     public Player GetPlayer { get { return player; } }
 
-    [SerializeField]
-    private Material material;
-    public Material Material { get { return material; } }
+    //임시 테스트용
+    [SerializeField] private Transform seletCharactor;
+    public Transform GetCharactor { get { return seletCharactor; } }
 
-    [SerializeField]
-    private Sprite[] magic;
-    public Sprite[] Magic { get => magic; }
+    private AutoTarget autoTarget;
+    public Transform GetTargetTrs { get { return autoTarget.GetTarget; } }
 
-    public float TimeScale { get { return Time.timeScale; } set { Time.timeScale = value; } }
+    public Sprite[] magic;
 
     private void Awake()
     {
         instance = this;
 
         player = FindObjectOfType<Player>();
+        autoTarget = transform.GetComponent<AutoTarget>();
+
+    }
+
+    public void SetCharactor(Transform _trs)
+    {
+        seletCharactor = _trs;
     }
 }

@@ -48,7 +48,7 @@ public class Experience : MonoBehaviour
     void Start()
     {
         player = GameManager.Instance.GetPlayer;
-        playerTrs = player.GetComponent<Transform>();
+        playerTrs = GameManager.Instance.GetCharactor;
         playerDis = GameManager.Instance.GetExpDistance;
     }
 
@@ -56,10 +56,10 @@ public class Experience : MonoBehaviour
     void Update()
     {
         float dis = Vector3.Distance(playerTrs.position, transform.position);
-
         if (dis < playerDis)
         {
             playerCheck = true;
+
         }
 
         if (playerCheck)
