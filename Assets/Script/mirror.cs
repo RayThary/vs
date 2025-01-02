@@ -12,6 +12,8 @@ public class mirror : MonoBehaviour
     public Transform mirrorPlayer;
 
     private bool camChange = false;
+
+    private bool test = false;
     void Start()
     {
 
@@ -23,17 +25,23 @@ public class mirror : MonoBehaviour
     {
         if (GameManager.Instance.GetCharactor != null)
         {
-            charactor = GameManager.Instance.GetCharactor;
-            mirrorPlayer = charactor.transform.GetChild(0).transform;
+            if (test == false)
+            {
 
-            mainCam.Priority = 10;
-            mirrorCam.Priority = 9;
+                charactor = GameManager.Instance.GetCharactor;
+                mirrorPlayer = charactor.transform.GetChild(0).transform;
 
-            mainCam.LookAt = charactor;
-            mainCam.Follow= charactor;
+                mainCam.Priority = 10;
+                mirrorCam.Priority = 9;
 
-            mirrorCam.LookAt = mirrorPlayer;
-            mirrorCam.Follow = mirrorPlayer;
+                mainCam.LookAt = charactor;
+                mainCam.Follow = charactor;
+
+
+                mirrorCam.LookAt = mirrorPlayer;
+                mirrorCam.Follow = mirrorPlayer;
+                test = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -76,6 +84,6 @@ public class mirror : MonoBehaviour
         mainCam.Follow = charTrs;
 
         mirrorCam.LookAt = mirrorTrs;
-        mirrorCam.Follow = mirrorTrs;
+       mirrorCam.Follow = mirrorTrs;
     }
 }

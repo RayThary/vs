@@ -40,7 +40,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         m_backGroundSource = GetComponent<AudioSource>();
 
         StartCoroutine(bgStart());

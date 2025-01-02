@@ -38,7 +38,8 @@ public class PoolingManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(this);
+
+        //DontDestroyOnLoad(this);
         initPoolingParents();
         initPoolingChild();
     }
