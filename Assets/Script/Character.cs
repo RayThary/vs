@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    private float horizontal;
+    private float vertical;
+
+    private Rigidbody2D rigid2d;
+
+    [SerializeField] private float characterSpeed = 3;
+
+    private Transform mirroTrs;
+
     private float maxHp;
     public float MaxHP { get { return maxHp; } set {  maxHp = value; } }
 
@@ -28,22 +37,57 @@ public class Character : MonoBehaviour
     void Start()
     {
         recover = Time.time;
+        rigid2d = GetComponent<Rigidbody2D>();
+        mirroTrs = transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(recover  + 1 < Time.time)
+        characterMoving();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ButtonManager.Instance.ESC();
+        }
+    }
+
+    private void characterMoving()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+
+        if (horizontal == 1)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (horizontal == -1)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        rigid2d.velocity = new Vector2(horizontal * characterSpeed, vertical * characterSpeed);
+
+        Vector2 playerVec = transform.position;
+        playerVec.x *= -1;
+        mirroTrs.position = playerVec;
+    }
+
+    public void HPRecovery()
+    {
+        if (recover + 1 < Time.time)
         {
             recover = Time.time;
             hp += GameManager.Instance.GetPlayer.Stat.HPRecovery;
         }
+    }
 
-        if(sheild != maxSheild && sheildRecover == 0)
+    public void SheildRecover()
+    {
+        if (sheild != maxSheild && sheildRecover == 0)
         {
             sheildRecover = Time.time;
         }
-        else if(sheild != maxSheild)
+        else if (sheild != maxSheild)
         {
             sheildRecover = 0;
         }
@@ -54,11 +98,6 @@ public class Character : MonoBehaviour
                 sheildRecover = Time.time;
                 sheild += maxSheild;
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            ButtonManager.Instance.ESC();
         }
     }
 }
