@@ -10,6 +10,7 @@ public interface IAddon
     public void Remove();
     public void LevelUp();
     public Sprite Sprite { get; }
+    public string Description { get; }
     public bool Weapon { get; }
     public float Statistics { get; set; }
     public int Level { get; set; }

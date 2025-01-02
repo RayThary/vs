@@ -12,7 +12,7 @@ public class CardSelect : MonoBehaviour
     public bool On { get { return on; } set {  on = value; } }
 
     [SerializeField]
-    private List<Image> card;
+    private List<CardUI> card;
 
     private List<IAddon> addons = new ();
     private IAddon[] candidate = new IAddon[3];
@@ -39,20 +39,20 @@ public class CardSelect : MonoBehaviour
             //new Magic_9(GameManager.Instance.GetPlayer, 5, 10, 1, 1),
             //new Magic_15(GameManager.Instance.GetPlayer, 3, 1),
 
-            new Armor(),
-            new AttackCool(),
-            new AttackCount(),
+            //new Armor(),
+            //new AttackCool(),
+            //new AttackCount(),
             new AttackDamage(),
-            new AttackRange(),
-            new AttackSpeed(),
-            new HP(),
-            new HPRecovery(),
-            new LifeAbsorption(),
-            new ShieldPoint(),
-            new SkillAmp(),
-            new SkillCool(),
-            new SkillDamage(),
-            new Speed(),
+            //new AttackRange(),
+            //new AttackSpeed(),
+            //new HP(),
+            //new HPRecovery(),
+            //new LifeAbsorption(),
+            //new ShieldPoint(),
+            //new SkillAmp(),
+            //new SkillCool(),
+            //new SkillDamage(),
+            //new Speed(),
             
         };
     }
@@ -83,9 +83,9 @@ public class CardSelect : MonoBehaviour
                 .Take(3)
                 .ToArray();
 
-            card[0].sprite = candidate[0].Sprite;
-            card[1].sprite = candidate[1].Sprite;
-            card[2].sprite = candidate[2].Sprite;
+            card[0].Init(candidate[0]);
+            card[1].Init(candidate[1]);
+            card[2].Init(candidate[2]);
         }
         else
         {
@@ -99,14 +99,10 @@ public class CardSelect : MonoBehaviour
                         .Distinct(new AddonComparer()) // 중복 제거
                         .ToArray();
 
-            card[0].sprite = candidate[0].Sprite;
-            card[1].sprite = candidate[1].Sprite;
-            card[2].sprite = candidate[2].Sprite;
+            card[0].Init(candidate[0]);
+            card[1].Init(candidate[1]);
+            card[2].Init(candidate[2]);
         }
-
-        card[0].gameObject.SetActive(true);
-        card[1].gameObject.SetActive(true);
-        card[2].gameObject.SetActive(true);
     }
 
     public void Select(int id)

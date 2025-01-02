@@ -11,6 +11,16 @@ public class AttackDamage : IAddon
     private Sprite sprite;
     public Sprite Sprite => sprite;
 
+    private string description;
+    public string Description
+    {
+        get { 
+            if(description == null)
+                description = TableData.Instance.Description.description(AddonName);
+            return description;
+        } 
+    }
+
     public bool Weapon => false;
     public float Statistics { get => 0; set { } }
 

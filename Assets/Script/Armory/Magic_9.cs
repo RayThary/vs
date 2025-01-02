@@ -23,6 +23,10 @@ public class Magic_9 : IAddon
     private float timer;
     //스프라이트
     public Sprite Sprite {  get => GameManager.Instance.Magic[8]; }
+
+    private string description;
+    public string Description { get => description; }
+
     public bool Weapon => true;
 
     //딜량
@@ -39,6 +43,7 @@ public class Magic_9 : IAddon
     public Magic_9(Player player, float range, float speed, float damage, float delay)
     {
         projective = Resources.Load<Projective>("Magic/Magic_9");
+        description = "불꽃을 가장 가까운 적에게 발사한다";
         this.player = player;
         this.range = range;
         this.speed = speed;

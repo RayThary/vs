@@ -11,6 +11,9 @@ public class LifeAbsorption : IAddon
     private Sprite sprite;
     public Sprite Sprite => sprite;
 
+    private string description;
+    public string Description { get => description; }
+
     public bool Weapon => false;
 
     public float Statistics { get => 0; set { } }
@@ -23,6 +26,7 @@ public class LifeAbsorption : IAddon
     public LifeAbsorption()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Monster Part/Monster Meat");
+        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }

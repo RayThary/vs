@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7272984298590392622}
+  - component: {fileID: 4541168214287398116}
   m_Layer: 0
   m_Name: Magic_14
   m_TagString: Untagged
@@ -30,8 +31,20 @@ Transform:
   m_Children:
   - {fileID: 42236329255959768}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4541168214287398116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2248346343034938147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b78ecda1871bb747b56d756a48d4084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4012382429482667474
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +56,7 @@ GameObject:
   - component: {fileID: 42236329255959768}
   - component: {fileID: 5669400455669466477}
   - component: {fileID: 6823908833648893963}
+  - component: {fileID: 6750793067924115175}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -127,7 +141,7 @@ Animator:
   m_GameObject: {fileID: 4012382429482667474}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 981b560d1a9f12f4bbf79fac2f143dd3, type: 2}
+  m_Controller: {fileID: 9100000, guid: c12ebbe1fc871594881e2f6653358908, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,3 +152,69 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!68 &6750793067924115175
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4012382429482667474}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.02415197, y: 0.26427937}
+  - {x: -0.021733604, y: 0.2083869}
+  - {x: -0.02404949, y: 0.15098047}
+  - {x: -0.06857462, y: 0.047981262}
+  - {x: -0.24257787, y: 0.05552721}
+  - {x: -0.324701, y: 0.10822725}
+  - {x: -0.34036884, y: 0.09785032}
+  - {x: -0.29396266, y: 0.03879404}
+  - {x: -0.19514911, y: -0.017265797}
+  - {x: -0.060852118, y: -0.037098408}
+  - {x: -0.009807982, y: -0.14359903}
+  - {x: -0.012983073, y: -0.2187953}
+  - {x: -0.03606507, y: -0.31736565}
+  - {x: -0.03347061, y: -0.37944984}
+  - {x: -0.018160332, y: -0.37626362}
+  - {x: 0.044848368, y: -0.22306252}
+  - {x: 0.043787412, y: -0.027205944}
+  - {x: 0.21825056, y: -0.02093649}
+  - {x: 0.24857621, y: 0.0064148903}
+  - {x: 0.2918646, y: 0.11415148}
+  - {x: 0.269051, y: 0.11518383}
+  - {x: 0.21091752, y: 0.039594173}
+  - {x: 0.05412449, y: 0.046936035}
+  - {x: 0.06677723, y: 0.07165623}
+  - {x: 0.06559004, y: 0.13306665}
+  - {x: -0.009757772, y: 0.26859236}
+  - {x: -0.02415197, y: 0.2642794}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

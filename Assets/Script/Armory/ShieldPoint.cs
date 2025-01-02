@@ -11,6 +11,9 @@ public class ShieldPoint : IAddon
     private Sprite sprite;
     public Sprite Sprite => sprite;
 
+    private string description;
+    public string Description { get => description; }
+
     public bool Weapon => false;
 
     public float Statistics { get => 0; set { } }
@@ -23,6 +26,7 @@ public class ShieldPoint : IAddon
     public ShieldPoint()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Equipment/Helm");
+        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }

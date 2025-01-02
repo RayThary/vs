@@ -13,6 +13,9 @@ public class Magic_7 : IAddon
 
     public Sprite Sprite => GameManager.Instance.Magic[6];
 
+    private string description;
+    public string Description { get => description; }
+
     private float statistics;
     public float Statistics { get => statistics; set => statistics = value; }
 
@@ -26,6 +29,7 @@ public class Magic_7 : IAddon
     public Magic_7(Player player)
     {
         projective = Resources.Load<Projective>("Magic/Magic_7");
+        description = "플레이어의 주변에 회전하는 불꽃을 생성한다";
         this.player = player;
         level = 0;
     }

@@ -17,6 +17,9 @@ public class Magic_8 : IAddon
 
     public Sprite Sprite => GameManager.Instance.Magic[7];
 
+    private string description;
+    public string Description { get => description; }
+
     private float statistics;
     public float Statistics { get => statistics; set => statistics = value; }
 
@@ -32,6 +35,7 @@ public class Magic_8 : IAddon
     public Magic_8(Player player, float speed, float damage)
     {
         projective = Resources.Load<Projective>("Magic/Magic_8");
+        description = "벽에 튕기는 구체를 3발 발사한다";
         this.player = player;
         this.speed = speed;
         this.damage = damage;

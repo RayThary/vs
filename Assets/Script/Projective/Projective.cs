@@ -24,13 +24,19 @@ public class Projective : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        p_Attributes.ForEach(x  => x.Enter(collision));
-        p_Attributes.ForEach(x => x.LateEnter(collision));
+        if (p_Attributes != null)
+        {
+            p_Attributes.ForEach(x => x.Enter(collision));
+            p_Attributes.ForEach(x => x.LateEnter(collision));
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        p_Attributes.ForEach(x => x.Exit(collision));
-        p_Attributes.ForEach(x => x.LateExit(collision));
+        if (p_Attributes != null)
+        {
+            p_Attributes.ForEach(x => x.Exit(collision));
+            p_Attributes.ForEach(x => x.LateExit(collision));
+        }
     }
 }

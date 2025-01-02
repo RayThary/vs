@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -131,6 +132,11 @@ public class Description
         {
             descriptions.Add(new Description_Part(strings[i * 3], strings[i * 3 + 1], strings[i * 3 + 2]));
         }
+    }
+
+    public string description(string name)
+    {
+        return descriptions.Where(x => x.Index.Equals(name)).FirstOrDefault()?.Description;
     }
 }
 
