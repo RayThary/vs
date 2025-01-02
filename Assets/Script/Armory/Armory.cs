@@ -48,11 +48,6 @@ public class Armory : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Player>();
-        Debug.Log("테스트코드");
-        fire = new Magic_9(player, 5, 10f, 1, 1);
-        bounce = new Magic_15(player, 3, 1);
-        Addon(fire);
-        
     }
     private Magic_9 fire;
     private Magic_15 bounce;

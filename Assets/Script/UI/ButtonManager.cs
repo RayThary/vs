@@ -130,7 +130,7 @@ public class ButtonManager : MonoBehaviour
         Refresh();
 
 
-        charactors = Resources.LoadAll<Charactor>("Charactor");
+        charactors = Resources.LoadAll<Charactor>("");
 
     }
 
@@ -327,6 +327,7 @@ public class ButtonManager : MonoBehaviour
     public void OnButtonSelect(int id)
     {
         Debug.Log(charactors[id] + " 선택");
+        //게임매니저 추가
         CharactorSelect.SetActive(false);
         InGameWindowActive();
     }

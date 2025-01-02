@@ -2,37 +2,51 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class AutoTarget : MonoBehaviour
 {   
     public bool autoTarget = false;
     [SerializeField] private Transform target;
+    public Transform GetTarget {  get { return target; } }
 
+    private Transform mouseTrs;
+
+    private float range = 8;
 
     void Start()
     {
-        
+        mouseTrs = transform.Find("MousePoint");
     }
     
-    // Update is called once per frame
     void Update()
     {
         if (autoTarget)
         {
-            target = FindTarget();
+            target = FindAutoTarget();
         }
         else
         {
-
+            mouseTrs.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         
     }
 
     //제일가까운적을  리턴해줌
-    private Transform FindTarget()
+    private Transform FindAutoTarget()
     {
-
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, 200, Vector2.zero, 0, LayerMask.GetMask("Monster"));
+        //나중에 지워줄것(완성후) 
+        #region
+        //Enemy enemy = Enemy.enemyActiveList
+        //   .OrderBy(enemy => Vector3.Distance(a.position, enemy.transform.position)) // 거리 기준으로 정렬
+        //   .FirstOrDefault(); // 가장 가까운 적 반환 (리스트가 비어있으면 null 반환)
+        //if (enemy == null)
+        //    return null;
+        //else if (Vector2.Distance(enemy.transform.position, a.position) < range)
+        //    return enemy.transform;
+        //return null;
+        #endregion
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, 200, Vector2.zero, 0, LayerMask.GetMask("Enemy"));
 
         Transform result = null;
         float diff = 50;
@@ -51,9 +65,13 @@ public class AutoTarget : MonoBehaviour
 
         }
 
-
-
-
         return result;
+    }
+
+    private Transform FindMouseTarget()
+    {
+        mouseTrs.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        return null;
     }
 }

@@ -7,7 +7,7 @@ public class PoolingManager : MonoBehaviour
 {
     public enum ePoolingObject
     {
-       monster,
+       Enemy,
     }
 
     [System.Serializable]

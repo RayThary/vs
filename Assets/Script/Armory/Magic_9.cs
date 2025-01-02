@@ -61,7 +61,7 @@ public class Magic_9 : IAddon
         if(timer + delay <= Time.time)
         {
             //적이 근처에 있는지
-            Enemy enemy = DistanceMin(range);
+            Enemy enemy = GameManager.Instance.GetTargetTrs.GetComponent<Enemy>();
             if (enemy != null)
             {
                 //방향을 설정해야 함
@@ -93,16 +93,5 @@ public class Magic_9 : IAddon
         }
     }
 
-    //range안에 가장 가까운 적
-    public Enemy DistanceMin(float range)
-    {
-        Enemy enemy = Enemy.enemyList
-            .OrderBy(enemy => Vector3.Distance(player.transform.position, enemy.transform.position)) // 거리 기준으로 정렬
-            .FirstOrDefault(); // 가장 가까운 적 반환 (리스트가 비어있으면 null 반환)
-        if (enemy == null)
-            return null;
-        else if(Vector2.Distance(enemy.transform.position, player.transform.position) < range)
-            return enemy;
-        return null;
-    }
+    
 }
