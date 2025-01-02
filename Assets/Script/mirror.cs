@@ -6,8 +6,9 @@ using static UnityEngine.UI.Image;
 
 public class mirror : MonoBehaviour
 {
+
     [SerializeField] private CinemachineVirtualCamera mainCam;
-    [SerializeField] private CinemachineVirtualCamera mirrorCam;
+    private CinemachineVirtualCamera mirrorCam;
     public Transform charactor;
     public Transform mirrorPlayer;
 
@@ -15,11 +16,17 @@ public class mirror : MonoBehaviour
     void Start()
     {
 
+        mirrorCam = GetComponent<CinemachineVirtualCamera>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager.Instance.GetCharactor != null)
+        {
+            charactor = GameManager.Instance.GetCharactor;
+        }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {

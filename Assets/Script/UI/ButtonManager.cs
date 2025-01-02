@@ -368,6 +368,7 @@ public class ButtonManager : MonoBehaviour
         InGameWindowActive();
         Debug.Log("오브젝트풀링을 사용하지 않는 생성");
         GameManager.Instance.GetPlayer.SelectCharacter = Instantiate(charactors[id]);
+        GameManager.Instance.SetCharactor(GameManager.Instance.GetPlayer.SelectCharacter.transform);
     }
 
     public void OnButton돌아가기()
