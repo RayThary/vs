@@ -26,6 +26,18 @@ public class mirror : MonoBehaviour
         if (GameManager.Instance.GetCharactor != null)
         {
             charactor = GameManager.Instance.GetCharactor;
+            mirrorPlayer = charactor.transform.GetChild(0).transform;
+
+            mainCam.Priority = 10;
+            mirrorCam.Priority = 9;
+
+            mainCam.LookAt = charactor;
+            mainCam.Follow= charactor;
+
+            mirrorCam.LookAt = mirrorPlayer;
+            mirrorCam.Follow = mirrorPlayer;
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -65,8 +77,6 @@ public class mirror : MonoBehaviour
     //캐릭터 선택시 이부분 설정 해주어야함
     public void SetCharacter(Transform charTrs, Transform mirrorTrs)
     {
-
-
         mainCam.LookAt = charTrs;
         mainCam.Follow = charTrs;
 

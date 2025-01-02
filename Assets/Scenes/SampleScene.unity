@@ -3687,8 +3687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd4f96e5fe87a40a2661367a0e97bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  mirrorCam: {fileID: 0}
+  mainCam: {fileID: 454894754}
   charactor: {fileID: 0}
   mirrorPlayer: {fileID: 0}
 --- !u!114 &523582820
