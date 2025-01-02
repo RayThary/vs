@@ -10,7 +10,8 @@ public class SoundManager : MonoBehaviour
 
     public enum Clips
     {
-     
+        Attack,
+        UnitHit,
     }
 
     private AudioSource m_backGroundSource;
@@ -49,7 +50,15 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SFXCreate(Clips.Attack, transform);
+        }
     }
 
     private void initPoolingClip()
