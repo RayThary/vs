@@ -6,7 +6,6 @@ using static UnityEngine.UI.Image;
 
 public class mirror : MonoBehaviour
 {
-
     [SerializeField] private CinemachineVirtualCamera mainCam;
     private CinemachineVirtualCamera mirrorCam;
     public Transform charactor;
@@ -22,7 +21,6 @@ public class mirror : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (GameManager.Instance.GetCharactor != null)
         {
             charactor = GameManager.Instance.GetCharactor;
@@ -36,8 +34,6 @@ public class mirror : MonoBehaviour
 
             mirrorCam.LookAt = mirrorPlayer;
             mirrorCam.Follow = mirrorPlayer;
-
-
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -66,7 +62,6 @@ public class mirror : MonoBehaviour
                 Vector3 now = transform.position;
 
                 Vector3 delta = original - now;
-
 
                 mirrorCam.OnTargetObjectWarped(charactor.transform, delta);
             }
