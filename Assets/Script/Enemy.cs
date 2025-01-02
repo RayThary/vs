@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     private bool movingStop = false;
 
 
-    private bool enemySlowCheck = false;
     private float enemySlowSpeed = 1;
     private float enemySlowTime = 0.0f;
 
@@ -29,6 +28,7 @@ public class Enemy : MonoBehaviour
             movingStop = true;
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
             //´ë¹ÌÁö?
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Slow"))
@@ -74,15 +75,6 @@ public class Enemy : MonoBehaviour
         rigd2d.velocity = Vector2.zero;
     }
 
-    private void enemySlow()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
-
-        if (hit.collider != null)
-        {
-            Debug.Log("1");
-        }
-    }
 
     public void EnemyKnockback()
     {

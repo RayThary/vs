@@ -6,6 +6,8 @@ using UnityEngine;
 //사거리 안의 적을 감지해서 가장 가까운 적에게 발사하는 장비
 public class Magic_9 : IAddon
 {
+    public string AddonName => "9";
+
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
@@ -20,23 +22,35 @@ public class Magic_9 : IAddon
     //공격 딜레마 계산 타이머
     private float timer;
     //스프라이트
-    public Sprite Sprite {  get => GameManager.Instance.magic[8]; }
+    public Sprite Sprite { get => GameManager.Instance.Magic[8]; }
+
+    private string description;
+    public string Description { get => description; }
+
+    public bool Weapon => true;
+
     //딜량
     private float statistics;
     public float Statistics { get { return statistics; } set { statistics = value; } }
 
-    private List<Projective> projectives = new();
+    private readonly List<Projective> projectives = new();
+
+    private int level;
+    public int Level { get => level; set => level = value; }
+
+    public int MaxLevel => 5;
 
     public Magic_9(Player player, float range, float speed, float damage, float delay)
     {
-        projective = Resources.Load<Projective>("Magic_9");
+        projective = Resources.Load<Projective>("Magic/Magic_9");
+        description = "불꽃을 가장 가까운 적에게 발사한다";
         this.player = player;
         this.range = range;
         this.speed = speed;
         this.damage = damage;
         this.delay = delay;
+        level = 0;
     }
-
     public void Addon()
     {
         timer = Time.time;

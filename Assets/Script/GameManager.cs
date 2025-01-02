@@ -20,7 +20,17 @@ public class GameManager : MonoBehaviour
     private AutoTarget autoTarget;
     public Transform GetTargetTrs { get { return autoTarget.GetTarget; } }
 
-    public Sprite[] magic;
+    [SerializeField]
+    private Material material;
+    public Material Material { get { return material; } }
+
+    [SerializeField]
+    private Sprite[] magic;
+    public Sprite[] Magic { get => magic; }
+
+    public float TimeScale { get { return Time.timeScale; } set { Time.timeScale = value; } }
+
+
 
     private void Awake()
     {
