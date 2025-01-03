@@ -12,7 +12,6 @@ public class AutoTarget : MonoBehaviour
 
     private Transform mouseTrs;
 
-    private float range = 8;
 
     void Start()
     {

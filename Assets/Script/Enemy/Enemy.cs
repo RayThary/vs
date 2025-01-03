@@ -16,10 +16,7 @@ public class Enemy : MonoBehaviour
 
     private bool movingStop = false;
 
-
     private float enemySlowSpeed = 1;
-    private float enemySlowTime = 0.0f;
-
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,13 +27,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            //´ë¹ÌÁö?
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
