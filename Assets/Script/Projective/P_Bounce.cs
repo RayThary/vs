@@ -23,8 +23,8 @@ public class P_Bounce : IP_Attribute
 
     public P_Bounce(Projective projective, P_Move p_Move, float size)
     {
-        CalculateWorldSize();
         cam = Camera.main;
+        CalculateWorldSize();
         this.projective = projective;
         radius = projective.GetComponent<CircleCollider2D>().radius;
         move = p_Move;
@@ -33,8 +33,7 @@ public class P_Bounce : IP_Attribute
 
     void CalculateWorldSize()
     {
-        Camera camera = Camera.main;
-        float size = camera.orthographicSize; // 카메라의 Orthographic Size
+        float size = cam.orthographicSize; // 카메라의 Orthographic Size
         float aspectRatio = (float)Screen.width / Screen.height; // 화면 비율
 
         // 월드 높이와 너비 계산

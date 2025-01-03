@@ -9,7 +9,6 @@ public class ProjectiveCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("123");
         if(projective.Attributes != null)
         {
             projective.Attributes.ForEach(x => x.Enter(collision));

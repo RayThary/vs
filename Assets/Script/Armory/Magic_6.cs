@@ -15,7 +15,7 @@ public class Magic_6 : IAddon
 
     public Sprite Sprite => GameManager.Instance.Magic[5];
 
-    private string description;
+    private readonly string description;
     public string Description { get => description; }
 
     private float statistics;
@@ -30,18 +30,18 @@ public class Magic_6 : IAddon
 
     public int MaxLevel => 5;
 
-    public Magic_6(Player player, float damage)
+    public Magic_6(Player player)
     {
         projective = Resources.Load<Projective>("Magic/Magic_6");
         description = "플레이어의 주변에 일정 주기마다 회전하는 불꽃을 생성한다";
         this.player = player;
-        this.damage = damage;
+        damage = 1;
         level = 0;
     }
 
     public void Addon()
     {
-        Debug.Log("오브젝트풀링을 사용해야 하는 생성");
+        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
 
         //캐릭터 하위에 소환
         //투사체 설정
@@ -53,11 +53,16 @@ public class Magic_6 : IAddon
         projective.Attributes.Add(new P_Rotation(projective, 1.2f, 0.1f, 2.2f, 1.9162f, 1));
         projective.Attributes.Add(new P_Damage(this, damage));
         projectives.Add(projective);
+        level = 1;
     }
 
     public void LevelUp()
     {
-
+        level++;
+        if(level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 7번이 강화된 마법
+        }
     }
 
     public void Remove()
