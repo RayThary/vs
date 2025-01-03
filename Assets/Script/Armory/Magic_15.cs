@@ -17,7 +17,7 @@ public class Magic_15 : IAddon
     //스프라이트
     public Sprite Sprite { get => GameManager.Instance.Magic[14]; }
 
-    private string description;
+    private readonly string description;
     public string Description { get => description; }
 
     public bool Weapon => true;
@@ -33,19 +33,20 @@ public class Magic_15 : IAddon
 
     public int MaxLevel => 5;
 
-    public Magic_15(Player player, float speed, float damage)
+    public Magic_15(Player player)
     {
         projective = Resources.Load<Projective>("Magic/Magic_15");
         description = "벽에 튕기는 큰 구체를 하나를 발사한다";
         this.player = player;
-        this.speed = speed;
-        this.damage = damage;
+        speed = 3;
+        damage = 1;
         level = 0;
     }
 
     public void Addon()
     {
         Fire();
+        level = 1;
     }
 
     public void LevelUp()
@@ -53,6 +54,11 @@ public class Magic_15 : IAddon
         //크기 커지게
         projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
         projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.5f);
+        level++;
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 17번이 강화된 마법
+        }
     }
 
     public void Remove()
@@ -69,11 +75,6 @@ public class Magic_15 : IAddon
     {
         if (projectives.Count - level != player.Stat.AttackCount)
         {
-            Debug.Log("차이 발생");
-            Debug.Log(player.Stat.AttackCount - (projectives.Count - level));
-            Debug.Log(player.Stat.AttackCount);
-            Debug.Log(projectives.Count - level);
-
             for (int i = 0; i < player.Stat.AttackCount - (projectives.Count - level); i++)
             {
                 Fire();
@@ -84,7 +85,7 @@ public class Magic_15 : IAddon
     private void Fire()
     {
         //발사 마우스 위치나 가장 가까운 적
-        Debug.Log("오브젝트풀링을 사용해야 하는 생성");
+        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
         //투사체 설정
         Projective projective = Object.Instantiate(this.projective);
         projective.Init();

@@ -13,7 +13,7 @@ public class Magic_7 : IAddon
 
     public Sprite Sprite => GameManager.Instance.Magic[6];
 
-    private string description;
+    private readonly string description;
     public string Description { get => description; }
 
     private float statistics;
@@ -24,7 +24,7 @@ public class Magic_7 : IAddon
     private int level;
     public int Level { get => level; set => level = value; }
 
-    public int MaxLevel => 5;
+    public int MaxLevel => 1;
 
     public Magic_7(Player player)
     {
@@ -36,7 +36,7 @@ public class Magic_7 : IAddon
 
     public void Addon()
     {
-        Debug.Log("오브젝트풀링을 사용해야 하는 생성");
+        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
 
         //캐릭터 하위에 소환
         //투사체 설정
@@ -48,6 +48,7 @@ public class Magic_7 : IAddon
         projective.Attributes.Add(new P_Rotation(projective, 0.7875f, 0.15f, 2f, 0f, 1.8f));
         projective.Attributes.Add(new P_Damage(this, 1));
         projectives.Add(projective);
+        level = 1;
     }
 
     public void LevelUp()

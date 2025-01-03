@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rigd2d;
     private Transform player;
     [SerializeField] private float speed = 1;
+    public float Speed { get { return speed; } set {  speed = value; } }
 
     [SerializeField]
     private float hp;

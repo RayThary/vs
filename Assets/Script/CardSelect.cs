@@ -33,11 +33,13 @@ public class CardSelect : MonoBehaviour
     {
         addons = new()
         {
-            new Magic_6(GameManager.Instance.GetPlayer, 1),
+            new Magic_6(GameManager.Instance.GetPlayer),
             //new Magic_7(GameManager.Instance.GetPlayer), 이것은 6번의 업그레이드
-            new Magic_8(GameManager.Instance.GetPlayer, 3, 1),
-            //new Magic_9(GameManager.Instance.GetPlayer, 5, 10, 1, 1),
-            //new Magic_15(GameManager.Instance.GetPlayer, 3, 1),
+            new Magic_8(GameManager.Instance.GetPlayer),
+            //new Magic_9(GameManager.Instance.GetPlayer),
+            new Magic_10(GameManager.Instance.GetPlayer),
+            //new Magic_15(GameManager.Instance.GetPlayer),
+            new Magic_18(GameManager.Instance.GetPlayer),
 
             //new Armor(),
             //new AttackCool(),
