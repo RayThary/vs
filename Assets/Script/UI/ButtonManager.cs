@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,6 @@ public class ButtonManager : MonoBehaviour
             return instance; 
         } 
     }
-
     private Player player;
 
     //첫 메뉴 인방
@@ -80,17 +80,13 @@ public class ButtonManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
 
         player = GameManager.Instance.GetPlayer;
 
         //해상도 옵션 초기화
         해상도.options.Clear();
         resolutions.AddRange(Screen.resolutions);
-        for(int i = 0; i < resolutions.Count; i++)
+        for (int i = 0; i < resolutions.Count; i++)
         {
             Dropdown.OptionData optionData = new()
             {
@@ -108,7 +104,7 @@ public class ButtonManager : MonoBehaviour
         frameRate.Add(120);
         frameRate.Add(60);
         frameRate.Add(30);
-        for(int i = 0; i < frameRate.Count; i++)
+        for (int i = 0; i < frameRate.Count; i++)
         {
             Dropdown.OptionData data = new()
             {
@@ -116,10 +112,10 @@ public class ButtonManager : MonoBehaviour
             };
             프레임.options.Add(data);
         }
-        프레임.RefreshShownValue() ;
+        프레임.RefreshShownValue();
 
         //화면모드 옵션 초기화
-        화면모드.options.Clear ();
+        화면모드.options.Clear();
         Dropdown.OptionData data1 = new()
         {
             text = "전체화면"
@@ -141,11 +137,16 @@ public class ButtonManager : MonoBehaviour
         화면모드.options.Add(data3);
         화면모드.options.Add(data4);
 
-        화면모드.RefreshShownValue() ;
-        Refresh();
+        화면모드.RefreshShownValue();
 
 
         charactors = Resources.LoadAll<Character>("Character");
+    }
+
+    private void Start()
+    {
+
+        
 
     }
 
@@ -156,15 +157,37 @@ public class ButtonManager : MonoBehaviour
             if (Screen.width == resolutions[i].width && Screen.height == resolutions[i].height)
             {
                 해상도.value = i;
+                break;
             }
         }
         for (int i = 0; i < frameRate.Count; i++)
         {
             if (Application.targetFrameRate == frameRate[i])
+            {
                 프레임.value = i;
+                break;
+            }
         }
         화면모드.value = (int)Screen.fullScreenMode;
         스킬투명도.value = 1; 
+    }
+
+    public void Refresh(PlayerSetting playerSetting)
+    {
+        for(int i = 0; i < resolutions.Count; i++)
+        {
+            if (playerSetting.Resolution.width == resolutions[i].width && playerSetting.Resolution.height == resolutions[i].height)
+            {
+                해상도.value = i;
+            }
+        }
+        for (int i = 0; i < frameRate.Count; i++)
+        {
+            if (playerSetting.FrameRate == frameRate[i])
+                프레임.value = i;
+        }
+        화면모드.value = (int)playerSetting.FullScreenMode;
+        스킬투명도.value = playerSetting.Transparency;
     }
 
     private void MenuWindowOff()
@@ -202,7 +225,7 @@ public class ButtonManager : MonoBehaviour
     {
         //캐릭터 선택 후 시작임
         MenuWindowOff();
-        CharactorSelect.gameObject.SetActive(true);
+        CharactorSelect.SetActive(true);
 
         //InGameWindowActive();
     }

@@ -33,18 +33,21 @@ public class SkillDamage : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.SkillDamage += 1;
         hap += 1;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.SkillDamage += 1;
         hap += 1;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.SkillDamage -= hap;
         hap = 0;
     }

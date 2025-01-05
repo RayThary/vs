@@ -41,27 +41,24 @@ public class Magic_6 : IAddon
 
     public void Addon()
     {
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-
-        //캐릭터 하위에 소환
-        //투사체 설정
-        Projective projective = Object.Instantiate(this.projective);
-        projective.Init();
-
-        projective.transform.SetParent(player.SelectCharacter.transform);
-        projective.transform.localPosition = new Vector3(0, 0.5f, 0);  
-        projective.Attributes.Add(new P_Rotation(projective, 1.2f, 0.1f, 2.2f, 1.9162f, 1));
-        projective.Attributes.Add(new P_Damage(this, damage));
-        projectives.Add(projective);
+        Fire(0);
         level = 1;
     }
 
     public void LevelUp()
     {
+        //레벨업했을때 뭐가 강해지는지 아직 없음
         level++;
+        projectives.ForEach(x => x.transform.localScale += new Vector3(1, 1, 0));
         if(level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 7번이 강화된 마법
+            AttackDamage attack = player.Armory.Addons.OfType<AttackDamage>().FirstOrDefault();
+            if (attack != null && attack.Level == attack.MaxLevel)
+            {
+                player.Armory.Remove(this);
+                player.Armory.Addon(new Magic_7(player));
+            }
         }
     }
 
@@ -75,6 +72,61 @@ public class Magic_6 : IAddon
 
     public void Update()
     {
+        //기본적으로 주어지는 하나는 빼야 함
+        if (projectives.Count - 1 < player.Stat.AttackCount)
+        {
+            Fire(90 * (player.Stat.AttackCount + (projectives.Count - player.Stat.AttackCount)));
+        }
+    }
 
+    private void Fire(int angle)
+    {
+        //0 0 0 0, 90 0.4 0.4 0, 180 0 0.7 0, 270 -0.4 0.5 0
+        Vector3 position;
+        Animator animator;
+        switch (angle)
+        {
+            case 0:
+                position = new Vector3(0, 0, 0);
+                animator = null;
+                break;
+            case 90:
+                position = new Vector3(0.4f, 0.4f, 0);
+                animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
+                break;
+            case 180:
+                position = new Vector3(0, 0.7f, 0);
+                animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
+                break;
+            case 270:
+                position = new Vector3(-0.4f, 0.5f, 0);
+                animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
+                break;
+            default:
+                return;
+                //position = new Vector3(0, 0, 0);
+                //animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
+                //break;
+        }
+        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
+
+        //캐릭터 하위에 소환
+        //투사체 설정
+        Projective projective = Object.Instantiate(this.projective);
+        Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
+        projective.Init();
+
+        projective.transform.SetParent(player.SelectCharacter.transform);
+        projective.transform.localPosition = position;
+        projective.transform.localEulerAngles = new Vector3(0, 0, angle);
+        projective.Attributes.Add(new P_Damage(this, damage));
+        projectives.Add(projective);
+
+
+        if (animator != null)
+        {
+            float referenceTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            n.Play("Magic_6", -1, referenceTime % 1);
+        }
     }
 }

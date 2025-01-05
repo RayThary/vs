@@ -34,18 +34,21 @@ public class AttackRange : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.AttackRange += 1;
         hap += 1;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.AttackRange += 1;
         hap += 1;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackRange -= hap;
         hap = 0;
     }

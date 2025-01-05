@@ -59,7 +59,7 @@ public class Magic_18 : IAddon
 
     public void LevelUp()
     {
-
+        level++;
     }
 
     public void Remove()
@@ -95,6 +95,7 @@ public class Magic_18 : IAddon
 
         projective.transform.position = new Vector3(Random.Range(rect.xMin, rect.xMin + (rect.xMax - rect.yMax)), rect.yMax);
         projective.transform.eulerAngles = new Vector3(0, 0, 45);
+        projective.transform.localScale = new Vector3(level, level, 0);
         projective.Attributes.Add(new P_Move(projective, dir, speed));
         projective.Attributes.Add(new P_Damage(this, damage));
         projectives.Add(projective);

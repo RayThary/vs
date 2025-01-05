@@ -33,18 +33,21 @@ public class HP : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.HP += 3;
         hap += 3;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.HP += 3;
         hap += 3;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.HP -= hap;
         hap = 0;
     }

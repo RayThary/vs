@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
-    private IAddon addon;
     [SerializeField]
     private Image icon;
     [SerializeField]
@@ -13,7 +12,6 @@ public class CardUI : MonoBehaviour
 
     public void Init(IAddon addon)
     {
-        this.addon = addon;
         icon.sprite = addon.Sprite;
         description.text = addon.Description;
         gameObject.SetActive(true);

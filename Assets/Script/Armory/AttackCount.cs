@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AttackCount : IAddon
 {
     public string AddonName => "AttackCount";
 
-    private float hap;
+    private int hap;
 
     private Sprite sprite;
     public Sprite Sprite => sprite;
@@ -33,18 +34,31 @@ public class AttackCount : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.AttackCount += 1;
         hap += 1;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.AttackCount += 1;
         hap += 1;
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 15 -> 17번 강화된 마법
+            Magic_15 magic = GameManager.Instance.GetPlayer.Armory.Addons.OfType<Magic_15>().FirstOrDefault();
+            if (magic != null && magic.Level == magic.MaxLevel)
+            {
+                GameManager.Instance.GetPlayer.Armory.Remove(magic);
+                GameManager.Instance.GetPlayer.Armory.Addon(new Magic_17(GameManager.Instance.GetPlayer));
+            }
+        }
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackCount -= hap;
         hap = 0;
     }

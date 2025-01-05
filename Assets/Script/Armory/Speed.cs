@@ -33,18 +33,21 @@ public class Speed : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.Speed += 1;
         hap += 1;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.Speed += 1;
         hap += 1;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.Speed -= hap;
         hap = 0;
     }

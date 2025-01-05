@@ -18,8 +18,8 @@ public class PlayerStat
     public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
     //공격체의 발사 수
     [SerializeField]
-    private float attackCount;
-    public float AttackCount { get => attackCount; set { attackCount = value; } }
+    private int attackCount;
+    public int AttackCount { get => attackCount; set { attackCount = value; } }
     //공격체 범위
     [SerializeField]
     private float attackRange;

@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Magic_15 : IAddon
+public class Magic_16 : IAddon
 {
-    public string AddonName => "15";
+    public string AddonName => "16";
 
     private readonly Player player;
     //발사할 발사체 원본
     private readonly Projective projective;
-    //투사체 속도
-    private readonly float speed;
     //대미지
     private readonly float damage;
+    //공격 딜레이
+    private readonly float delay;
+    //공격 딜레마 계산 타이머
+    private float timer;
     //스프라이트
-    public Sprite Sprite { get => GameManager.Instance.Magic[14]; }
+    public Sprite Sprite { get => GameManager.Instance.Magic[15]; }
 
     private readonly string description;
     public string Description { get => description; }
@@ -33,36 +35,33 @@ public class Magic_15 : IAddon
 
     public int MaxLevel => 5;
 
-    public Magic_15(Player player)
+    public Magic_16(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_15");
-        description = "벽에 튕기는 큰 구체를 하나를 발사한다";
+        projective = Resources.Load<Projective>("Magic/Magic_16");
+        description = "폭발로 적을 공격한다";
         this.player = player;
-        speed = 3;
         damage = 1;
+        delay = 5;
         level = 0;
     }
 
     public void Addon()
     {
-        Fire();
+        timer = Time.time;
         level = 1;
     }
 
     public void LevelUp()
     {
-        //크기 커지게
-        projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
-        projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.5f);
         level++;
         if (level == MaxLevel)
         {
-            //서로 짝이되는 강화가 있어야 함 17번이 강화된 마법
-            var power = player.Armory.Addons.OfType<AttackCount>().FirstOrDefault();
+            //서로 짝이되는 강화가 있어야 함 13번
+            var power = player.Armory.Addons.OfType<AttackCool>().FirstOrDefault();
             if (power != null && power.Level == power.MaxLevel)
             {
                 player.Armory.Remove(this);
-                player.Armory.Addon(new Magic_17(player));
+                player.Armory.Addon(new Magic_13(player));
             }
         }
     }
@@ -79,29 +78,28 @@ public class Magic_15 : IAddon
 
     public void Update()
     {
-        if (projectives.Count - level != player.Stat.AttackCount)
+        //공격 딜레이가 되었는지
+        if (timer + (delay - player.Stat.AttackCool) <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount - (projectives.Count - level); i++)
+            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
             {
                 Fire();
             }
+            timer = Time.time;
         }
     }
 
     private void Fire()
     {
-        //발사 마우스 위치나 가장 가까운 적
+        //발사 마우스 위치에 폭발
         Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
         //투사체 설정
         Projective projective = Object.Instantiate(this.projective);
         projective.Init();
-        //여기서 방향을 받아옴
-        Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));
 
-        projective.transform.position = player.transform.position + (Vector3)dir;
-        projective.Attributes.Add(new P_Move(projective, dir, speed));
-        projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
-        projective.Attributes.Add(new P_Damage(this, damage));
+        projective.transform.position = GameManager.Instance.GetTargetTrs.position;
+        projective.Attributes.Add(new P_DamageTimer(damage, 1, this));
+        projective.Attributes.Add(new P_DeleteTimer(projective, 3));
         projectives.Add(projective);
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class AttackSpeed : IAddon
 {
@@ -33,18 +35,31 @@ public class AttackSpeed : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.AttackSpeed += 2;
         hap += 2;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.AttackSpeed += 2;
         hap += 2;
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 9 -> 11번 강화된 마법
+            Magic_9 magic = GameManager.Instance.GetPlayer.Armory.Addons.OfType<Magic_9>().FirstOrDefault();
+            if (magic != null && magic.Level == magic.MaxLevel)
+            {
+                GameManager.Instance.GetPlayer.Armory.Remove(magic);
+                GameManager.Instance.GetPlayer.Armory.Addon(new Magic_11(GameManager.Instance.GetPlayer));
+            }
+        }
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackSpeed -= hap;
         hap = 0;
     }

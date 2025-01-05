@@ -33,18 +33,21 @@ public class Armor : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.Armor += 1;
         hap += 1;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.Armor += 1;
         hap += 1;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.Armor -= hap;
         hap = 0;
     }

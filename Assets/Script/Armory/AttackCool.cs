@@ -33,18 +33,21 @@ public class AttackCool : IAddon
 
     public void Addon()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackCool += 0.15f;
         hap += 0.15f;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.AttackCool += 0.15f;
         hap += 0.15f;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackCool -= hap;
         hap = 0;
     }

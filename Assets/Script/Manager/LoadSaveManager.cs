@@ -13,36 +13,26 @@ public class LoadSaveManager
     {
         get
         {
-            if (instance == null)
-                instance = new LoadSaveManager();
+            instance ??= new LoadSaveManager();
             return instance;
         }
     }
     //저장 경로 : C:\Users\사용자명\AppData\LocalLow\DefaultCompany\...
-    public void Save<T>(T t, string path) where T : class
+    public void SaveJson<T>(T data, string path)
     {
-        try
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, "/" + path), FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, t);
-            stream.Close();
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"예외 발생: {ex.Message}");
-        }
+        string fullPath = Path.Combine(Application.persistentDataPath, path);
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(fullPath, json);
     }
+
     //불러오기 경로 : C:\Users\사용자명\AppData\LocalLow\DefaultCompany\...
-    public bool Load<T>(ref T t, string path)
+    public bool LoadJson<T>(ref T t, string path)
     {
-        if (File.Exists(string.Concat(Application.persistentDataPath, "/" + path)))
+        string fullPath = Path.Combine(Application.persistentDataPath, path);
+        if (File.Exists(fullPath))
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, "/" + path), FileMode.Open, FileAccess.Read);
-            t = (T)formatter.Deserialize(stream);
-            
-            stream.Close();
+            string json = File.ReadAllText(fullPath);
+            t = JsonUtility.FromJson<T>(json);
             return true;
         }
         return false;

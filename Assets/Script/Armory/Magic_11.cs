@@ -71,7 +71,7 @@ public class Magic_11 : IAddon
     public void Update()
     {
         //공격 딜레이가 되었는지
-        if (timer + delay <= Time.time)
+        if (timer + (delay - player.Stat.AttackCool) <= Time.time)
         {
             for (int i = 0; i < player.Stat.AttackCount + 1; i++)
             {
@@ -100,7 +100,8 @@ public class Magic_11 : IAddon
 
             Debug.Log("오브젝트풀링을 사용해야 하는 생성");
             //투사체 설정
-            Projective projective = Object.Instantiate(this.projective);
+            Projective projective = Object.Instantiate(this.projective); 
+            projective.Init();
             projective.transform.position = player.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);
             projective.Attributes.Add(new P_Move(projective, dir, speed));

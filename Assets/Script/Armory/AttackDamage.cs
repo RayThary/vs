@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AttackDamage : IAddon
@@ -8,7 +9,7 @@ public class AttackDamage : IAddon
 
     private int hap;
 
-    private Sprite sprite;
+    private readonly Sprite sprite;
     public Sprite Sprite => sprite;
 
     private string description;
@@ -38,18 +39,31 @@ public class AttackDamage : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.AttackDamage += 5;
         hap += 5;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.AttackDamage += 5;
         hap += 5;
+        if(level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 6 -> 7번 강화된 마법
+            Magic_6 magic = GameManager.Instance.GetPlayer.Armory.Addons.OfType<Magic_6>().FirstOrDefault();
+            if (magic != null && magic.Level == magic.MaxLevel)
+            {
+                GameManager.Instance.GetPlayer.Armory.Remove(magic);
+                GameManager.Instance.GetPlayer.Armory.Addon(new Magic_7(GameManager.Instance.GetPlayer));
+            }
+        }
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.AttackDamage -= hap;
         hap = 0;
     }

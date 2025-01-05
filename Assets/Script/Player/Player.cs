@@ -24,15 +24,17 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //if(LoadSaveManager.Instance.Load(ref setting, "setting"))
-        //{
-        //    //로드 성공
-        //}
-        //else
-        //{
-        //    //로드 실패
-        setting = new PlayerSetting();
-        //}
+        if (LoadSaveManager.Instance.LoadJson(ref setting, "setting"))
+        {
+            //로드 성공
+            ButtonManager.Instance.Refresh(setting);
+        }
+        else
+        {
+            //로드 실패
+            setting = new PlayerSetting();
+            ButtonManager.Instance.Refresh();
+        }
 
         //세이브로드 불필요
         stat = new PlayerStat();
@@ -44,18 +46,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerLevelUp();
+        PlayerLevelUp();
     }
 
  
 
-    private void playerLevelUp()
+    private void PlayerLevelUp()
     {
         if (playerExp >= needExp)
         {
             if (playerExp - needExp != 0)
             {
-                playerExp = playerExp - needExp;
+                playerExp -= needExp;
             }
             else
             {
@@ -74,6 +76,6 @@ public class Player : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        //LoadSaveManager.Instance.Save(setting, "setting");
+        LoadSaveManager.Instance.SaveJson(setting, "setting");
     }
 }

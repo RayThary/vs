@@ -52,7 +52,17 @@ public class Magic_10 : IAddon
 
     public void LevelUp()
     {
-
+        level++;
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 19
+            var power = player.Armory.Addons.OfType<ShieldPoint>().FirstOrDefault();
+            if (power != null && power.Level == power.MaxLevel)
+            {
+                player.Armory.Remove(this);
+                player.Armory.Addon(new Magic_19(player));
+            }
+        }
     }
 
     public void Remove()

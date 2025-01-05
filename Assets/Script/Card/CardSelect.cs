@@ -34,17 +34,17 @@ public class CardSelect : MonoBehaviour
         addons = new()
         {
             new Magic_6(GameManager.Instance.GetPlayer),
-            //new Magic_7(GameManager.Instance.GetPlayer), 이것은 6번의 업그레이드
-            new Magic_8(GameManager.Instance.GetPlayer),
+            new Magic_7(GameManager.Instance.GetPlayer),
+            //new Magic_8(GameManager.Instance.GetPlayer),
             //new Magic_9(GameManager.Instance.GetPlayer),
-            new Magic_10(GameManager.Instance.GetPlayer),
+            //new Magic_10(GameManager.Instance.GetPlayer),
             //new Magic_15(GameManager.Instance.GetPlayer),
-            new Magic_18(GameManager.Instance.GetPlayer),
+            //new Magic_18(GameManager.Instance.GetPlayer),
 
             //new Armor(),
             //new AttackCool(),
-            //new AttackCount(),
-            new AttackDamage(),
+            new AttackCount(),
+            //new AttackDamage(),
             //new AttackRange(),
             //new AttackSpeed(),
             //new HP(),
@@ -85,9 +85,11 @@ public class CardSelect : MonoBehaviour
                 .Take(3)
                 .ToArray();
 
-            card[0].Init(candidate[0]);
-            card[1].Init(candidate[1]);
-            card[2].Init(candidate[2]);
+            for(int i = 0; i < candidate.Length; i++)
+            {
+                if (candidate[i] != null)
+                    card[i].Init(candidate[i]);
+            }
         }
         else
         {
@@ -101,9 +103,11 @@ public class CardSelect : MonoBehaviour
                         .Distinct(new AddonComparer()) // 중복 제거
                         .ToArray();
 
-            card[0].Init(candidate[0]);
-            card[1].Init(candidate[1]);
-            card[2].Init(candidate[2]);
+            for (int i = 0; i < candidate.Length; i++)
+            {
+                if (candidate[i] != null)
+                    card[i].Init(candidate[i]);
+            }
         }
     }
 

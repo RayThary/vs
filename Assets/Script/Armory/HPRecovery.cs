@@ -33,18 +33,21 @@ public class HPRecovery : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.HPRecovery += 2;
         hap += 2;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.HPRecovery += 2;
         hap += 2;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.HPRecovery -= hap;
         hap = 0;
     }

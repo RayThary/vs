@@ -14,7 +14,7 @@ public class Magic_9 : IAddon
     //투사체 속도
     private readonly float speed;
     //대미지
-    private readonly float damage;
+    private float damage;
     //공격 딜레이
     private readonly float delay;
     //공격 딜레마 계산 타이머
@@ -57,9 +57,16 @@ public class Magic_9 : IAddon
     public void LevelUp()
     {
         level++;
+        damage += 0.5f;
         if (level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 11번이 강호된 마법
+            var power = player.Armory.Addons.OfType<AttackSpeed>().FirstOrDefault();
+            if (power != null && power.Level == power.MaxLevel)
+            {
+                player.Armory.Remove(this);
+                player.Armory.Addon(new Magic_11(player));
+            }
         }
     }
 
@@ -67,6 +74,7 @@ public class Magic_9 : IAddon
     {
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
+        damage = 1;
         projectives.ForEach(x => Object.Destroy(x.gameObject));
         projectives.Clear();
     }
@@ -74,7 +82,7 @@ public class Magic_9 : IAddon
     public void Update()
     {
         //공격 딜레이가 되었는지
-        if(timer + delay <= Time.time)
+        if(timer + (delay - player.Stat.AttackCool)  <= Time.time)
         {
             for(int i = 0; i < player.Stat.AttackCount + 1; i++)
             {
@@ -92,8 +100,8 @@ public class Magic_9 : IAddon
             //방향을 설정해야 함
             //상대 방향
             Vector2 dir = enemy.transform.position - player.transform.position;
-            //각도
-            float angle = Vector2.Angle(Vector2.up, dir);
+            //각도에 랜덤성이 있어야 함
+            float angle = Vector2.Angle(Vector2.up, dir) + Random.Range(-10, 11);
             if (enemy.transform.position.x < player.transform.position.x)
             {
                 angle = -angle;
@@ -104,6 +112,7 @@ public class Magic_9 : IAddon
             Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
             //투사체 설정
             Projective projective = Object.Instantiate(this.projective);
+            projective.Init();
             projective.transform.position = player.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);
             projective.Attributes.Add(new P_Move(projective, dir, speed));

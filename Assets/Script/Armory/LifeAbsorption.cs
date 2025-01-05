@@ -33,18 +33,21 @@ public class LifeAbsorption : IAddon
 
     public void Addon()
     {
+        level = 1;
         GameManager.Instance.GetPlayer.Stat.LifeAbsorption += 2;
         hap += 2;
     }
 
     public void LevelUp()
     {
+        level++;
         GameManager.Instance.GetPlayer.Stat.LifeAbsorption += 2;
         hap += 2;
     }
 
     public void Remove()
     {
+        level = 0;
         GameManager.Instance.GetPlayer.Stat.LifeAbsorption -= hap;
         hap = 0;
     }

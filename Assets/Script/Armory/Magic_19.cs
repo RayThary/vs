@@ -65,7 +65,7 @@ public class Magic_19 : IAddon
 
     public void LevelUp()
     {
-
+        //강화는 레벨없이 없어
     }
 
     private void Fire()
