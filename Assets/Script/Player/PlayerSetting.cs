@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 using UnityEngine;
 
 [System.Serializable]
@@ -27,6 +28,9 @@ public class PlayerSetting
     private FullScreenMode fullScreenMode;
     public FullScreenMode FullScreenMode { get {  return fullScreenMode; } set {  fullScreenMode = value; } }
     //안티에일리어싱
+    [SerializeField]
+    private AntialiasingMode antialiasing;
+    public AntialiasingMode Antialiasing { get {  return antialiasing; } set {  antialiasing = value; } }
 
     //스킬 투명도
     [SerializeField]

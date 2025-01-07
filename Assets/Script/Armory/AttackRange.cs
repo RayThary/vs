@@ -12,7 +12,15 @@ public class AttackRange : IAddon
     public Sprite Sprite => sprite;
 
     private string description;
-    public string Description { get => description; }
+    public string Description
+    {
+        get
+        {
+            if (description == null)
+                description = TableData.Instance.Description.description(AddonName);
+            return description;
+        }
+    }
 
     public bool Weapon => false;
 
@@ -26,7 +34,6 @@ public class AttackRange : IAddon
     public AttackRange()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Weapon & Tool/Magic Wand");
-        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }

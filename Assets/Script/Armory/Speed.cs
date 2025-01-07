@@ -12,7 +12,15 @@ public class Speed : IAddon
     public Sprite Sprite => sprite;
 
     private string description;
-    public string Description { get => description; }
+    public string Description
+    {
+        get
+        {
+            if (description == null)
+                description = TableData.Instance.Description.description(AddonName);
+            return description;
+        }
+    }
 
     public bool Weapon => false;
 
@@ -26,7 +34,6 @@ public class Speed : IAddon
     public Speed()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Equipment/Leather Boot");
-        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }

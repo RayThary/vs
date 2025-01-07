@@ -12,7 +12,15 @@ public class HPRecovery : IAddon
     public Sprite Sprite => sprite;
 
     private string description;
-    public string Description { get => description; }
+    public string Description
+    {
+        get
+        {
+            if (description == null)
+                description = TableData.Instance.Description.description(AddonName);
+            return description;
+        }
+    }
 
     public bool Weapon => false;
 
@@ -26,7 +34,6 @@ public class HPRecovery : IAddon
     public HPRecovery()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Food/Wine 2");
-        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }

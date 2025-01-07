@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
@@ -43,6 +43,8 @@ public class ButtonManager : MonoBehaviour
     private readonly List<int> frameRate = new();
     [SerializeField]
     private Dropdown 화면모드;
+    [SerializeField]
+    private Dropdown 안티에일리어싱;
     [SerializeField]
     private Slider 스킬투명도;
 
@@ -139,6 +141,17 @@ public class ButtonManager : MonoBehaviour
 
         화면모드.RefreshShownValue();
 
+        안티에일리어싱.options.Clear();
+        Dropdown.OptionData anti1 = new() { text = "None" };
+        Dropdown.OptionData anti2 = new() { text = "FXAA" };
+        Dropdown.OptionData anti3 = new() { text = "SMAA" };
+        Dropdown.OptionData anti4 = new() { text = "TAA" };
+
+        안티에일리어싱.options.Add(anti1);
+        안티에일리어싱.options.Add(anti2);
+        안티에일리어싱.options.Add(anti3);
+        안티에일리어싱.options.Add(anti4);
+        안티에일리어싱.RefreshShownValue();
 
         charactors = Resources.LoadAll<Character>("Character");
     }
@@ -169,6 +182,16 @@ public class ButtonManager : MonoBehaviour
             }
         }
         화면모드.value = (int)Screen.fullScreenMode;
+
+        UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+        for (int i = 0; i <= 4; i++)
+        {
+            if(cameraData.antialiasing == (AntialiasingMode)i)
+            {
+                안티에일리어싱.value = i; 
+                break;
+            }
+        }
         스킬투명도.value = 1; 
     }
 
@@ -187,6 +210,9 @@ public class ButtonManager : MonoBehaviour
                 프레임.value = i;
         }
         화면모드.value = (int)playerSetting.FullScreenMode;
+        UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+        안티에일리어싱.value = (int)playerSetting.Antialiasing;
+        cameraData.antialiasing = playerSetting.Antialiasing;
         스킬투명도.value = playerSetting.Transparency;
     }
 
@@ -298,9 +324,11 @@ public class ButtonManager : MonoBehaviour
         Screen.SetResolution(resolutions[해상도.value].width, resolutions[해상도.value].height, (FullScreenMode)화면모드.value, resolutions[해상도.value].refreshRateRatio);
     }
 
-    public void 안티에일리어싱()
+    public void OnButton안티에일리어싱()
     {
-        
+        UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+        cameraData.antialiasing = (AntialiasingMode)안티에일리어싱.value;
+        player.Setting.Antialiasing = (AntialiasingMode)안티에일리어싱.value;
     }
 
     public void OnButton스킬투명도()

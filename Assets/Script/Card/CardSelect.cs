@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardSelect : MonoBehaviour
 {
@@ -14,7 +13,8 @@ public class CardSelect : MonoBehaviour
     [SerializeField]
     private List<CardUI> card;
 
-    private List<IAddon> addons = new ();
+    private List<IAddon> addons;
+    public List<IAddon> Addons { get => addons; }
     private IAddon[] candidate = new IAddon[3];
 
     //private Magic_6 magic_6;
@@ -34,28 +34,27 @@ public class CardSelect : MonoBehaviour
         addons = new()
         {
             new Magic_6(GameManager.Instance.GetPlayer),
-            new Magic_7(GameManager.Instance.GetPlayer),
-            //new Magic_8(GameManager.Instance.GetPlayer),
-            //new Magic_9(GameManager.Instance.GetPlayer),
-            //new Magic_10(GameManager.Instance.GetPlayer),
-            //new Magic_15(GameManager.Instance.GetPlayer),
-            //new Magic_18(GameManager.Instance.GetPlayer),
+            new Magic_8(GameManager.Instance.GetPlayer),
+            new Magic_9(GameManager.Instance.GetPlayer),
+            new Magic_10(GameManager.Instance.GetPlayer),
+            new Magic_15(GameManager.Instance.GetPlayer),
+            new Magic_18(GameManager.Instance.GetPlayer),
 
-            //new Armor(),
-            //new AttackCool(),
+            new Armor(),
+            new AttackCool(),
             new AttackCount(),
-            //new AttackDamage(),
-            //new AttackRange(),
-            //new AttackSpeed(),
-            //new HP(),
-            //new HPRecovery(),
-            //new LifeAbsorption(),
-            //new ShieldPoint(),
-            //new SkillAmp(),
-            //new SkillCool(),
-            //new SkillDamage(),
-            //new Speed(),
-            
+            new AttackDamage(),
+            new AttackRange(),
+            new AttackSpeed(),
+            new HP(),
+            new HPRecovery(),
+            new LifeAbsorption(),
+            new ShieldPoint(),
+            new SkillAmp(),
+            new SkillCool(),
+            new SkillDamage(),
+            new Speed(),
+
         };
     }
 

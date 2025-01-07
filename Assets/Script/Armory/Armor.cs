@@ -12,7 +12,15 @@ public class Armor : IAddon
     public Sprite Sprite => sprite;
 
     private string description;
-    public string Description { get => description; }
+    public string Description
+    {
+        get
+        {
+            if (description == null)
+                description = TableData.Instance.Description.description(AddonName);
+            return description;
+        }
+    }
 
     public bool Weapon => false;
 
@@ -26,7 +34,6 @@ public class Armor : IAddon
     public Armor()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Equipment/Iron Armor");
-        description = TableData.Instance.Description.description(AddonName);
         hap = 0;
         level = 0;
     }
