@@ -36,13 +36,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected void Start()
     {
         player = GameManager.Instance.GetCharactor;
         rigd2d = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    protected void Update()
     {
         enemyMoving();
     }

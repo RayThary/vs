@@ -28,7 +28,25 @@ public class GameManager : MonoBehaviour
     private Sprite[] magic;
     public Sprite[] Magic { get => magic; }
 
-    public float TimeScale { get { return Time.timeScale; } set { Time.timeScale = value; } }
+    private float timescale;
+    public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
+
+    private bool timeStop = false;
+    public bool TimeStop
+    { 
+        get
+        {
+            return timeStop;
+        }
+        set 
+        {
+            timeStop = value;
+            if (timeStop)
+                Time.timeScale = timescale;
+            else
+                Time.timeScale = 0;
+        }
+    }
 
 
 
