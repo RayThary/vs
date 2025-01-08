@@ -7,7 +7,10 @@ public class PoolingManager : MonoBehaviour
 {
     public enum ePoolingObject
     {
-       Enemy,
+        Enemy,
+        Potal,
+        TapLineLeft,
+        TapLineRight,
     }
 
     [System.Serializable]
@@ -87,7 +90,7 @@ public class PoolingManager : MonoBehaviour
             }
         }
 
-       
+
 
 
         pCount = listParentName.Count;
@@ -233,8 +236,8 @@ public class PoolingManager : MonoBehaviour
         }
     }
 
-    
 
 
-    
+
+
 }

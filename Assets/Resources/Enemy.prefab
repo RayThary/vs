@@ -1271,6 +1271,7 @@ GameObject:
   - component: {fileID: 690649033775691526}
   - component: {fileID: 7995865553613713836}
   - component: {fileID: 5634339477182000544}
+  - component: {fileID: 6262810124692583242}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -1293,7 +1294,7 @@ Transform:
   - {fileID: 9133014173732886892}
   - {fileID: 7638155180397717237}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
 --- !u!210 &5966276845645395821
 SortingGroup:
@@ -1404,6 +1405,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.34}
   m_Size: {x: 0.5, y: 0.8}
   m_Direction: 0
+--- !u!114 &6262810124692583242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3423882143220969475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3199748f8278740a90f45c65c3dded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHit: 0
+  ReturnTime: 0.2
+  unitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &3441106239551042483
 GameObject:
   m_ObjectHideFlags: 0
