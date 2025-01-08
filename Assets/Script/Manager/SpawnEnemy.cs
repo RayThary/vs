@@ -8,7 +8,6 @@ public class SpawnEnemy : MonoBehaviour
     public bool tes = false;
     void Start()
     {
-        //InvokeRepeating("monsterSpawn", 0.1f, 2f);
 
     }
 
@@ -23,7 +22,7 @@ public class SpawnEnemy : MonoBehaviour
 
     private void monsterSpawn()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1; i++)
         {
 
             GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Enemy, transform);

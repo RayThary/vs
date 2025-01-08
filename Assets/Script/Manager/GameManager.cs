@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
     private Player player;
     public Player GetPlayer { get { return player; } }
 
-    //임시 테스트용
-    [SerializeField] private Transform seletCharactor;
+    private Transform seletCharactor;
     public Transform GetCharactor { get { return seletCharactor; } }
 
     private AutoTarget autoTarget;
@@ -30,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     public float TimeScale { get { return Time.timeScale; } set { Time.timeScale = value; } }
 
+    [SerializeField]private mirror m_mirror;
+
 
 
     private void Awake()
@@ -44,5 +45,8 @@ public class GameManager : MonoBehaviour
     public void SetCharactor(Transform _trs)
     {
         seletCharactor = _trs;
+        Transform mirrorTrs = _trs.GetChild(0).transform;
+        m_mirror.SetCharacter(_trs, mirrorTrs);
     }
+
 }
