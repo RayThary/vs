@@ -38,6 +38,7 @@ public class P_DamageTimer : IP_Attribute
             float damage = this.damage + GameManager.Instance.GetPlayer.Stat.AttackDamage;
             //대미지 적용
             enemies.ForEach(enemy => enemy.HP -= damage);
+            enemies.ForEach(enemy => enemy.EnemyKnockback(0.2f, 1));
             //무기가 준 피해량 측정
             addon.Statistics += damage;
             //생명령 흡수

@@ -75,7 +75,7 @@ public class Magic_19 : IAddon
         Projective projective = Object.Instantiate(this.projective);
         projective.Init();
 
-        projective.transform.position = player.transform.position;
+        projective.transform.position = player.SelectCharacter.transform.position;
         projective.Attributes.Add(new P_DamageTimer(damage, cycle, this));
         projective.Attributes.Add(new P_Slow(speed));
         projectives.Add(projective);

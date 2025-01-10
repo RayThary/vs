@@ -88,10 +88,10 @@ public class Magic_11 : IAddon
         {
             //방향을 설정해야 함
             //상대 방향
-            Vector2 dir = enemy.transform.position - player.transform.position;
+            Vector2 dir = enemy.transform.position - player.SelectCharacter.transform.position;
             //각도
             float angle = Vector2.Angle(Vector2.up, dir);
-            if (enemy.transform.position.x < player.transform.position.x)
+            if (enemy.transform.position.x < player.SelectCharacter.transform.position.x)
             {
                 angle = -angle;
             }
@@ -102,7 +102,7 @@ public class Magic_11 : IAddon
             //투사체 설정
             Projective projective = Object.Instantiate(this.projective); 
             projective.Init();
-            projective.transform.position = player.transform.position + (Vector3)dir;
+            projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);
             projective.Attributes.Add(new P_Move(projective, dir, speed));
             projective.Attributes.Add(new P_Damage(this, damage));

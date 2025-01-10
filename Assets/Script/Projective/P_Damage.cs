@@ -19,6 +19,7 @@ public class P_Damage : IP_Attribute
         {
             float damage = m_Damage + GameManager.Instance.GetPlayer.Stat.AttackDamage;
             enemy.HP -= damage;
+            enemy.EnemyKnockback(0.2f, 1);
             addon.Statistics += damage;
             GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
         }

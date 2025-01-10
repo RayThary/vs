@@ -98,7 +98,7 @@ public class Magic_15 : IAddon
         //여기서 방향을 받아옴
         Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));
 
-        projective.transform.position = player.transform.position + (Vector3)dir;
+        projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
         projective.Attributes.Add(new P_Move(projective, dir, speed));
         projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
         projective.Attributes.Add(new P_Damage(this, damage));

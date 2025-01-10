@@ -82,7 +82,7 @@ public class Magic_10 : IAddon
         Projective projective = Object.Instantiate(this.projective);
         projective.Init();
 
-        projective.transform.position = player.transform.position;
+        projective.transform.position = player.SelectCharacter.transform.position;
         projective.Attributes.Add(new P_Damage(this, damage));
         projective.Attributes.Add(new P_SlowTimer(speed, 1));
         projectives.Add(projective);
