@@ -10,8 +10,8 @@ public class mirror : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera mainCam;
     private CinemachineVirtualCamera mirrorCam;
-    public Transform charactor;
-    public Transform mirrorPlayer;
+    private Transform charactor;
+    private Transform mirrorPlayer;
 
     private bool camChange = false;
 
@@ -68,7 +68,7 @@ public class mirror : MonoBehaviour
                         time = 0f;
                         timeCheck = false;
                     }
-                    Time.timeScale = time;
+                    GameManager.Instance.TimeScale = time;
                 }
             }
             else
@@ -81,7 +81,7 @@ public class mirror : MonoBehaviour
                         time = 1;
                         timeCheck = false;
                     }
-                    Time.timeScale = time;
+                    GameManager.Instance.TimeScale = time;
                 }
             }
         }

@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float hp;
     public float HP { get => hp; set => hp = value; }
-
+    [SerializeField]
     private bool movingStop = false;
 
     private float enemySlowSpeed = 1;
@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
         {
             movingStop = true;
         }
+
     }
 
 
@@ -36,6 +37,10 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Slow"))
         {
             speed = enemySlowSpeed;
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            movingStop = false;
         }
     }
 

@@ -8,13 +8,13 @@ public class ButtonManager : MonoBehaviour
 {
     private static ButtonManager instance;
     public static ButtonManager Instance
-    { 
-        get 
+    {
+        get
         {
             if (instance == null)
                 instance = new GameObject("Button").AddComponent<ButtonManager>();
-            return instance; 
-        } 
+            return instance;
+        }
     }
     private Player player;
 
@@ -37,7 +37,7 @@ public class ButtonManager : MonoBehaviour
     //guideWindow의 설정
     [SerializeField]
     private Dropdown 해상도;
-    private readonly List<Resolution> resolutions = new ();
+    private readonly List<Resolution> resolutions = new();
     [SerializeField]
     private Dropdown 프레임;
     private readonly List<int> frameRate = new();
@@ -154,13 +154,12 @@ public class ButtonManager : MonoBehaviour
         안티에일리어싱.RefreshShownValue();
 
         charactors = Resources.LoadAll<Character>("Character");
+
     }
 
     private void Start()
     {
-
         
-
     }
 
     public void Refresh()
@@ -186,18 +185,18 @@ public class ButtonManager : MonoBehaviour
         UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
         for (int i = 0; i <= 4; i++)
         {
-            if(cameraData.antialiasing == (AntialiasingMode)i)
+            if (cameraData.antialiasing == (AntialiasingMode)i)
             {
-                안티에일리어싱.value = i; 
+                안티에일리어싱.value = i;
                 break;
             }
         }
-        스킬투명도.value = 1; 
+        스킬투명도.value = 1;
     }
 
     public void Refresh(PlayerSetting playerSetting)
     {
-        for(int i = 0; i < resolutions.Count; i++)
+        for (int i = 0; i < resolutions.Count; i++)
         {
             if (playerSetting.Resolution.width == resolutions[i].width && playerSetting.Resolution.height == resolutions[i].height)
             {
@@ -315,7 +314,7 @@ public class ButtonManager : MonoBehaviour
     public void 프레임설정()
     {
         player.Setting.FrameRate = frameRate[프레임.value];
-        Application.targetFrameRate = frameRate[프레임.value]; 
+        Application.targetFrameRate = frameRate[프레임.value];
     }
 
     public void 화면설정()
@@ -359,7 +358,7 @@ public class ButtonManager : MonoBehaviour
     //esc를 눌렀을때도 작동해야 하니까
     public void ESC()
     {
-        if(ingameOptionButton.gameObject.activeSelf)
+        if (ingameOptionButton.gameObject.activeSelf)
         {
             OnButtonIngameOption();
         }

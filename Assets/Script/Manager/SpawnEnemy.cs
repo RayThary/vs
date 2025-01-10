@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject m_enemy;
-    public bool tes = false;
     void Start()
     {
 
@@ -47,10 +46,6 @@ public class SpawnEnemy : MonoBehaviour
             }
 
             obj.transform.position = screenVec;
-            if (tes)
-            {
-                CancelInvoke();
-            }
         }
     }
 
