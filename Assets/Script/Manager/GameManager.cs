@@ -27,37 +27,46 @@ public class GameManager : MonoBehaviour
     private Sprite[] magic;
     public Sprite[] Magic { get => magic; }
 
-    private float timescale;
+    private float timescale = 1;
     public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
 
     private bool timeStop = false;
+    [SerializeField] private Transform PoolingTemp;
+    public Transform GetPoolingTemp { get { return PoolingTemp; } }
+
+    [SerializeField] private mirror m_mirror;
     public bool TimeStop
-    { 
+    {
         get
         {
             return timeStop;
         }
-        set 
+        set
         {
             timeStop = value;
             if (timeStop)
-                Time.timeScale = timescale;
-            else
                 Time.timeScale = 0;
+            else
+                Time.timeScale = timescale;
         }
     }
 
-    [SerializeField]private mirror m_mirror;
 
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Debug.Log(Time.timeScale);
+        }
+    }
     private void Awake()
     {
         instance = this;
 
         player = FindObjectOfType<Player>();
         autoTarget = transform.GetComponent<AutoTarget>();
-
+        Debug.Log(timescale);
     }
 
     public void SetCharactor(Transform _trs)

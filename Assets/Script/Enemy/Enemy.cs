@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Transform player;
     [SerializeField] private float speed = 1;
     public float Speed { get { return speed; } set { speed = value; } }
+    private float tempSpeed;
 
     [SerializeField]
     private float hp;
@@ -42,6 +43,10 @@ public class Enemy : MonoBehaviour
         {
             movingStop = false;
         }
+    }
+    private void Awake()
+    {
+        tempSpeed = speed;
     }
 
     protected void Start()
@@ -108,4 +113,19 @@ public class Enemy : MonoBehaviour
         movingStop = false;
     }
 
+    /// <summary>
+    /// 슬로우
+    /// </summary>
+    /// <param name="_slowSpeed">속도</param>
+    /// <param name="_slowTimer">느려지는시간</param>
+    public void EnemySlow(float _slowSpeed, float _slowTimer)
+    {
+        StartCoroutine(slow(_slowSpeed, _slowTimer));
+    }
+    IEnumerator slow(float _slowSpeed, float _slowTimer)
+    {
+        speed = _slowSpeed;
+        yield return new WaitForSeconds(_slowTimer);
+        speed = tempSpeed;
+    }
 }

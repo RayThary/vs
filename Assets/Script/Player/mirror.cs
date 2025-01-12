@@ -39,7 +39,7 @@ public class mirror : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            potalObj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Potal, transform);
+            potalObj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Potal, GameManager.Instance.GetPoolingTemp);
             potalObj.transform.position = charactor.position;
             potalObj.GetComponent<Potal>().PotalOpen = true;
             potalCheck = true;
@@ -67,6 +67,7 @@ public class mirror : MonoBehaviour
                     {
                         time = 0f;
                         timeCheck = false;
+                        timeSlow = false;
                     }
                     GameManager.Instance.TimeScale = time;
                 }
@@ -93,8 +94,8 @@ public class mirror : MonoBehaviour
         {
             if (potalObj.transform.localScale.x >= 1)
             {
-                leftLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineLeft, transform);
-                rightLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineRight, transform);
+                leftLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineLeft, GameManager.Instance.GetPoolingTemp);
+                rightLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineRight, GameManager.Instance.GetPoolingTemp);
                 potalObj.GetComponent<Potal>().PotalClose = true;
                 camMirrorChange = true;
                 potalCheck = false;
@@ -110,6 +111,7 @@ public class mirror : MonoBehaviour
             {
                 if (leftLine.transform.position.x >= Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)).x)
                 {
+                    Debug.Log("124");
                     WindowMirror();
                     potalObj.transform.position = charactor.position;
                     potalObj.GetComponent<Potal>().PotalOpen = true;
@@ -117,7 +119,20 @@ public class mirror : MonoBehaviour
                     camMirrorChange = false;
                 }
             }
+            if (leftLine.transform.position.x >= Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 200, Screen.height / 2)).x)
+            {
+                timeCheck = true;
+                lineCheck = false;
+                StartCoroutine(lineRemove());
+            }
         }
+    }
+
+    IEnumerator lineRemove()
+    {
+        yield return new WaitForSeconds(0.2f);
+        PoolingManager.Instance.RemovePoolingObject(leftLine);
+        PoolingManager.Instance.RemovePoolingObject(rightLine);
     }
 
     private void WindowMirror()
