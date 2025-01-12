@@ -28,10 +28,13 @@ public class mirror : MonoBehaviour
     private GameObject rightLine;
 
     private bool camMirrorChange = false;
+
+    private Vector2 cameraLeftVec;
     void Start()
     {
 
         mirrorCam = GetComponent<CinemachineVirtualCamera>();
+        cameraLeftVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
     }
 
     // Update is called once per frame
@@ -50,7 +53,6 @@ public class mirror : MonoBehaviour
         mirroTime();
 
         potalAndLine();
-
 
     }
 
@@ -109,9 +111,8 @@ public class mirror : MonoBehaviour
             rightLine.transform.position += Vector3.left * lineSpeed * Time.unscaledDeltaTime;
             if (camMirrorChange)
             {
-                if (leftLine.transform.position.x >= Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)).x)
+                if (leftLine.transform.position.x >= (cameraLeftVec.x / 2)) 
                 {
-                    Debug.Log("124");
                     WindowMirror();
                     potalObj.transform.position = charactor.position;
                     potalObj.GetComponent<Potal>().PotalOpen = true;
@@ -119,7 +120,7 @@ public class mirror : MonoBehaviour
                     camMirrorChange = false;
                 }
             }
-            if (leftLine.transform.position.x >= Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 200, Screen.height / 2)).x)
+            if (leftLine.transform.position.x >= (cameraLeftVec.x + 4))
             {
                 timeCheck = true;
                 lineCheck = false;
