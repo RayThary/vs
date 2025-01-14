@@ -9,7 +9,7 @@ public class Magic_18 : IAddon
 
     public Sprite Sprite => GameManager.Instance.Magic[17];
 
-    private string description;
+    private readonly string description;
     public string Description => description;
 
     public bool Weapon => true;
@@ -81,7 +81,7 @@ public class Magic_18 : IAddon
     }
 
     private Rect rect;
-    private Camera cam;
+    private readonly Camera cam;
     //대각선으로 각도와 위치를 조정해서 발사
     private void Fire()
     {
@@ -93,11 +93,14 @@ public class Magic_18 : IAddon
         //여기서 방향을 받아옴
         Vector2 dir = new(1, -1);
 
-        projective.transform.position = new Vector3(Random.Range(rect.xMin, rect.xMin + (rect.xMax - rect.yMax)), rect.yMax);
+        //rect.yMax위에서 부터 player.selectcharacter까지 떨어진 걸이만큼 
+        float distance = rect.yMax - player.SelectCharacter.transform.position.y;
+        projective.transform.position = new Vector3(Random.Range(player.SelectCharacter.transform.position.x - distance - 5, player.SelectCharacter.transform.position.x - distance + 6), rect.yMax);
         projective.transform.eulerAngles = new Vector3(0, 0, 45);
         projective.transform.localScale = new Vector3(level, level, 0);
         projective.Attributes.Add(new P_Move(projective, dir, speed));
-        projective.Attributes.Add(new P_Damage(this, damage));
+        projective.Attributes.Add(new P_Damage(this, damage)); 
+        projective.Attributes.Add(new P_DeleteTimer(projective, 10));
         projectives.Add(projective);
     }
     void CalculateWorldSize()

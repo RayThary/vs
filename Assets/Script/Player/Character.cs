@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
     private float recover;
     private float sheildRecover;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         recover = Time.time;
         rigid2d = GetComponent<Rigidbody2D>();
@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         characterMoving();
 

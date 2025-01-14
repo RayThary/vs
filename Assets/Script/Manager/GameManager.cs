@@ -27,6 +27,13 @@ public class GameManager : MonoBehaviour
     private Sprite[] magic;
     public Sprite[] Magic { get => magic; }
 
+    [SerializeField]
+    private Sprite axe;
+    public Sprite Axe { get { return axe; } }
+    [SerializeField]
+    private Sprite arrow;
+    public Sprite Arrow { get { return arrow; } }
+
     private float timescale;
     public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
 

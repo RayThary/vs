@@ -116,9 +116,10 @@ public class Magic_6 : IAddon
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();
 
-        projective.transform.SetParent(player.SelectCharacter.transform);
-        projective.transform.localPosition = position;
+        //projective.transform.SetParent(player.SelectCharacter.transform);
+        projective.transform.position = position;
         projective.transform.localEulerAngles = new Vector3(0, 0, angle);
+        projective.Attributes.Add(new P_Follow(projective, position, player.SelectCharacter.transform));
         projective.Attributes.Add(new P_Damage(this, damage));
         projectives.Add(projective);
 

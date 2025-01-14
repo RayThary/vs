@@ -37,7 +37,7 @@ public class Magic_8 : IAddon
         projective = Resources.Load<Projective>("Magic/Magic_8");
         description = "벽에 튕기는 구체를 3발 발사한다";
         this.player = player;
-        speed = 3;
+        speed = 5;
         damage = 1;
         level = 0;
     }
@@ -74,7 +74,8 @@ public class Magic_8 : IAddon
 
     public void Update()
     {
-        if(projectives.Count - 3 - level != player.Stat.AttackCount)
+        //기본 3발 + 레벨 1 == 기본 0 이되려면 2를 더해야 함
+        if(projectives.Count - 2 - level != player.Stat.AttackCount)
         {
             for (int i = 0; i < player.Stat.AttackCount - (projectives.Count - 3 - level); i++)
             {

@@ -30,8 +30,6 @@ public class Guide : MonoBehaviour
             Debug.Log("오브젝트풀링을 사용하지 않는 생성");
             ItemSlot slot = Instantiate(itemSlot, contant);
             slot.Init(this, cardSelect.Addons[i]);
-            //slot.Addon = cardSelect.Addons[i];
-            //slot.Sprite = cardSelect.Addons[i].Sprite;
         }
     }
 
