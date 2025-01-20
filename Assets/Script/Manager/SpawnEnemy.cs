@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject m_enemy;
+
+    public GameObject testboss;
+    public bool istest = false;
+
     void Start()
     {
 
@@ -16,7 +21,13 @@ public class SpawnEnemy : MonoBehaviour
         {
             monsterSpawn();
         }
+        if (istest)
+        {
+            GameObject s = Instantiate(testboss);
+            s.transform.position = Vector3.zero;
+            istest = false;
 
+        }
     }
 
     private void monsterSpawn()

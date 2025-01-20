@@ -11,6 +11,8 @@ public class PoolingManager : MonoBehaviour
         Potal,
         TapLineLeft,
         TapLineRight,
+        CurvePatten,
+        TempCurveImage,
     }
 
     [System.Serializable]
@@ -195,6 +197,26 @@ public class PoolingManager : MonoBehaviour
             _obj.transform.SetParent(parent);
             _obj.SetActive(false);
             _obj.transform.position = Vector3.zero;
+        }
+        else
+        {
+            Destroy(_obj);
+        }
+    }
+    public void RemovePoolingObject(GameObject _obj, Vector3 _pos)
+    {
+        string name = _obj.name;
+        Transform parent = transform.Find(name);
+
+        cPoolingClip poolingObj = m_listPoolingClip.Find(x => x.clip.name == name);
+
+        int poolingCount = poolingObj.count;
+
+        if (parent.childCount < poolingCount)//부족했을때
+        {
+            _obj.transform.SetParent(parent);
+            _obj.SetActive(false);
+            _obj.transform.position = _pos;
         }
         else
         {

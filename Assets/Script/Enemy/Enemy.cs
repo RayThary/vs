@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
     private Rigidbody2D rigd2d;
     private Transform player;
     [SerializeField] private float speed = 1;
@@ -90,6 +91,7 @@ public class Enemy : MonoBehaviour
 
         rigd2d.velocity = Vector2.zero;
     }
+
 
     /// <summary>
     /// ³Ë¹é 

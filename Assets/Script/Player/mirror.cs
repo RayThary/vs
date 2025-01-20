@@ -32,9 +32,8 @@ public class mirror : MonoBehaviour
     private Vector2 cameraLeftVec;
     void Start()
     {
-
         mirrorCam = GetComponent<CinemachineVirtualCamera>();
-        cameraLeftVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        cameraLeftVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height / 2));
     }
 
     // Update is called once per frame
@@ -50,6 +49,10 @@ public class mirror : MonoBehaviour
             timeSlow = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log(cameraLeftVec);
+        }
         mirroTime();
 
         potalAndLine();
@@ -98,6 +101,11 @@ public class mirror : MonoBehaviour
             {
                 leftLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineLeft, GameManager.Instance.GetPoolingTemp);
                 rightLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineRight, GameManager.Instance.GetPoolingTemp);
+
+                leftLine.transform.position = new Vector2(-cameraLeftVec.x, cameraLeftVec.y);
+                rightLine.transform.position = cameraLeftVec;
+
+
                 potalObj.GetComponent<Potal>().PotalClose = true;
                 camMirrorChange = true;
                 potalCheck = false;
@@ -111,7 +119,7 @@ public class mirror : MonoBehaviour
             rightLine.transform.position += Vector3.left * lineSpeed * Time.unscaledDeltaTime;
             if (camMirrorChange)
             {
-                if (leftLine.transform.position.x >= (cameraLeftVec.x / 2)) 
+                if (leftLine.transform.position.x >= (cameraLeftVec.x / 2))
                 {
                     WindowMirror();
                     potalObj.transform.position = charactor.position;
@@ -132,8 +140,8 @@ public class mirror : MonoBehaviour
     IEnumerator lineRemove()
     {
         yield return new WaitForSeconds(0.2f);
-        PoolingManager.Instance.RemovePoolingObject(leftLine);
-        PoolingManager.Instance.RemovePoolingObject(rightLine);
+        PoolingManager.Instance.RemovePoolingObject(leftLine, new Vector3(-cameraLeftVec.x-5, cameraLeftVec.y, 0));
+        PoolingManager.Instance.RemovePoolingObject(rightLine, new Vector3(cameraLeftVec.x+5, cameraLeftVec.y, 0));
     }
 
     private void WindowMirror()

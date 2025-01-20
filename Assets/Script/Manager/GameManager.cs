@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public Transform GetPoolingTemp { get { return PoolingTemp; } }
 
     [SerializeField] private mirror m_mirror;
+    private int enemyCount = 0;
+    public int SetEnemyCount {  set { enemyCount = value; } }
     public bool TimeStop
     {
         get
