@@ -14,7 +14,7 @@ public class PlayerStat
     public float AttackCool { get { return attackCool; } set { attackCool = value; } }
     //발사체의 스피드
     [SerializeField]
-    private float attackSpeed;
+    private float attackSpeed = 1;
     public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
     //공격체의 발사 수
     [SerializeField]

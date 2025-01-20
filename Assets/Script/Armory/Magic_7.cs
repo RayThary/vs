@@ -46,11 +46,12 @@ public class Magic_7 : IAddon
 
     public void LevelUp()
     {
-
+        //강화는 레벨업이 없음
     }
 
     public void Remove()
     {
+        level = 0;
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => Object.Destroy(x.gameObject));
@@ -64,12 +65,19 @@ public class Magic_7 : IAddon
         {
             Fire(90 * (player.Stat.AttackCount + (projectives.Count - player.Stat.AttackCount)));
         }
+        if (projectives.Count > 0 && projectives[0].transform.GetChild(0).TryGetComponent(out Animator component))
+        {
+            if (component.speed != player.Stat.AttackSpeed)
+                component.speed = player.Stat.AttackSpeed;
+        }
     }
 
     private void Fire(int angle)
     {
         //0 0 0 0, 90 -1 0 0, 180 0 -0.9 0, 270 1 0 0
+        //위치
         Vector3 position;
+        //최초의 투사체의 애니메이션
         Animator animator;
         switch (angle)
         {
@@ -97,9 +105,9 @@ public class Magic_7 : IAddon
         }
         Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
 
-        //캐릭터 하위에 소환
         //투사체 설정
         Projective projective = Object.Instantiate(this.projective);
+        //새 오브젝트의 애니메이션
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();
 
@@ -114,7 +122,7 @@ public class Magic_7 : IAddon
         if (animator != null)
         {
             float referenceTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            n.Play("Magic_7", -1, referenceTime % 1);
+            n.Play("Magic_6", -1, referenceTime % 1);
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterTwo : Character
 {
     private Magic_Boom _Boom;
+
     new void Start()
     {
         base.Start();
@@ -16,5 +17,10 @@ public class CharacterTwo : Character
     new void Update()
     {
         base.Update();
+    }
+
+    protected override void Skill()
+    {
+
     }
 }

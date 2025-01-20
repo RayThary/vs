@@ -29,7 +29,7 @@ public class Magic_10 : IAddon
     private readonly List<Projective> projectives = new();
 
     //상대 이동속도 저하
-    private readonly float speed;
+    private float speed;
     //대미지
     private readonly float damage;
 
@@ -53,6 +53,7 @@ public class Magic_10 : IAddon
     public void LevelUp()
     {
         level++;
+        speed += 0.1f;
         if (level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 19
@@ -67,7 +68,12 @@ public class Magic_10 : IAddon
 
     public void Remove()
     {
-
+        level = 0;
+        speed = 0.3f;
+        //모든 발사체 삭제
+        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
+        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.Clear();
     }
 
     public void Update()

@@ -57,14 +57,33 @@ public class Magic_18 : IAddon
         timer = Time.time;
     }
 
+    //크기가 커지도록
     public void LevelUp()
     {
         level++;
+
+        projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함
+            //var power = player.Armory.Addons.OfType<AttackCount>().FirstOrDefault();
+            //if (power != null && power.Level == power.MaxLevel)
+            //{
+            //    player.Armory.Remove(this);
+            //    player.Armory.Addon(new Magic_17(player));
+            //}
+        }
     }
 
     public void Remove()
     {
+        level = 0;
+        //모든 발사체 삭제
+        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
+        projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
+        projectives.ForEach(x => Object.Destroy(x.gameObject));
 
+        projectives.Clear();
     }
 
     public void Update()

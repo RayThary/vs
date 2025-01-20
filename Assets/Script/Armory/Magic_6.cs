@@ -45,11 +45,11 @@ public class Magic_6 : IAddon
         level = 1;
     }
 
+    //크기 증가
     public void LevelUp()
     {
-        //레벨업했을때 뭐가 강해지는지 아직 없음
         level++;
-        projectives.ForEach(x => x.transform.localScale += new Vector3(1, 1, 0));
+        projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0));
         if(level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 7번이 강화된 마법
@@ -64,8 +64,10 @@ public class Magic_6 : IAddon
 
     public void Remove()
     {
+        level = 0;
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
+        projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
         projectives.ForEach(x => Object.Destroy(x.gameObject));
         projectives.Clear();
     }
@@ -77,12 +79,19 @@ public class Magic_6 : IAddon
         {
             Fire(90 * (player.Stat.AttackCount + (projectives.Count - player.Stat.AttackCount)));
         }
+        if(projectives.Count > 0 && projectives[0].transform.GetChild(0).TryGetComponent(out Animator component))
+        {
+            if(component.speed != player.Stat.AttackSpeed)
+                component.speed = player.Stat.AttackSpeed;
+        }
     }
 
     private void Fire(int angle)
     {
         //0 0 0 0, 90 0.4 0.4 0, 180 0 0.7 0, 270 -0.4 0.5 0
+        //위치
         Vector3 position;
+        //최초의 투사체의 애니메이션
         Animator animator;
         switch (angle)
         {
@@ -104,15 +113,12 @@ public class Magic_6 : IAddon
                 break;
             default:
                 return;
-                //position = new Vector3(0, 0, 0);
-                //animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
-                //break;
         }
         Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
 
-        //캐릭터 하위에 소환
         //투사체 설정
         Projective projective = Object.Instantiate(this.projective);
+        //새 오브젝트의 애니메이션
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();
 

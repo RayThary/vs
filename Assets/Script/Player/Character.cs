@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     private float horizontal;
     private float vertical;
@@ -50,7 +50,13 @@ public class Character : MonoBehaviour
         {
             ButtonManager.Instance.ESC();
         }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Skill();
+        }
     }
+
+    protected abstract void Skill();
 
     private void characterMoving()
     {

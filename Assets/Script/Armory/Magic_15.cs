@@ -49,9 +49,9 @@ public class Magic_15 : IAddon
         level = 1;
     }
 
+    //크기 커지게
     public void LevelUp()
     {
-        //크기 커지게
         projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
         projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.5f);
         level++;
@@ -69,6 +69,7 @@ public class Magic_15 : IAddon
 
     public void Remove()
     {
+        level = 0;
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));

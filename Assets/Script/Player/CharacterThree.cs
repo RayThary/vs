@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterThree : Character
 {
     private Magic_Arrow arrow;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -17,5 +18,10 @@ public class CharacterThree : Character
     new void Update()
     {
         base.Update();
+    }
+
+    protected override void Skill()
+    {
+
     }
 }

@@ -56,6 +56,7 @@ public class Magic_17 : IAddon
 
     public void Remove()
     {
+        level = 0;
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));

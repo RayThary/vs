@@ -11,9 +11,9 @@ public class Magic_16 : IAddon
     //발사할 발사체 원본
     private readonly Projective projective;
     //대미지
-    private readonly float damage;
+    private float damage;
     //공격 딜레이
-    private readonly float delay;
+    private float delay;
     //공격 딜레마 계산 타이머
     private float timer;
     //스프라이트
@@ -54,6 +54,8 @@ public class Magic_16 : IAddon
     public void LevelUp()
     {
         level++;
+        damage += 1;
+        delay -= 0.2f;
         if (level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 13번
@@ -68,6 +70,9 @@ public class Magic_16 : IAddon
 
     public void Remove()
     {
+        damage = 1;
+        delay = 5;
+        level = 0;
         //모든 발사체 삭제
         Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));

@@ -33,6 +33,8 @@ public class AttackSpeed : IAddon
 
     public int MaxLevel => 1;
 
+    private int value;
+
     public AttackSpeed()
     {
         sprite = Resources.Load<Sprite>("Cainos/Pixel Art Icon Pack - RPG/Texture/Weapon & Tool/Torch");
@@ -43,15 +45,15 @@ public class AttackSpeed : IAddon
     public void Addon()
     {
         level = 1;
-        GameManager.Instance.GetPlayer.Stat.AttackSpeed += 2;
-        hap += 2;
+        GameManager.Instance.GetPlayer.Stat.AttackSpeed += value;
+        hap += value;
     }
 
     public void LevelUp()
     {
         level++;
-        GameManager.Instance.GetPlayer.Stat.AttackSpeed += 2;
-        hap += 2;
+        GameManager.Instance.GetPlayer.Stat.AttackSpeed += value;
+        hap += value;
         if (level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 9 -> 11번 강화된 마법
