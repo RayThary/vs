@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour
+public class Character : MonoBehaviour
 {
     private float horizontal;
     private float vertical;
@@ -56,7 +56,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    protected abstract void Skill();
+    protected virtual void Skill() { }
 
     private void characterMoving()
     {

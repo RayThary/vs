@@ -251,6 +251,9 @@ public class ButtonManager : MonoBehaviour
         //캐릭터 선택 후 시작임
         MenuWindowOff();
         CharactorSelect.SetActive(true);
+        CharactorSelect.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = charactors[0].Sprite;
+        CharactorSelect.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = charactors[1].Sprite;
+        CharactorSelect.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = charactors[2].Sprite;
 
         //InGameWindowActive();
     }

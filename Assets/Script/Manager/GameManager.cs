@@ -74,4 +74,28 @@ public class GameManager : MonoBehaviour
         m_mirror.SetCharacter(_trs, mirrorTrs);
     }
 
+
+
+
+
+    public Rect CalculateWorldSize()
+    {
+        Rect rect;
+
+        float size = Camera.main.orthographicSize; // 카메라의 Orthographic Size
+        float aspectRatio = (float)Screen.width / Screen.height; // 화면 비율
+
+        // 월드 높이와 너비 계산
+        float worldHeight = size * 2;
+        float worldWidth = worldHeight * aspectRatio;
+
+        rect = new()
+        {
+            xMin = -worldWidth * 0.5f,
+            xMax = worldWidth * 0.5f,
+            yMin = -worldHeight * 0.5f,
+            yMax = worldHeight * 0.5f
+        };
+        return rect;
+    }
 }

@@ -24,29 +24,11 @@ public class P_Bounce : IP_Attribute
     public P_Bounce(Projective projective, P_Move p_Move, float size)
     {
         cam = Camera.main;
-        CalculateWorldSize();
+        rect =  GameManager.Instance.CalculateWorldSize();
         this.projective = projective;
         radius = projective.GetComponent<CircleCollider2D>().radius;
         move = p_Move;
         this.size = size;
-    }
-
-    void CalculateWorldSize()
-    {
-        float size = cam.orthographicSize; // 카메라의 Orthographic Size
-        float aspectRatio = (float)Screen.width / Screen.height; // 화면 비율
-
-        // 월드 높이와 너비 계산
-        float worldHeight = size * 2;
-        float worldWidth = worldHeight * aspectRatio;
-
-        rect = new()
-        {
-            xMin = -worldWidth * 0.5f,
-            xMax = worldWidth * 0.5f,
-            yMin = -worldHeight * 0.5f,
-            yMax = worldHeight * 0.5f
-        };
     }
 
     public void Enter(Collider2D collider2D)
@@ -71,6 +53,7 @@ public class P_Bounce : IP_Attribute
 
     public void Update()
     {
+        //투사체가 범위 +- 카메라 위치를 벗어나지 않았는지
         if (projective.transform.position.x + _Size > rect.xMax + cam.transform.position.x)
         {
             if (move.Direction.x > 0)
