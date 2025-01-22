@@ -8,8 +8,6 @@ public class Magic_6 : IAddon
     public string AddonName => "6";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
     //대미지
     private readonly float damage;
 
@@ -32,7 +30,6 @@ public class Magic_6 : IAddon
 
     public Magic_6(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_6");
         description = "플레이어의 주변에 일정 주기마다 회전하는 불꽃을 생성한다";
         this.player = player;
         damage = 1;
@@ -66,9 +63,8 @@ public class Magic_6 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -114,15 +110,12 @@ public class Magic_6 : IAddon
             default:
                 return;
         }
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-
         //투사체 설정
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_6, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         //새 오브젝트의 애니메이션
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();
 
-        //projective.transform.SetParent(player.SelectCharacter.transform);
         projective.transform.position = position;
         projective.transform.localEulerAngles = new Vector3(0, 0, angle);
         projective.Attributes.Add(new P_Follow(projective, position, player.SelectCharacter.transform));

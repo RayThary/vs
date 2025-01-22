@@ -44,8 +44,7 @@ public class P_DistanceDelete : IP_Attribute
     {
         if(Vector2.Distance(m_Position, m_Projective.transform.position) > m_Distance)
         {
-            Debug.Log("오브젝트풀링을 사용한 비활성화 필요함");
-            m_Projective.gameObject.SetActive(false);
+            PoolingManager.Instance.RemovePoolingObject(m_Projective.gameObject);
         }
     }
 }

@@ -24,8 +24,7 @@ public class P_DeleteTimer : IP_Attribute
     {
         if(f + timer < Time.time)
         {
-            Debug.Log("오브젝트풀링을 사용하지 않는 삭제");
-            Object.Destroy(projective.gameObject);
+            PoolingManager.Instance.RemovePoolingObject(projective.gameObject);
         }
     }
 }

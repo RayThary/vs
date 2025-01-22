@@ -8,8 +8,6 @@ public class Magic_8 : IAddon
     public string AddonName => "8";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
     //투사체 속도
     private readonly float speed;
     //대미지
@@ -34,7 +32,6 @@ public class Magic_8 : IAddon
 
     public Magic_8(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_8");
         description = "벽에 튕기는 구체를 3발 발사한다";
         this.player = player;
         speed = 5;
@@ -45,8 +42,6 @@ public class Magic_8 : IAddon
     public void Addon()
     {
         //랜덤한 위치
-        Debug.Log("오브젝트풀링을 사용해야 하는 생성");
-
         for(int i = 0; i < 3; i++)
         {
             Fire();
@@ -69,8 +64,7 @@ public class Magic_8 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -89,8 +83,7 @@ public class Magic_8 : IAddon
     private void Fire()
     {
         //투사체 설정
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_8, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));
