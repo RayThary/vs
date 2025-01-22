@@ -7,8 +7,6 @@ public class Magic_13 : IAddon
     public string AddonName => "13";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
     //대미지
     private readonly float damage;
     //공격 딜레이
@@ -36,7 +34,6 @@ public class Magic_13 : IAddon
 
     public Magic_13(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_13");
         description = "폭발로 적을 공격한다";
         this.player = player;
         damage = 3;
@@ -59,9 +56,8 @@ public class Magic_13 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
 
         projectives.Clear();
     }
@@ -85,9 +81,8 @@ public class Magic_13 : IAddon
             return;
 
         //발사 마우스 위치에 폭발
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
         //투사체 설정
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_13, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = GameManager.Instance.GetTargetTrs.position;

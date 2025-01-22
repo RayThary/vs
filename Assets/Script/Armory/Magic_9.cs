@@ -9,8 +9,6 @@ public class Magic_9 : IAddon
     public string AddonName => "9";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
     //투사체 속도
     private readonly float speed;
     //대미지
@@ -40,7 +38,6 @@ public class Magic_9 : IAddon
 
     public Magic_9(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_9");
         description = "불꽃을 가장 가까운 적에게 발사한다";
         this.player = player;
         speed = 5;
@@ -76,8 +73,7 @@ public class Magic_9 : IAddon
         level = 0;
         damage = 1;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -111,15 +107,13 @@ public class Magic_9 : IAddon
             //각도를 vector로
             dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-            Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
             //투사체 설정
-            Projective projective = Object.Instantiate(this.projective);
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_9, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
             projective.Init();
             projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);
             projective.Attributes.Add(new P_Move(projective, dir, speed));
             projective.Attributes.Add(new P_Damage(this, damage));
-            //projective.Attributes.Add(new P_EnterDelete(projective));
             projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
 
             projectives.Add(projective);

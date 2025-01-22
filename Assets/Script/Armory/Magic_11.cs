@@ -5,7 +5,7 @@ using UnityEngine;
 public class Magic_11 : IAddon
 {
     //9번 진화
-    public string AddonName => "1";
+    public string AddonName => "11";
 
     public Sprite Sprite => GameManager.Instance.Magic[10];
 
@@ -23,8 +23,6 @@ public class Magic_11 : IAddon
     public int MaxLevel => 1;
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
 
     private readonly List<Projective> projectives = new();
 
@@ -40,7 +38,6 @@ public class Magic_11 : IAddon
 
     public Magic_11(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_9");
         description = "불꽃을 가장 가까운 적에게 발사한다";
         this.player = player;
         speed = 5;
@@ -64,8 +61,7 @@ public class Magic_11 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -99,9 +95,8 @@ public class Magic_11 : IAddon
             //각도를 vector로
             dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-            Debug.Log("오브젝트풀링을 사용해야 하는 생성");
             //투사체 설정
-            Projective projective = Object.Instantiate(this.projective); 
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_11, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
             projective.Init();
             projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);

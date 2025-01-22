@@ -7,8 +7,7 @@ public class Magic_7 : IAddon
     public string AddonName => "7";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
+    //발사된 녀석들
     private readonly List<Projective> projectives = new();
 
     private readonly float damage;
@@ -30,7 +29,6 @@ public class Magic_7 : IAddon
 
     public Magic_7(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_7");
         description = "플레이어의 주변에 회전하는 불꽃을 생성한다";
         this.player = player;
         level = 0;
@@ -53,8 +51,7 @@ public class Magic_7 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -103,15 +100,12 @@ public class Magic_7 : IAddon
                 //animator = projectives[0].transform.GetChild(0).GetComponent<Animator>();
                 //break;
         }
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-
         //투사체 설정
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_7, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         //새 오브젝트의 애니메이션
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();
 
-        //projective.transform.SetParent(player.SelectCharacter.transform);
         projective.transform.position = position;
         projective.transform.localEulerAngles = new Vector3(0, 0, angle);
         projective.Attributes.Add(new P_Follow(projective, position, player.SelectCharacter.transform));
@@ -122,7 +116,7 @@ public class Magic_7 : IAddon
         if (animator != null)
         {
             float referenceTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            n.Play("Magic_6", -1, referenceTime % 1);
+            n.Play("Magic_7", -1, referenceTime % 1);
         }
     }
 }
