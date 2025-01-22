@@ -20,6 +20,7 @@ public class TestBoss : MonoBehaviour
     private bool movingStop = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
+
     [SerializeField] private bool SlowInPlayer = false;
 
     private float dirX;

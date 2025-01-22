@@ -23,8 +23,6 @@ public class Magic_18 : IAddon
     public int MaxLevel => 5;
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
 
     private readonly List<Projective> projectives = new();
 
@@ -40,7 +38,6 @@ public class Magic_18 : IAddon
 
     public Magic_18(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_18");
         description = "하늘에서 떨어지면서 피해를 입힌다";
         this.player = player;
         speed = 10;
@@ -79,10 +76,8 @@ public class Magic_18 : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
-
         projectives.Clear();
     }
 
@@ -106,8 +101,7 @@ public class Magic_18 : IAddon
     {
         //화면의 가장 왼쪽 위쪽의 현실 위치
         //투사체 설정
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_18, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = new(1, -1);

@@ -7,8 +7,7 @@ public class Magic_Axe : IAddon
     public string AddonName => "Axe";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
+  
     private readonly List<Projective> projectives = new();
 
     private readonly float damage;
@@ -35,7 +34,7 @@ public class Magic_Axe : IAddon
     private float timer;
     public Magic_Axe(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Axe");
+        
         description = "앞으로 도끼를 던진다";
         this.player = player;
         level = 0;
@@ -56,9 +55,7 @@ public class Magic_Axe : IAddon
     public void Remove()
     {
         level = 0;
-        //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
     }
 
@@ -78,8 +75,7 @@ public class Magic_Axe : IAddon
     private void Fire()
     {
         //투사체 설정
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Axe, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         //캐릭터가 바라보는 방향
