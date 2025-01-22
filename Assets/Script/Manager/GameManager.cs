@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private Sprite[] magic;
     public Sprite[] Magic { get => magic; }
 
-<<<<<<< HEAD
+
     [SerializeField]
     private Sprite axe;
     public Sprite Axe { get { return axe; } }
@@ -35,10 +35,8 @@ public class GameManager : MonoBehaviour
     private Sprite arrow;
     public Sprite Arrow { get { return arrow; } }
 
-    private float timescale;
-=======
     private float timescale = 1;
->>>>>>> kym
+
     public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
 
     private bool timeStop = false;
