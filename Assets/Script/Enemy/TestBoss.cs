@@ -6,22 +6,33 @@ public class TestBoss : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigd2d;
+    private Animator anim;
 
     private Vector2 targetVec;
+    private Vector2 maxVec;
+
     [SerializeField] private float speed = 2;
     private float basicSpeed;
 
-    private bool targetChange = true;
+    private bool targetChange = false;
     private bool attackCheck = false;
 
     private bool movingStop = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
+    [SerializeField] private bool SlowInPlayer = false;
+
+    private float dirX;
     private void Start()
     {
         player = GameManager.Instance.GetCharactor;
         rigd2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
         basicSpeed = speed;
+        maxVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 50, Screen.height - 100));
+
+
     }
 
     private void Update()
@@ -33,56 +44,19 @@ public class TestBoss : MonoBehaviour
 
     private void moving()
     {
-        float playerDistance = Vector2.Distance(player.position, transform.position);
-
-        if (targetChange)
+        if (player != null && movingStop == false)
         {
-            Vector2 maxVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            while (true)
-            {
-                float x = Random.Range(player.position.x - 5, player.position.x + 5);
-                float y = Random.Range(player.position.y - 5, player.position.y + 5);
-                targetVec = new Vector2(x, y);
-                if ((-maxVec.x < x && x < maxVec.x) && (y > -maxVec.y && y < maxVec.y))
-                {
-                    float reDistance = Vector2.Distance(transform.position, targetVec);
-                    if (reDistance > 3)
-                    {
-                        Debug.Log(reDistance);
-                        GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.CurvePatten, transform);
-                        obj.GetComponent<CurvePatten>().SetPattenStart(transform.position);
-                        targetChange = false;
-                        break;
-                    }
-                }
-            }
-
-        }
-
-        float targetDistance = Vector2.Distance(transform.position, targetVec);
-
-        if (playerDistance > 2)
-        {
-            speed = basicSpeed * 2f;
+            targetVec = GameManager.Instance.GetCharactor.transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
         }
         else
         {
-            speed = basicSpeed;
-        }
-
-        if (targetDistance < 0.5f)
-        {
-            targetChange = true;
-            attackCheck = true;
-        }
-
-        if (player != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * 3 * Time.deltaTime);
         }
 
         rigd2d.velocity = Vector2.zero;
     }
+
 
     private void attack()
     {
@@ -90,19 +64,99 @@ public class TestBoss : MonoBehaviour
         if (!attackCoolChekc)
         {
             timer += Time.deltaTime;
-            if (timer > 1)
+            if (timer > 5)
             {
                 timer = 0;
                 attackCoolChekc = true;
+                targetChange = true;
+                movingStop = true;
             }
         }
 
-        if (attackCheck && attackCoolChekc)
+        if (targetChange)
         {
-            attackCheck = false;
-            attackCoolChekc = false;
-            //АјАн
+            float x;
+            float y;
+            if (player.position.x > transform.position.x)
+            {
+                x = Random.Range(player.position.x + 1, player.position.x + 3);
+                if (x >= maxVec.x)
+                {
+                    x = maxVec.x;
+                }
+            }
+            else
+            {
+                x = Random.Range(player.position.x - 1, player.position.x - 3);
+                if (-maxVec.x >= x)
+                {
+                    x = -maxVec.x;
+                }
+            }
+            y = Random.Range(player.position.y - 3, player.position.y + 3);
+            if (y >= maxVec.y)
+            {
+                y = maxVec.y;
+            }
+            else if (y <= -maxVec.y)
+            {
+                y = -maxVec.y;
+            }
+
+            targetVec = new Vector2(x, y);
+
+
+            targetChange = false;
+            attackCheck = true;
         }
 
+        if (attackCheck)
+        {
+            float dis = Vector2.Distance(transform.position, targetVec);
+            if (dis == 0)
+            {
+                if (transform.position.x > player.position.x)
+                {
+                    dirX = -1;
+                }
+                else
+                {
+                    dirX = 1;
+                }
+                anim.SetTrigger("AttackType1");
+                attackCheck = false;
+            }
+        }
+        //attackCoolChekc = false;
+    }
+
+    private void AttackType1()
+    {
+        float dirY = -1.5f;
+
+
+
+        for (int i = 0; i < 7; i++)
+        {
+            Vector2 dir = new Vector2(dirX, dirY);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossAttack, GameManager.Instance.GetPoolingTemp);
+            obj.transform.position = transform.position;
+            Projective tempBullet = obj.GetComponent<Projective>();
+            tempBullet.Init();
+            tempBullet.Attributes.Add(new P_Move(tempBullet, dir, 3));
+            tempBullet.Attributes.Add(new P_EnemyAttackDelet(tempBullet));
+
+            dirY += 0.5f;
+        }
+    }
+    private void de()
+    {
+        attackCoolChekc = false;
+        movingStop = false;
+    }
+    IEnumerator AttackPatten()
+    {
+
+        yield return new WaitForSeconds(0.5f);
     }
 }

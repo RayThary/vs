@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             setting = new PlayerSetting();
             ButtonManager.Instance.Refresh();
         }
-
+        
         //세이브로드 불필요
         stat = new PlayerStat();
         //세이브로드 필요할지도

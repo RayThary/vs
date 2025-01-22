@@ -19,7 +19,9 @@ public class SpawnEnemy : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            monsterSpawn();
+            //monsterSpawn();
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, transform);
+            obj.transform.position = new Vector2(0, 0);
         }
         if (istest)
         {

@@ -13,6 +13,10 @@ public class PoolingManager : MonoBehaviour
         TapLineRight,
         CurvePatten,
         TempCurveImage,
+        SmallExp,
+        MediumExp,
+        LargeExp,
+        BossAttack,
     }
 
     [System.Serializable]

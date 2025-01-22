@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBoss : MonoBehaviour
+public class GoblinBoss : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigd2d;
@@ -14,10 +14,9 @@ public class EnemyBoss : MonoBehaviour
     private bool targetChange = true;
     private bool attackCheck = false;
 
-    //private bool movingStop = false;
+    private bool movingStop = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
-    [SerializeField] private bool SlowInPlayer = false;
     private void Start()
     {
         player = GameManager.Instance.GetCharactor;
@@ -27,7 +26,7 @@ public class EnemyBoss : MonoBehaviour
 
     private void Update()
     {
-        moving();
+        //moving();
         attack();
 
     }
@@ -57,29 +56,21 @@ public class EnemyBoss : MonoBehaviour
             }
 
         }
-        float targetDistance = Vector2.Distance(transform.position, targetVec);
 
-        if (SlowInPlayer)
+
+        float playerDistance = Vector2.Distance(player.position, transform.position);
+        if (playerDistance > 2)
         {
-            float playerDistance = Vector2.Distance(player.position, transform.position);
-            if (playerDistance > 2)
-            {
-                speed = basicSpeed * 2f;
-            }
-            else
-            {
-                speed = basicSpeed;
-            }
+            speed = basicSpeed * 2f;
         }
-
-        if (targetDistance < 0.5f)
+        else
         {
-            targetChange = true;
-            attackCheck = true;
+            speed = basicSpeed;
         }
 
 
-        if (player != null)
+
+        if (player != null || movingStop == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
         }
