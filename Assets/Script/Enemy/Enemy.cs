@@ -5,10 +5,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public enum ExpType
+    {
+        Small,
+        Medium,
+        Large,
+    }
+    [SerializeField] private ExpType enemyExpType;
+
     private Rigidbody2D rigd2d;
     private Transform player;
     [SerializeField] private float speed = 1;
     public float Speed { get { return speed; } set { speed = value; } }
+    private float tempSpeed;
 
     [SerializeField]
     private float hp;
@@ -21,6 +30,8 @@ public class Enemy : MonoBehaviour
     private bool knockBackCheck = false;
     private float knockBackPower = 1;
     private SpriteColorControl sprColorControl;
+
+    private bool deathCheck = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -43,17 +54,25 @@ public class Enemy : MonoBehaviour
             movingStop = false;
         }
     }
+    private void Awake()
+    {
+        tempSpeed = speed;
+    }
 
-    protected void Start()
+    private void Start()
     {
         player = GameManager.Instance.GetCharactor;
         sprColorControl = GetComponent<SpriteColorControl>();
         rigd2d = GetComponent<Rigidbody2D>();
     }
 
-    protected void Update()
+    private void Update()
     {
-        enemyMoving();
+        if (deathCheck == false)
+        {
+            enemyMoving();
+        }
+        enemyDie();
     }
 
     private void enemyMoving()
@@ -86,6 +105,29 @@ public class Enemy : MonoBehaviour
         rigd2d.velocity = Vector2.zero;
     }
 
+    private void enemyDie()
+    {
+        if (deathCheck == false)
+        {
+            if (hp <= 0)
+            {
+                if (enemyExpType == ExpType.Small)
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.SmallExp, GameManager.Instance.GetPoolingTemp);
+                }
+                else if (enemyExpType == ExpType.Medium)
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.MediumExp, GameManager.Instance.GetPoolingTemp);
+                }
+                else
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, GameManager.Instance.GetPoolingTemp);
+                }
+                deathCheck = true;
+            }
+        }
+    }
+
     /// <summary>
     /// 넉백 
     /// </summary>
@@ -108,4 +150,19 @@ public class Enemy : MonoBehaviour
         movingStop = false;
     }
 
+    /// <summary>
+    /// 슬로우
+    /// </summary>
+    /// <param name="_slowSpeed">속도</param>
+    /// <param name="_slowTimer">느려지는시간</param>
+    public void EnemySlow(float _slowSpeed, float _slowTimer)
+    {
+        StartCoroutine(slow(_slowSpeed, _slowTimer));
+    }
+    IEnumerator slow(float _slowSpeed, float _slowTimer)
+    {
+        speed = _slowSpeed;
+        yield return new WaitForSeconds(_slowTimer);
+        speed = tempSpeed;
+    }
 }

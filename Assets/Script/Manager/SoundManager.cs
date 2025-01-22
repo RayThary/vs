@@ -48,11 +48,6 @@ public class SoundManager : MonoBehaviour
         initPoolingClip();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))

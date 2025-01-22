@@ -5,17 +5,17 @@ using UnityEngine;
 public class Experience : MonoBehaviour
 {
 
-    //풀링 처리해줄것!!!!!
-
     public enum ExpType
     {
         Small,
         Medium,
         Large,
     }
-    [SerializeField] private ExpType m_expType;
+    [SerializeField]
+    private ExpType m_expType;
     private Player player;
     private Transform playerTrs;
+    private SpriteRenderer spr;
 
     private float playerDis;
     private bool playerCheck = false;
@@ -29,17 +29,15 @@ public class Experience : MonoBehaviour
             if (m_expType == ExpType.Small)
             {
                 player.AddExp(1);
-                Debug.Log("플레이어 Exp 1 증가");
             }
             else if (m_expType == ExpType.Medium)
             {
                 player.AddExp(2);
-                Debug.Log("플레이어 Exp 2 증가");
+                
             }
             else if (m_expType == ExpType.Large)
             {
                 player.AddExp(3);
-                Debug.Log("플레이어 Exp 3 증가");
             }
 
             Destroy(gameObject);
@@ -47,9 +45,23 @@ public class Experience : MonoBehaviour
     }
     void Start()
     {
+        spr = GetComponent<SpriteRenderer>();
         player = GameManager.Instance.GetPlayer;
         playerTrs = GameManager.Instance.GetCharactor;
         playerDis = GameManager.Instance.GetExpDistance;
+
+        if (m_expType == ExpType.Small)
+        {
+            spr.color = Color.green;
+        }
+        else if (m_expType == ExpType.Medium)
+        {
+            spr.color = Color.yellow;
+        }
+        else
+        {
+            spr.color = Color.cyan;
+        }
     }
 
     // Update is called once per frame
@@ -76,7 +88,6 @@ public class Experience : MonoBehaviour
             }
 
         }
-
-
     }
+
 }
