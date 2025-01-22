@@ -5,9 +5,9 @@ using UnityEngine;
 public class P_DestroySpawn : IP_Attribute
 {
     private readonly Projective game;
-    private readonly Projective spawn;
+    private readonly PoolingManager.ePoolingObject spawn;
 
-    public P_DestroySpawn(Projective game, Projective spawn)
+    public P_DestroySpawn(Projective game, PoolingManager.ePoolingObject spawn)
     {
         this.game = game;
         this.spawn = spawn;
@@ -26,7 +26,7 @@ public class P_DestroySpawn : IP_Attribute
             //다시 호출되지 않도록 지우고
             game.Attributes.Remove(this);
             //새 오브젝트 생성
-            Projective projective = Object.Instantiate(spawn);
+            Projective projective = PoolingManager.Instance.CreateObject(spawn, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
             projective.Init();
 
             projective.transform.position = game.transform.position; 

@@ -7,8 +7,6 @@ public class Magic_Boom : IAddon
     public string AddonName => "Boom";
 
     private readonly Player player;
-    //발사할 발사체 원본
-    private readonly Projective projective;
     private readonly List<Projective> projectives = new();
 
     private readonly float damage;
@@ -33,12 +31,8 @@ public class Magic_Boom : IAddon
 
     //공격 딜레마 계산 타이머
     private float timer;
-
-    private Projective boom;
     public Magic_Boom(Player player)
     {
-        projective = Resources.Load<Projective>("Magic/Magic_3");
-        boom = Resources.Load<Projective>("Magic/Magic_20");
         description = "앞으로 폭탄을 던진다";
         this.player = player;
         level = 0;
@@ -60,8 +54,7 @@ public class Magic_Boom : IAddon
     {
         level = 0;
         //모든 발사체 삭제
-        Debug.Log("오브젝트 풀링을 사용하지 않는 삭제");
-        projectives.ForEach(x => Object.Destroy(x.gameObject));
+        projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject)); 
         projectives.Clear();
     }
 
@@ -81,15 +74,14 @@ public class Magic_Boom : IAddon
     private void Fire()
     {
         //투사체 설정
-        Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-        Projective projective = Object.Instantiate(this.projective);
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_3, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = player.SelectCharacter.transform.position;
         //타겟팅 방향으로 원운동  //도착하면 삭제
         projective.Attributes.Add(new P_CircularDestroy(projective, GameManager.Instance.GetTargetTrs.position, 90));
         //도착하면 터지도록
-        projective.Attributes.Add(new P_DestroySpawn(projective, boom));
+        projective.Attributes.Add(new P_DestroySpawn(projective, PoolingManager.ePoolingObject.Magic_20));
         projective.Attributes.Add(new P_Damage(this, damage)); 
 
         projectives.Add(projective);
