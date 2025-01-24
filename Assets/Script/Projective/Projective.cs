@@ -6,11 +6,14 @@ public class Projective : MonoBehaviour
 {
     private List<IP_Attribute> p_Attributes;
     public List<IP_Attribute> Attributes { get { return p_Attributes; } }
-
+    private List<Collider2D> enter;
+    private List<Collider2D> exit;
 
     public void Init()
     {
         p_Attributes = new();
+        enter = new();
+        exit = new();
     }
 
     void Update()
@@ -18,7 +21,24 @@ public class Projective : MonoBehaviour
         if(p_Attributes != null)
         {
             p_Attributes.ForEach(a => a.Update());
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (p_Attributes != null)
+        {
             p_Attributes.ForEach(a => a.LateUpdate());
+        }
+        if (enter != null && p_Attributes != null)
+        {
+            enter.ForEach(collider => p_Attributes.ForEach(x => x.LateEnter(collider)));
+            enter.Clear();
+        }
+        if (exit != null && p_Attributes != null)
+        {
+            exit.ForEach(collider => p_Attributes.ForEach(x => x.LateExit(collider)));
+            exit.Clear();
         }
     }
 
@@ -27,7 +47,7 @@ public class Projective : MonoBehaviour
         if (p_Attributes != null)
         {
             p_Attributes.ForEach(x => x.Enter(collision));
-            p_Attributes.ForEach(x => x.LateEnter(collision));
+            enter.Add(collision);
         }
     }
 
@@ -36,7 +56,7 @@ public class Projective : MonoBehaviour
         if (p_Attributes != null)
         {
             p_Attributes.ForEach(x => x.Exit(collision));
-            p_Attributes.ForEach(x => x.LateExit(collision));
+            exit.Add(collision);
         }
     }
 }

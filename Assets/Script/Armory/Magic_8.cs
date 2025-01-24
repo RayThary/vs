@@ -30,6 +30,9 @@ public class Magic_8 : IAddon
 
     public int MaxLevel => 5;
 
+    private bool enhance = false;
+    public bool Enhance { get { return enhance; } set { enhance = value; } }
+
     public Magic_8(Player player)
     {
         description = "벽에 튕기는 구체를 3발 발사한다";
@@ -66,6 +69,7 @@ public class Magic_8 : IAddon
         //모든 발사체 삭제
         projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();
+        enhance = false;
     }
 
     public void Update()
@@ -76,6 +80,16 @@ public class Magic_8 : IAddon
             for (int i = 0; i < player.Stat.AttackCount - (projectives.Count - 3 - level); i++)
             {
                 Fire();
+            }
+        }
+        if (level == MaxLevel)
+        {
+            //8 + 스피드 = +1
+            var power = player.Armory.Addons.OfType<Speed>().FirstOrDefault();
+            if (power != null && power.Level == power.MaxLevel)
+            {
+                if (!enhance)
+                    enhance = true;
             }
         }
     }
@@ -91,7 +105,11 @@ public class Magic_8 : IAddon
         projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
         projective.Attributes.Add(new P_Move(projective, dir, speed));
         projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
-        projective.Attributes.Add(new P_Damage(this, damage));
+        projective.Attributes.Add(new P_Damage(this, damage)); 
+        if (enhance)
+        {
+            projective.Attributes.Add(new P_KillCreate(PoolingManager.ePoolingObject.Magic_5, this, 3));
+        }
         projectives.Add(projective);
     }
 }

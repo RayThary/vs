@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LifeAbsorption : IAddon
@@ -50,6 +51,16 @@ public class LifeAbsorption : IAddon
         level++;
         GameManager.Instance.GetPlayer.Stat.LifeAbsorption += 2;
         hap += 2;
+        if (level == MaxLevel)
+        {
+            //서로 짝이되는 강화가 있어야 함 18 -> +5번 강화된 마법
+            Magic_18 magic = GameManager.Instance.GetPlayer.Armory.Addons.OfType<Magic_18>().FirstOrDefault();
+            if (magic != null && magic.Level == magic.MaxLevel)
+            {
+                if (magic.Enhance == false)
+                    magic.Enhance = true;
+            }
+        }
     }
 
     public void Remove()

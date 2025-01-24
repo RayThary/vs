@@ -36,6 +36,9 @@ public class Magic_18 : IAddon
     //공격 딜레마 계산 타이머
     private float timer;
 
+    private bool enhance = false;
+    public bool Enhance { get { return enhance; }  set { enhance = value; } }
+
     public Magic_18(Player player)
     {
         description = "하늘에서 떨어지면서 피해를 입힌다";
@@ -62,13 +65,13 @@ public class Magic_18 : IAddon
         projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
         if (level == MaxLevel)
         {
-            //서로 짝이되는 강화가 있어야 함
-            //var power = player.Armory.Addons.OfType<AttackCount>().FirstOrDefault();
-            //if (power != null && power.Level == power.MaxLevel)
-            //{
-            //    player.Armory.Remove(this);
-            //    player.Armory.Addon(new Magic_17(player));
-            //}
+            //18 + 생명력흡수 = +5
+            var power = player.Armory.Addons.OfType<LifeAbsorption>().FirstOrDefault();
+            if (power != null && power.Level == power.MaxLevel)
+            {
+                if(!enhance)
+                    enhance = true;
+            }
         }
     }
 
@@ -79,6 +82,7 @@ public class Magic_18 : IAddon
         projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
         projectives.Clear();
+        enhance = false;
     }
 
     public void Update()
@@ -114,6 +118,10 @@ public class Magic_18 : IAddon
         projective.Attributes.Add(new P_Move(projective, dir, speed));
         projective.Attributes.Add(new P_Damage(this, damage)); 
         projective.Attributes.Add(new P_DeleteTimer(projective, 10));
+        if(enhance)
+        {
+            projective.Attributes.Add(new P_EnterCreate(PoolingManager.ePoolingObject.Magic_5, this));
+        }
         projectives.Add(projective);
     }
     void CalculateWorldSize()
