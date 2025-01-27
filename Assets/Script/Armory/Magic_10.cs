@@ -81,7 +81,7 @@ public class Magic_10 : IAddon
     {
         //투사체 설정
         Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_10, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic10, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = player.SelectCharacter.transform.position;

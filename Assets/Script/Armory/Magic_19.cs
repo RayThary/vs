@@ -72,7 +72,7 @@ public class Magic_19 : IAddon
     {
         //투사체 설정
         
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_19, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic19, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = player.SelectCharacter.transform.position;

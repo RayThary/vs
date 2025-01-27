@@ -74,14 +74,14 @@ public class Magic_Boom : IAddon
     private void Fire()
     {
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_3, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic3, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = player.SelectCharacter.transform.position;
         //타겟팅 방향으로 원운동  //도착하면 삭제
         projective.Attributes.Add(new P_CircularDestroy(projective, GameManager.Instance.GetTargetTrs.position, 90));
         //도착하면 터지도록
-        projective.Attributes.Add(new P_DestroySpawn(projective, PoolingManager.ePoolingObject.Magic_20));
+        projective.Attributes.Add(new P_DestroySpawn(projective, PoolingManager.ePoolingObject.Magic20));
         projective.Attributes.Add(new P_Damage(this, damage)); 
 
         projectives.Add(projective);

@@ -108,7 +108,7 @@ public class Magic_9 : IAddon
             dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
             //투사체 설정
-            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_9, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic9, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
             projective.Init();
             projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle);

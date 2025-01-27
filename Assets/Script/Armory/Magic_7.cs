@@ -101,7 +101,7 @@ public class Magic_7 : IAddon
                 //break;
         }
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_7, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic7, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         //새 오브젝트의 애니메이션
         Animator n = projective.transform.GetChild(0).GetComponent<Animator>();
         projective.Init();

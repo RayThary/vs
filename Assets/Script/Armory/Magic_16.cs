@@ -99,7 +99,7 @@ public class Magic_16 : IAddon
         //발사 마우스 위치에 폭발
         Debug.Log("오브젝트 풀링을 사용하지 않는 생성");
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_15, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic15, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = GameManager.Instance.GetTargetTrs.position;

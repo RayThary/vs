@@ -124,7 +124,7 @@ public class EnemyBoss : MonoBehaviour
         {
             Vector3 spawnPos = SetSpawnPos();
             yield return new WaitForSeconds(0.2f);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_15, GameManager.Instance.GetPoolingTemp);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic15, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = spawnPos;
         }
         attackCoolChekc = false;

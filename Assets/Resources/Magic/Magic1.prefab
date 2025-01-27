@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 463745978673594271}
   - component: {fileID: 8937642313133882934}
   m_Layer: 0
-  m_Name: Magic_1
+  m_Name: Magic1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

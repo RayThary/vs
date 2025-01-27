@@ -105,7 +105,7 @@ public class Magic_18 : IAddon
     {
         //화면의 가장 왼쪽 위쪽의 현실 위치
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_18, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic18, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = new(1, -1);
@@ -120,7 +120,7 @@ public class Magic_18 : IAddon
         projective.Attributes.Add(new P_DeleteTimer(projective, 10));
         if(enhance)
         {
-            projective.Attributes.Add(new P_EnterCreate(PoolingManager.ePoolingObject.Magic_5, this));
+            projective.Attributes.Add(new P_EnterCreate(PoolingManager.ePoolingObject.Magic5, this));
         }
         projectives.Add(projective);
     }

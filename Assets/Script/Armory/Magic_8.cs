@@ -97,7 +97,7 @@ public class Magic_8 : IAddon
     private void Fire()
     {
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_8, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic8, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));
@@ -108,7 +108,7 @@ public class Magic_8 : IAddon
         projective.Attributes.Add(new P_Damage(this, damage)); 
         if (enhance)
         {
-            projective.Attributes.Add(new P_KillCreate(PoolingManager.ePoolingObject.Magic_5, this, 3));
+            projective.Attributes.Add(new P_KillCreate(PoolingManager.ePoolingObject.Magic5, this, 3));
         }
         projectives.Add(projective);
     }

@@ -89,7 +89,7 @@ public class Magic_15 : IAddon
     {
         //발사 마우스 위치나 가장 가까운 적
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_15, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic15, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
         //여기서 방향을 받아옴
         Vector2 dir = new(Random.Range(-1, 1f), Random.Range(-1, 1f));

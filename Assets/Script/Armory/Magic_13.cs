@@ -82,7 +82,7 @@ public class Magic_13 : IAddon
 
         //발사 마우스 위치에 폭발
         //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_13, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic13, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
         projective.transform.position = GameManager.Instance.GetTargetTrs.position;
