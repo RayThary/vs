@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBoss : MonoBehaviour
@@ -18,16 +19,21 @@ public class EnemyBoss : MonoBehaviour
     private bool attackCoolChekc = false;
     private float timer = 0;
     [SerializeField] private bool SlowInPlayer = false;
+
+    [SerializeField]//삭제
+    private Vector3 mapSize;
     private void Start()
     {
         player = GameManager.Instance.GetCharactor;
         rigd2d = GetComponent<Rigidbody2D>();
         basicSpeed = speed;
+
+        mapSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 200, Screen.height - 200));
     }
 
     private void Update()
     {
-        moving();
+        //moving();
         attack();
 
     }
@@ -93,19 +99,42 @@ public class EnemyBoss : MonoBehaviour
         if (!attackCoolChekc)
         {
             timer += Time.deltaTime;
-            if (timer > 1)
+            if (timer > 3)
             {
                 timer = 0;
                 attackCoolChekc = true;
+                StartCoroutine(meteor(10));
             }
         }
 
-        if (attackCheck && attackCoolChekc)
-        {
-            attackCheck = false;
-            attackCoolChekc = false;
-            //공격
-        }
+        //if (attackCheck && attackCoolChekc)
+        //{
+        //    attackCheck = false;
+        //    attackCoolChekc = false;
+        //    //공격
+        //}
 
+    }
+
+
+    //소환될 개수
+    IEnumerator meteor(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 spawnPos = SetSpawnPos();
+            yield return new WaitForSeconds(0.2f);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic_15, GameManager.Instance.GetPoolingTemp);
+            obj.transform.position = spawnPos;
+        }
+        attackCoolChekc = false;
+    }
+
+    private Vector3 SetSpawnPos()
+    {
+        float posX = Random.Range(-mapSize.x, mapSize.x);
+        float posY = Random.Range(-mapSize.y, mapSize.y);
+
+        return new Vector3(posX, posY, 0);
     }
 }

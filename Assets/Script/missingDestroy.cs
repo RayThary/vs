@@ -8,18 +8,23 @@ public class missingDestroy : MonoBehaviour
     public GameObject Unit;
 
     [SerializeField]private Transform[] _prefabCount = new Transform[] { };
+    public bool DestroyStart = false;
 
 
-    void Start()
+
+    private void Update()
     {
-
-        _prefabCount = Unit.transform.GetComponentsInChildren<Transform>();
-        for (int i = 0; i < _prefabCount.Length; i++)
+        if (DestroyStart)
         {
-            GameObjectUtility.RemoveMonoBehavioursWithMissingScript(_prefabCount[i].gameObject);
-        }
+            _prefabCount = Unit.transform.GetComponentsInChildren<Transform>();
+            for (int i = 0; i < _prefabCount.Length; i++)
+            {
+                GameObjectUtility.RemoveMonoBehavioursWithMissingScript(_prefabCount[i].gameObject);
+            }
 
-       
+            DestroyStart = false;
+            Debug.Log("삭제완료");
+        }
     }
 
 }

@@ -124,18 +124,24 @@ public class TestBoss : MonoBehaviour
                 {
                     dirX = 1;
                 }
-                anim.SetTrigger("AttackType1");
+                int attackType = Random.Range(0, 2);
+                if (attackType == 0)
+                {
+                    anim.SetTrigger("AttackType2");
+                    //anim.SetTrigger("AttackType1");
+                }
+                else
+                {
+                    anim.SetTrigger("AttackType2");
+                }
                 attackCheck = false;
             }
         }
-        //attackCoolChekc = false;
     }
 
     private void AttackType1()
     {
         float dirY = -1.5f;
-
-
 
         for (int i = 0; i < 7; i++)
         {
@@ -146,6 +152,27 @@ public class TestBoss : MonoBehaviour
             tempBullet.Init();
             tempBullet.Attributes.Add(new P_Move(tempBullet, dir, 3));
             tempBullet.Attributes.Add(new P_EnemyAttackDelet(tempBullet));
+
+            dirY += 0.5f;
+        }
+    }
+
+    private void AttackType2()
+    {
+        float dirY = -1.5f;
+
+        for (int i = 0; i < 7; i++)
+        {
+            Vector2 dir = new Vector2(dirX, dirY);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossAttack, GameManager.Instance.GetPoolingTemp);
+            obj.transform.position = transform.position;
+            Projective tempBullet = obj.GetComponent<Projective>();
+            tempBullet.Init();
+            P_Move move = new P_Move(tempBullet, dir, 5);
+            tempBullet.Attributes.Add(move);
+            tempBullet.Attributes.Add(new P_Bounce(tempBullet, move, 3));
+            tempBullet.Attributes.Add(new P_EnemyAttackDelet(tempBullet));
+            tempBullet.Attributes.Add(new P_DeleteTimer(tempBullet, 5));
 
             dirY += 0.5f;
         }
