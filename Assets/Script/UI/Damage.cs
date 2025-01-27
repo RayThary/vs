@@ -17,7 +17,7 @@ public class Damage : MonoBehaviour
     {
 
         armory = GameManager.Instance.GetPlayer.GetComponent<Armory>();
-        m_View = Resources.Load<DamageView>("Damage");
+        m_View = Resources.Load<DamageView>("UI/Damage");
         armory.AddCall += AddWeapon;
         armory.RemoveCall += RemoveWeapon;
     }
