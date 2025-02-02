@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Transform GetCharactor { get { return seletCharactor; } }
 
     private AutoTarget autoTarget;
-    public Transform GetTargetTrs { get { return autoTarget.GetTarget; } }
+    public Transform GetTargetTrs { get { if (autoTarget == null) return null; return autoTarget.GetTarget; } }
 
     [SerializeField]
     private Material material;

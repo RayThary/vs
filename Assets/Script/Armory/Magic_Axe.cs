@@ -64,37 +64,38 @@ public class Magic_Axe : IAddon
         //공격 딜레이가 되었는지
         if (timer + delay <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
+            GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;
         }
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
-        //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Axe, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-        projective.Init();
-        //여기서 방향을 받아옴
-        //캐릭터가 바라보는 방향
-        //움직임이 점점 느려져야 함
+        for (int i = 0; i < player.Stat.AttackCount + 1; i++)
+        {
+            //투사체 설정
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Axe, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            projective.Init();
+            //여기서 방향을 받아옴
+            //캐릭터가 바라보는 방향
+            //움직임이 점점 느려져야 함
 
-        projective.transform.position = player.SelectCharacter.transform.position;
-        projective.Attributes.Add(new P_Move(projective, Vector2.up, 15));
-        if(player.SelectCharacter.transform.localScale.x > 0)
-        {
-            projective.Attributes.Add(new P_Move(projective, Vector2.left, 5));
+            projective.transform.position = player.SelectCharacter.transform.position;
+            projective.Attributes.Add(new P_Move(projective, Vector2.up, 15));
+            if (player.SelectCharacter.transform.localScale.x > 0)
+            {
+                projective.Attributes.Add(new P_Move(projective, Vector2.left, 5));
+            }
+            else
+            {
+                projective.Attributes.Add(new P_Move(projective, Vector2.right, 5));
+            }
+            projective.Attributes.Add(new P_Rotation(projective, 180));
+            projective.Attributes.Add(new P_Gravity(projective));
+            projective.Attributes.Add(new P_Damage(this, damage));
+            projective.Attributes.Add(new P_DeleteTimer(projective, 10));
+            projectives.Add(projective);
+            yield return new WaitForSeconds(0.1f);
         }
-        else
-        {
-            projective.Attributes.Add(new P_Move(projective, Vector2.right, 5));
-        }
-        projective.Attributes.Add(new P_Rotation(projective, 180));
-        projective.Attributes.Add(new P_Gravity(projective));
-        projective.Attributes.Add(new P_Damage(this, damage)); 
-        projective.Attributes.Add(new P_DeleteTimer(projective, 10));
-        projectives.Add(projective);
     }
 }

@@ -17,12 +17,6 @@ public class CardSelect : MonoBehaviour
     public List<IAddon> Addons { get => addons; }
     private IAddon[] candidate = new IAddon[3];
 
-    //private Magic_6 magic_6;
-    //private Magic_7 magic_7;
-    //private Magic_8 magic_8;
-    //private Magic_9 magic_9;
-    //private Magic_15 magic_15;
-
     //플레이어에게 무기가 이미 5종류 있는가
     //없다면 전체에서 랜덤 3개
     //있다면 이미 있는것에서 랜덤 3개
@@ -33,7 +27,7 @@ public class CardSelect : MonoBehaviour
     {
         addons = new()
         {
-            new Magic_6(GameManager.Instance.GetPlayer),
+            //new Magic_6(GameManager.Instance.GetPlayer),
             //new Magic_8(GameManager.Instance.GetPlayer),
             //new Magic_9(GameManager.Instance.GetPlayer),
             //new Magic_10(GameManager.Instance.GetPlayer),
@@ -73,7 +67,6 @@ public class CardSelect : MonoBehaviour
     public void RandomCard()
     {
         //플레이어에게 무기가 5개 미만
-
         if(GameManager.Instance.GetPlayer.Armory.Addons.Count(x => x.Weapon) < 5)
         {
             var random = new System.Random();
@@ -90,9 +83,9 @@ public class CardSelect : MonoBehaviour
                     card[i].Init(candidate[i]);
             }
         }
+        //플레이어에게 무기가 5개
         else
         {
-            //플레이어에게 무기가 5개
             var random = new System.Random();
 
             candidate = GameManager.Instance.GetPlayer.Armory.Addons

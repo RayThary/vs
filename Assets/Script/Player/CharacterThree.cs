@@ -12,6 +12,7 @@ public class CharacterThree : Character
         base.Start();
         arrow = new Magic_Arrow(GameManager.Instance.GetPlayer);
         GameManager.Instance.GetPlayer.Armory.Addon(arrow);
+        GameManager.Instance.GetPlayer.CardSelect.Addons.Add(arrow);
     }
 
     // Update is called once per frame

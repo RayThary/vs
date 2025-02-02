@@ -90,10 +90,7 @@ public class Magic_18 : IAddon
         //공격 딜레이가 되었는지
         if (timer + delay <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
+            GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;
         }
     }
@@ -101,28 +98,32 @@ public class Magic_18 : IAddon
     private Rect rect;
     private readonly Camera cam;
     //대각선으로 각도와 위치를 조정해서 발사
-    private void Fire()
+    private IEnumerator Fire()
     {
-        //화면의 가장 왼쪽 위쪽의 현실 위치
-        //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic18, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-        projective.Init();
-        //여기서 방향을 받아옴
-        Vector2 dir = new(1, -1);
-
-        //rect.yMax위에서 부터 player.selectcharacter까지 떨어진 걸이만큼 
-        float distance = rect.yMax - player.SelectCharacter.transform.position.y;
-        projective.transform.position = new Vector3(Random.Range(player.SelectCharacter.transform.position.x - distance - 5, player.SelectCharacter.transform.position.x - distance + 6), rect.yMax);
-        projective.transform.eulerAngles = new Vector3(0, 0, 45);
-        projective.transform.localScale = new Vector3(level, level, 0);
-        projective.Attributes.Add(new P_Move(projective, dir, speed));
-        projective.Attributes.Add(new P_Damage(this, damage)); 
-        projective.Attributes.Add(new P_DeleteTimer(projective, 10));
-        if(enhance)
+        for (int i = 0; i < player.Stat.AttackCount + 1; i++)
         {
-            projective.Attributes.Add(new P_EnterCreate(PoolingManager.ePoolingObject.Magic5, this));
+            //화면의 가장 왼쪽 위쪽의 현실 위치
+            //투사체 설정
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic18, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            projective.Init();
+            //여기서 방향을 받아옴
+            Vector2 dir = new(1, -1);
+
+            //rect.yMax위에서 부터 player.selectcharacter까지 떨어진 걸이만큼 
+            float distance = rect.yMax - player.SelectCharacter.transform.position.y;
+            projective.transform.position = new Vector3(Random.Range(player.SelectCharacter.transform.position.x - distance - 5, player.SelectCharacter.transform.position.x - distance + 6), rect.yMax);
+            projective.transform.eulerAngles = new Vector3(0, 0, 45);
+            projective.transform.localScale = new Vector3(level, level, 0);
+            projective.Attributes.Add(new P_Move(projective, dir, speed));
+            projective.Attributes.Add(new P_Damage(this, damage));
+            projective.Attributes.Add(new P_DeleteTimer(projective, 10));
+            if (enhance)
+            {
+                projective.Attributes.Add(new P_EnterCreate(PoolingManager.ePoolingObject.Magic5, this));
+            }
+            projectives.Add(projective);
+            yield return new WaitForSeconds(0.1f);
         }
-        projectives.Add(projective);
     }
     void CalculateWorldSize()
     {

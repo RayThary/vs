@@ -8,7 +8,7 @@ public class CharacterOne : Character
     private readonly float SkillCool = 5;
     private readonly float skillTimer = 5;
     private readonly float value = 3;
-    private Coroutine coroutine = null;
+    private Coroutine coroutine;
     [SerializeField]
     private Projective projective;
 
@@ -28,10 +28,7 @@ public class CharacterOne : Character
 
     protected override void Skill()
     {
-        if(coroutine == null)
-        {
-            coroutine = StartCoroutine(SkillTimer());
-        }
+        coroutine ??= StartCoroutine(SkillTimer());
     }
 
     //테스트를 위해 공격력을 상승시키는 스킬을 만들어 보자

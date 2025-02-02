@@ -70,41 +70,43 @@ public class Magic_11 : IAddon
         //공격 딜레이가 되었는지
         if (timer + (delay - player.Stat.AttackCool) <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
+            GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;
         }
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
-        //적이 근처에 있는지
-        if(GameManager.Instance.GetTargetTrs.TryGetComponent(out Enemy enemy))
+        for (int i = 0; i < player.Stat.AttackCount + 1; i++)
         {
-            //방향을 설정해야 함
-            //상대 방향
-            Vector2 dir = enemy.transform.position - player.SelectCharacter.transform.position;
-            //각도
-            float angle = Vector2.Angle(Vector2.up, dir);
-            if (enemy.transform.position.x < player.SelectCharacter.transform.position.x)
+            //적이 근처에 있는지
+            if (GameManager.Instance.GetTargetTrs.TryGetComponent(out Enemy enemy))
             {
-                angle = -angle;
+                //방향을 설정해야 함
+                //상대 방향
+                Vector2 dir = enemy.transform.position - player.SelectCharacter.transform.position;
+                //각도
+                float angle = Vector2.Angle(Vector2.up, dir);
+                if (enemy.transform.position.x < player.SelectCharacter.transform.position.x)
+                {
+                    angle = -angle;
+                }
+                //각도를 vector로
+                dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+
+                //투사체 설정
+                Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic11, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+                projective.Init();
+                projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
+                projective.transform.eulerAngles = new Vector3(0, 0, -angle);
+                projective.Attributes.Add(new P_Move(projective, dir, speed));
+                projective.Attributes.Add(new P_Damage(this, damage));
+                projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
+
+                projectives.Add(projective);
             }
-            //각도를 vector로
-            dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-            //투사체 설정
-            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic11, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-            projective.Init();
-            projective.transform.position = player.SelectCharacter.transform.position + (Vector3)dir;
-            projective.transform.eulerAngles = new Vector3(0, 0, -angle);
-            projective.Attributes.Add(new P_Move(projective, dir, speed));
-            projective.Attributes.Add(new P_Damage(this, damage));
-            projective.Attributes.Add(new P_DistanceDelete(7, projective.transform.position, projective));
-
-            projectives.Add(projective);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

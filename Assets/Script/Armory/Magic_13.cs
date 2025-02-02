@@ -67,27 +67,28 @@ public class Magic_13 : IAddon
         //공격 딜레이가 되었는지
         if (timer + (delay - player.Stat.AttackCool) <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
+            GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;
         }
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
-        if (GameManager.Instance.GetTargetTrs == null)
-            return;
+        for (int i = 0; i < player.Stat.AttackCount + 1; i++)
+        {
+            if (GameManager.Instance.GetTargetTrs == null)
+                yield break;
 
-        //발사 마우스 위치에 폭발
-        //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic13, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-        projective.Init();
+            //가까운 적 위치에 폭발
+            //투사체 설정
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic13, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            projective.Init();
 
-        projective.transform.position = GameManager.Instance.GetTargetTrs.position;
-        projective.Attributes.Add(new P_DamageTimer(damage, 1, this));
-        projective.Attributes.Add(new P_DeleteTimer(projective, 3));
-        projectives.Add(projective);
+            projective.transform.position = GameManager.Instance.GetTargetTrs.position;
+            projective.Attributes.Add(new P_DamageTimer(damage, 1, this));
+            projective.Attributes.Add(new P_DeleteTimer(projective, 3));
+            projectives.Add(projective);
+            yield return new WaitForSeconds(0.1f);
+        } 
     }
 }

@@ -77,7 +77,6 @@ public class ButtonManager : MonoBehaviour
 
     //캐릭터 3개 로딩
     private Character[] charactors;
-    private Image[] charactorIcons;
 
     private void Awake()
     {
@@ -155,11 +154,6 @@ public class ButtonManager : MonoBehaviour
 
         charactors = Resources.LoadAll<Character>("Character");
 
-    }
-
-    private void Start()
-    {
-        
     }
 
     public void Refresh()

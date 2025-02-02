@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -21,6 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private CardSelect cardSelect;
+    public CardSelect CardSelect { get {  return cardSelect; } }
 
     void Start()
     {

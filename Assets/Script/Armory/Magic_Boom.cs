@@ -63,27 +63,29 @@ public class Magic_Boom : IAddon
         //공격 딜레이가 되었는지
         if (timer + delay <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
+            GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;
         }
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
-        //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic3, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-        projective.Init();
+        for (int i = 0; i < player.Stat.AttackCount + 1; i++)
+        {
+            //투사체 설정
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic3, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            projective.Init();
 
-        projective.transform.position = player.SelectCharacter.transform.position;
-        //타겟팅 방향으로 원운동  //도착하면 삭제
-        projective.Attributes.Add(new P_CircularDestroy(projective, GameManager.Instance.GetTargetTrs.position, 90));
-        //도착하면 터지도록
-        projective.Attributes.Add(new P_DestroySpawn(projective, PoolingManager.ePoolingObject.Magic20));
-        projective.Attributes.Add(new P_Damage(this, damage)); 
+            projective.transform.position = player.SelectCharacter.transform.position;
+            //타겟팅 방향으로 원운동  //도착하면 삭제 소환
+            if (GameManager.Instance.GetTargetTrs != null)
+                projective.Attributes.Add(new P_CircularDestroy(projective, PoolingManager.ePoolingObject.Magic20, GameManager.Instance.GetTargetTrs.position, 90, 5));
+            else
+                projective.Attributes.Add(new P_CircularDestroy(projective, PoolingManager.ePoolingObject.Magic20, player.SelectCharacter.transform.position + new Vector3(3, 0, 0), 90, 5));
+            projective.Attributes.Add(new P_Damage(this, damage));
 
-        projectives.Add(projective);
+            projectives.Add(projective);
+            yield return new WaitForSeconds(0.1f);
+        } 
     }
 }

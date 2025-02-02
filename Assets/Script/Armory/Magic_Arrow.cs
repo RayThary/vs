@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Magic_Arrow : IAddon
 {
@@ -24,7 +25,7 @@ public class Magic_Arrow : IAddon
     private int level;
     public int Level { get => level; set => level = value; }
 
-    public int MaxLevel => 1;
+    public int MaxLevel => 5;
 
     //공격 딜레이
     private readonly float delay;
@@ -48,7 +49,11 @@ public class Magic_Arrow : IAddon
 
     public void LevelUp()
     {
+        level++;
+        if (level >= 5)
+        {
 
+        }
     }
 
     public void Remove()
@@ -64,27 +69,42 @@ public class Magic_Arrow : IAddon
         //공격 딜레이가 되었는지
         if (timer + delay <= Time.time)
         {
-            for (int i = 0; i < player.Stat.AttackCount + 1; i++)
-            {
-                Fire();
-            }
-            timer = Time.time;
+            GameManager.Instance.StartCoroutine(Fire());
         }
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
-        //투사체 설정
-        Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Arrow, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
-        projective.Init();
+        timer = Time.time;
+        for (int i = 0; i < player.Stat.AttackCount + level; i++)
+        {
+            //방향을 설정해야 함
+            //상대 방향
+            Vector2 dir = GameManager.Instance.GetTargetTrs.position - player.SelectCharacter.transform.position;
+            //각도에 랜덤성이 있어야 함
+            float angle = Vector2.Angle(Vector2.up, dir) + Random.Range(-10, 11);
+            if (GameManager.Instance.GetTargetTrs.position.x < player.SelectCharacter.transform.position.x)
+            {
+                angle = -angle;
+            }
+            //각도를 vector로
+            dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-        projective.transform.position = player.SelectCharacter.transform.position;
-        //움직임
-        projective.Attributes.Add(new P_Move(projective, GameManager.Instance.GetTargetTrs.position, 5));
-        //도착하면 터지도록
-        projective.Attributes.Add(new P_DeleteTimer(projective, 10));
-        projective.Attributes.Add(new P_Damage(this, damage));
+            //투사체 설정
+            Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Arrow, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            projective.Init();
+            projective.transform.position = player.SelectCharacter.transform.position;
+            projective.transform.eulerAngles = new Vector3(0, 0, -angle);
+            //움직임
+            projective.Attributes.Add(new P_Move(projective, dir, 5));
+            //도착하면 터지도록
+            projective.Attributes.Add(new P_DeleteTimer(projective, 10));
+            projective.Attributes.Add(new P_Damage(this, damage));
 
-        projectives.Add(projective);
+            projectives.Add(projective);
+            timer = Time.time;
+            yield return new WaitForSeconds(0.1f);
+        }
+        timer = Time.time;
     }
 }
