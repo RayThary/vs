@@ -37,6 +37,7 @@ public class PoolingManager : MonoBehaviour
         Magic18,
         Magic19,
         Magic20,
+        Meteor,
     }
 
     [System.Serializable]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyBoss : MonoBehaviour
+public class EnemyLastBoss : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigd2d;
@@ -20,7 +20,6 @@ public class EnemyBoss : MonoBehaviour
     private float timer = 0;
     [SerializeField] private bool SlowInPlayer = false;
 
-    [SerializeField]//삭제
     private Vector3 mapSize;
     private void Start()
     {
@@ -33,7 +32,7 @@ public class EnemyBoss : MonoBehaviour
 
     private void Update()
     {
-        //moving();
+        moving();
         attack();
 
     }
@@ -46,8 +45,8 @@ public class EnemyBoss : MonoBehaviour
             Vector2 maxVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
             while (true)
             {
-                float x = Random.Range(player.position.x - 5, player.position.x + 5);
-                float y = Random.Range(player.position.y - 5, player.position.y + 5);
+                float x = Random.Range(player.position.x - 3, player.position.x + 4);
+                float y = Random.Range(player.position.y - 3, player.position.y + 4);
                 targetVec = new Vector2(x, y);
                 if ((-maxVec.x < x && x < maxVec.x) && (y > -maxVec.y && y < maxVec.y))
                 {
@@ -99,21 +98,13 @@ public class EnemyBoss : MonoBehaviour
         if (!attackCoolChekc)
         {
             timer += Time.deltaTime;
-            if (timer > 3)
+            if (timer > 3.5f)
             {
                 timer = 0;
                 attackCoolChekc = true;
-                StartCoroutine(meteor(10));
+                StartCoroutine(meteor(8));
             }
         }
-
-        //if (attackCheck && attackCoolChekc)
-        //{
-        //    attackCheck = false;
-        //    attackCoolChekc = false;
-        //    //공격
-        //}
-
     }
 
 
@@ -123,8 +114,8 @@ public class EnemyBoss : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 spawnPos = SetSpawnPos();
-            yield return new WaitForSeconds(0.2f);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic15, GameManager.Instance.GetPoolingTemp);
+            yield return new WaitForSeconds(0.5f);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Meteor, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = spawnPos;
         }
         attackCoolChekc = false;
