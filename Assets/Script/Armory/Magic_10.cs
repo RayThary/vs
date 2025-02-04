@@ -74,7 +74,11 @@ public class Magic_10 : IAddon
 
     public void Update()
     {
-
+        if (projectives.Count > 0 && projectives[0].transform.GetChild(0).TryGetComponent(out Animator component))
+        {
+            if (component.speed != player.Stat.AttackSpeed)
+                component.speed = player.Stat.AttackSpeed;
+        }
     }
 
     private void Fire()

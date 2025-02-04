@@ -47,13 +47,17 @@ public class Magic_19 : IAddon
 
     public void Update()
     {
-        Fire();
-        level = 1;
+        if (projectives.Count > 0 && projectives[0].transform.GetChild(0).TryGetComponent(out Animator component))
+        {
+            if (component.speed != player.Stat.AttackSpeed)
+                component.speed = player.Stat.AttackSpeed;
+        }
     }
 
     public void Addon()
     {
-
+        Fire();
+        level = 1;
     }
 
     public void Remove()

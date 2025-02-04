@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CharacterThree : Character
 {
-    private Magic_Arrow arrow;
+    private Magic_Bullet arrow;
 
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
-        arrow = new Magic_Arrow(GameManager.Instance.GetPlayer);
+        arrow = new Magic_Bullet(GameManager.Instance.GetPlayer);
         GameManager.Instance.GetPlayer.Armory.Addon(arrow);
         GameManager.Instance.GetPlayer.CardSelect.Addons.Add(arrow);
     }

@@ -34,8 +34,8 @@ public class CardSelect : MonoBehaviour
             //new Magic_15(GameManager.Instance.GetPlayer),
             //new Magic_18(GameManager.Instance.GetPlayer),
 
-            //new Armor(),
-            //new AttackCool(),
+            new Armor(),
+            new AttackCool(),
             new AttackCount(),
             //new AttackDamage(),
             //new AttackRange(),

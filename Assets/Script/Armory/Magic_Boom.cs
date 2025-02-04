@@ -61,7 +61,7 @@ public class Magic_Boom : IAddon
     public void Update()
     {
         //공격 딜레이가 되었는지
-        if (timer + delay <= Time.time)
+        if (timer + (delay - player.Stat.AttackCool) <= Time.time)
         {
             GameManager.Instance.StartCoroutine(Fire());
             timer = Time.time;

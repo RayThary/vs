@@ -22,17 +22,17 @@ public class AutoTarget : MonoBehaviour
     {
         if (autoTarget)
         {
-            target = FindAutoTarget();
+            target.position = FindAutoTarget();
         }
         else
         {
-            mouseTrs.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            target.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         
     }
 
     //제일가까운적을  리턴해줌
-    private Transform FindAutoTarget()
+    private Vector3 FindAutoTarget()
     {
         //나중에 지워줄것(완성후) 
         #region
@@ -64,7 +64,7 @@ public class AutoTarget : MonoBehaviour
 
         }
 
-        return result;
+        return result.position;
     }
 
     private Transform FindMouseTarget()
