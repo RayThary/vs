@@ -7483,6 +7483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMiddleBoss (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8980461195576843756, guid: e89743c89cfd7f947bc0c09427441a65, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10514,7 +10518,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1371891886
 GameObject:
   m_ObjectHideFlags: 0
@@ -13435,6 +13439,10 @@ PrefabInstance:
     - target: {fileID: 8822261941929383693, guid: 052e7b88c817ba64c869af2e99e06e80, type: 3}
       propertyPath: m_Name
       value: EnemyLastBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822261941929383693, guid: 052e7b88c817ba64c869af2e99e06e80, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
