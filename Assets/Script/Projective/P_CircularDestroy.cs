@@ -23,12 +23,12 @@ public class P_CircularDestroy : IP_Attribute
     {
         this.projective = projective;
         this.spawn = spawn;
-        this.destination = destination;
-        if(destination.magnitude > max)
+        destination.z = 0;
+        if ((destination - projective.transform.position).magnitude > max)
         {
-            destination = (destination - projective.transform.position).normalized * max;
+            destination = projective.transform.position + (destination - projective.transform.position).normalized * max;
         }
-        
+        this.destination = destination;
         this.speed = speed;
         //원의 중심은 객체와 목표지점의 중간값
         center = (destination + projective.transform.position) * 0.5f;
@@ -65,7 +65,7 @@ public class P_CircularDestroy : IP_Attribute
 
         // 이동 방향으로 회전
         projective.transform.eulerAngles = new Vector3(0, 0, angle - 100);
-        if (Vector2.Distance(projective.transform.position, destination) < 0.1f)
+        if (Vector2.Distance(projective.transform.position, destination) < 0.5f)
         { 
             Projective p = PoolingManager.Instance.CreateObject(spawn, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
             p.Init();
