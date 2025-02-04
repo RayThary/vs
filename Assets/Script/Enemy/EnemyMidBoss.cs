@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestBoss : MonoBehaviour
+public class EnemyMidBoss : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigd2d;
@@ -65,7 +65,8 @@ public class TestBoss : MonoBehaviour
         if (!attackCoolChekc)
         {
             timer += Time.deltaTime;
-            if (timer > 5)
+            //테스트용 3초
+            if (timer > 3)
             {
                 timer = 0;
                 attackCoolChekc = true;
@@ -127,8 +128,7 @@ public class TestBoss : MonoBehaviour
                 int attackType = Random.Range(0, 2);
                 if (attackType == 0)
                 {
-                    anim.SetTrigger("AttackType2");
-                    //anim.SetTrigger("AttackType1");
+                    anim.SetTrigger("AttackType1");
                 }
                 else
                 {
@@ -151,8 +151,8 @@ public class TestBoss : MonoBehaviour
             Projective tempBullet = obj.GetComponent<Projective>();
             tempBullet.Init();
             tempBullet.Attributes.Add(new P_Move(tempBullet, dir, 3));
-            tempBullet.Attributes.Add(new P_EnemyAttackDelet(tempBullet));
-
+            tempBullet.Attributes.Add(new P_EnemyAttackDelete(tempBullet));
+            tempBullet.Attributes.Add(new P_EnemyDamage(5));
             dirY += 0.5f;
         }
     }
@@ -171,8 +171,10 @@ public class TestBoss : MonoBehaviour
             P_Move move = new P_Move(tempBullet, dir, 5);
             tempBullet.Attributes.Add(move);
             tempBullet.Attributes.Add(new P_Bounce(tempBullet, move, 3));
-            tempBullet.Attributes.Add(new P_EnemyAttackDelet(tempBullet));
+            tempBullet.Attributes.Add(new P_EnemyAttackDelete(tempBullet));
             tempBullet.Attributes.Add(new P_DeleteTimer(tempBullet, 5));
+            tempBullet.Attributes.Add(new P_EnemyDamage(5));
+            //데미지 5 일단적용
 
             dirY += 0.5f;
         }

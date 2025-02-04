@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
 
         player = FindObjectOfType<Player>();
         autoTarget = transform.GetComponent<AutoTarget>();
-        Debug.Log(timescale);
     }
 
     public void SetCharactor(Transform _trs)

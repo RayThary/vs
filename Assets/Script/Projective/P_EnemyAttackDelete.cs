@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P_EnemyAttackDelet : IP_Attribute
+public class P_EnemyAttackDelete : IP_Attribute
 {
 
     private readonly Projective projective;
-    public P_EnemyAttackDelet(Projective projective)
+    public P_EnemyAttackDelete(Projective projective)
     {
         this.projective = projective;
     }
