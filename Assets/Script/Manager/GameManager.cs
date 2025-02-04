@@ -63,14 +63,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.Log(Time.timeScale);
-        }
-    }
     private void Awake()
     {
         instance = this;

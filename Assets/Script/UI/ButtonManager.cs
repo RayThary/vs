@@ -410,10 +410,8 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonSelect(int id)
     {
-        Debug.Log(charactors[id] + " 선택");
         CharactorSelect.SetActive(false);
         InGameWindowActive();
-        Debug.Log("오브젝트풀링을 사용하지 않는 생성");
         GameManager.Instance.GetPlayer.SelectCharacter = Instantiate(charactors[id]);
         GameManager.Instance.SetCharactor(GameManager.Instance.GetPlayer.SelectCharacter.transform);
     }

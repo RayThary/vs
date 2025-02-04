@@ -11,11 +11,10 @@ public class Player : MonoBehaviour
     private Armory armory;
     public Armory Armory { get { return armory; } }
 
-    //[SerializeField] private int level = 0;
     [SerializeField] private int playerExp = 8;
     [SerializeField] private int needExp = 10;
 
-    [SerializeField] private Character selectCharacter;
+    private Character selectCharacter;
     public Character SelectCharacter { get { return selectCharacter; } set { selectCharacter = value; } }
 
     [SerializeField]

@@ -48,7 +48,6 @@ public class ViewArmory : MonoBehaviour
     {
         if (addon.Weapon)
         {
-            Debug.Log("오브젝트풀링을 사용하지 않는 생성");
             GameObject gameObject = new("무기 이미지");
             gameObject.transform.parent = armoryBack.transform;
             Image image = gameObject.AddComponent<Image>();
@@ -61,7 +60,6 @@ public class ViewArmory : MonoBehaviour
     {
         if (addon.Weapon)
         {
-            Debug.Log("오브젝트풀링을 사용하지 않는 삭제");
             pairs.TryGetValue(addon, out GameObject gameObject);
             pairs.Remove(addon);
             Destroy(gameObject);

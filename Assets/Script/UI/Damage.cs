@@ -32,7 +32,6 @@ public class Damage : MonoBehaviour
                 if (!list.Contains(armory.Addons[i]))
                 {
                     //새로운 무기 그래프 추가
-                    Debug.Log("오브젝트풀링이 없는 생성");
                     DamageView view = Instantiate(m_View, back.transform);
                     view.Interlock(armory, armory.Addons[i]);
                     damageViews.Add(view);
