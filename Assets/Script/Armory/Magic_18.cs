@@ -31,7 +31,7 @@ public class Magic_18 : IAddon
     //대미지
     private readonly float damage;
     //공격 딜레이
-    private readonly float delay;
+    private float delay;
 
     //공격 딜레마 계산 타이머
     private float timer;
@@ -63,6 +63,7 @@ public class Magic_18 : IAddon
         level++;
 
         projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
+        delay -= 0.5f;
         if (level == MaxLevel)
         {
             //18 + 생명력흡수 = +5
