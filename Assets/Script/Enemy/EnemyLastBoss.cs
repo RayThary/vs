@@ -7,15 +7,15 @@ public class EnemyLastBoss : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigd2d;
+    private Animator anim;
 
     private Vector2 targetVec;
     [SerializeField] private float speed = 2;
     private float basicSpeed;
 
-    private bool targetChange = true;
-    private bool attackCheck = false;
+    private bool movinStop = false;
 
-    //private bool movingStop = false;
+
     private bool attackCoolChekc = false;
     private float timer = 0;
     [SerializeField] private bool SlowInPlayer = false;
@@ -25,6 +25,7 @@ public class EnemyLastBoss : MonoBehaviour
     {
         player = GameManager.Instance.GetCharactor;
         rigd2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         basicSpeed = speed;
 
         mapSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 200, Screen.height - 200));
@@ -40,28 +41,7 @@ public class EnemyLastBoss : MonoBehaviour
     private void moving()
     {
 
-        if (targetChange)
-        {
-            Vector2 maxVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            while (true)
-            {
-                float x = Random.Range(player.position.x - 3, player.position.x + 4);
-                float y = Random.Range(player.position.y - 3, player.position.y + 4);
-                targetVec = new Vector2(x, y);
-                if ((-maxVec.x < x && x < maxVec.x) && (y > -maxVec.y && y < maxVec.y))
-                {
-                    float reDistance = Vector2.Distance(transform.position, targetVec);
-                    if (reDistance > 3)
-                    {
-                        GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.CurvePatten, transform);
-                        obj.GetComponent<CurvePatten>().SetPattenStart(transform.position);
-                        targetChange = false;
-                        break;
-                    }
-                }
-            }
 
-        }
         float targetDistance = Vector2.Distance(transform.position, targetVec);
 
         if (SlowInPlayer)
@@ -79,13 +59,17 @@ public class EnemyLastBoss : MonoBehaviour
 
         if (targetDistance < 0.5f)
         {
-            targetChange = true;
-            attackCheck = true;
+            movinStop = true;
+            anim.SetTrigger("Attack");
         }
 
 
         if (player != null)
         {
+            if (movinStop)
+            {
+                return;
+            }
             transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
         }
 
@@ -128,4 +112,28 @@ public class EnemyLastBoss : MonoBehaviour
 
         return new Vector3(posX, posY, 0);
     }
+
+    private void curveAttack()
+    {
+
+        Vector2 maxVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        while (true)
+        {
+            float x = Random.Range(player.position.x - 3, player.position.x + 4);
+            float y = Random.Range(player.position.y - 3, player.position.y + 4);
+            targetVec = new Vector2(x, y);
+            if ((-maxVec.x < x && x < maxVec.x) && (y > -maxVec.y && y < maxVec.y))
+            {
+                float reDistance = Vector2.Distance(transform.position, targetVec);
+                if (reDistance > 3)
+                {
+                    GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.CurvePatten, transform);
+                    obj.GetComponent<CurvePatten>().SetPattenStart(transform.position);
+                    break;
+                }
+            }
+        }
+        movinStop = false;
+    }
+
 }

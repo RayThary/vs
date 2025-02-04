@@ -21,7 +21,7 @@ public class EnemyMidBoss : MonoBehaviour
     private bool attackCoolChekc = false;
     private float timer = 0;
 
-    [SerializeField] private bool SlowInPlayer = false;
+    //[SerializeField] private bool SlowInPlayer = false;
 
     private float dirX;
     private void Start()
