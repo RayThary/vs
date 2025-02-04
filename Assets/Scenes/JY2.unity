@@ -3274,6 +3274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemy: {fileID: 3423882143220969475, guid: 6a1fb6518c39386498a5c1996e2b421f, type: 3}
+  testboss: {fileID: 0}
+  istest: 0
 --- !u!114 &469116971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,6 +3312,7 @@ MonoBehaviour:
   - {fileID: -2069530197, guid: d9c9739bd11ac1e449f06b19e8407780, type: 3}
   axe: {fileID: 21300000, guid: 3dec0903d2a6f2140af5ea6b13fd5023, type: 3}
   arrow: {fileID: 21300000, guid: 384d1d49d8691ce4f8566f3628672c38, type: 3}
+  PoolingTemp: {fileID: 0}
   m_mirror: {fileID: 222369255}
 --- !u!4 &469116972
 Transform:
@@ -12599,6 +12602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePre: {fileID: 1080832970064499234, guid: 4410109970480df46803f2e6d8a061d0, type: 3}
+  wallPre: {fileID: 0}
 --- !u!4 &1727127785
 Transform:
   m_ObjectHideFlags: 0
