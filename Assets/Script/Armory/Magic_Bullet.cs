@@ -35,7 +35,7 @@ public class Magic_Bullet : IAddon
 
     public Magic_Bullet(Player player)
     {
-        description = "앞으로 화살을 발사한다";
+        description = "총알의 갯수를 하나 늘린다.";
         this.player = player;
         level = 0;
         damage = 1;
@@ -106,6 +106,7 @@ public class Magic_Bullet : IAddon
 
             //투사체 설정
             Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BulletA, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            //Projective projective = Object.Instantiate(Resources.Load<Projective>("Magic/BulletA"));
             projective.Init();
             projective.transform.position = player.SelectCharacter.transform.position;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle + 90);
@@ -140,6 +141,7 @@ public class Magic_Bullet : IAddon
 
             //투사체 설정
             Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BulletA, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
+            //Projective projective = Object.Instantiate(Resources.Load<Projective>("Magic/BulletA"));
             projective.Init();
             projective.transform.position = player.SelectCharacter.transform.position;
             projective.transform.eulerAngles = new Vector3(0, 0, -angle + 90);
