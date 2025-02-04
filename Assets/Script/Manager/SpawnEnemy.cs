@@ -19,9 +19,8 @@ public class SpawnEnemy : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-             GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic1, transform);
-            obj.transform.position = Vector3.zero;
-           // monsterSpawn();
+
+            monsterSpawn();
         }
         if (istest)
         {
@@ -34,7 +33,7 @@ public class SpawnEnemy : MonoBehaviour
 
     private void monsterSpawn()
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 100; i++)
         {
 
             GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Enemy, transform);
