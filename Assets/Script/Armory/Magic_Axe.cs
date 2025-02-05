@@ -82,7 +82,7 @@ public class Magic_Axe : IAddon
 
             projective.transform.position = player.SelectCharacter.transform.position;
             projective.Attributes.Add(new P_Move(projective, Vector2.up, 15));
-            if (player.SelectCharacter.transform.localScale.x > 0)
+            if (GameManager.Instance.GetTargetTrs.position.x > player.SelectCharacter.transform.position.x)
             {
                 projective.Attributes.Add(new P_Move(projective, Vector2.left, 5));
             }
