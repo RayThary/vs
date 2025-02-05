@@ -35,6 +35,12 @@ public class GameManager : MonoBehaviour
     private Sprite arrow;
     public Sprite Arrow { get { return arrow; } }
 
+
+    private float gameTimer = 0;
+    public float GameTimer { get { return gameTimer; } }
+
+    private bool playingGame = false;
+
     private float timescale = 1;
 
     public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
@@ -45,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private mirror m_mirror;
     private int enemyCount = 0;
-    public int SetEnemyCount {  set { enemyCount = value; } }
+    public int SetEnemyCount { set { enemyCount = value; } }
     public bool TimeStop
     {
         get
@@ -71,11 +77,20 @@ public class GameManager : MonoBehaviour
         autoTarget = transform.GetComponent<AutoTarget>();
     }
 
+    private void Update()
+    {
+        if (playingGame)
+        {
+            gameTimer += Time.deltaTime;
+        }
+    }
+
     public void SetCharactor(Transform _trs)
     {
         seletCharactor = _trs;
         Transform mirrorTrs = _trs.GetChild(0).transform;
         m_mirror.SetCharacter(_trs, mirrorTrs);
+        playingGame = true;
     }
 
 
