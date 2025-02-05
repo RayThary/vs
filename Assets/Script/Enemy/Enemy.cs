@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     }
     [SerializeField] private ExpType enemyExpType;
 
+    private Animator anim;
     private Rigidbody2D rigd2d;
     private Transform player;
     [SerializeField] private float speed = 1;
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float hp;
     public float HP { get => hp; set => hp = value; }
-    [SerializeField]
+
     private bool movingStop = false;
 
     private float enemySlowSpeed = 1;
@@ -64,6 +65,7 @@ public class Enemy : MonoBehaviour
         player = GameManager.Instance.GetCharactor;
         sprColorControl = GetComponent<SpriteColorControl>();
         rigd2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -111,19 +113,24 @@ public class Enemy : MonoBehaviour
         {
             if (hp <= 0)
             {
+                GameObject obj;
                 if (enemyExpType == ExpType.Small)
                 {
-                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.SmallExp, GameManager.Instance.GetPoolingTemp);
+                    obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.SmallExp, GameManager.Instance.GetPoolingTemp);
+                    obj.transform.position = transform.position;
                 }
                 else if (enemyExpType == ExpType.Medium)
                 {
-                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.MediumExp, GameManager.Instance.GetPoolingTemp);
+                    obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.MediumExp, GameManager.Instance.GetPoolingTemp);
+                    obj.transform.position = transform.position;
                 }
                 else
                 {
-                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, GameManager.Instance.GetPoolingTemp);
+                    obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, GameManager.Instance.GetPoolingTemp);
+                    obj.transform.position = transform.position;
                 }
                 deathCheck = true;
+                anim.SetTrigger("Death");
             }
         }
     }
@@ -164,5 +171,10 @@ public class Enemy : MonoBehaviour
         speed = _slowSpeed;
         yield return new WaitForSeconds(_slowTimer);
         speed = tempSpeed;
+    }
+
+    private void EnemyDeath()
+    {
+        PoolingManager.Instance.RemovePoolingObject(gameObject);
     }
 }

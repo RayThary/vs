@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    [SerializeField] private GameObject m_enemy;
-
-
     private float timer = 0;
-    private float gameTime = 0;
-    
+    [SerializeField] private float gameTime = 0;
+
+    private int level = 1;
+    private float levelUpCycle = 120;
 
 
     public GameObject testboss;
@@ -18,28 +17,31 @@ public class SpawnEnemy : MonoBehaviour
 
     void Start()
     {
-        gameTime = GameManager.Instance.GameTimer;
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > 2)
-        {
-
-        }
-
-
+        gameTime = GameManager.Instance.GameTimer;
         if (gameTime > 0.5f)
         {
-            monsterSpawn();
+            timer += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (gameTime >= levelUpCycle)
         {
-
-            monsterSpawn();
+            level++;
+            levelUpCycle += 120;
         }
+
+        if (timer >= (level >= 3 ? 0.5f : 1))
+        {
+            int sapwnMax = level + 2;
+            int spawnCount = Random.Range(1, sapwnMax);
+            monsterSpawn(spawnCount);
+            timer = 0;
+        }
+
+
         if (istest)
         {
             GameObject s = Instantiate(testboss);
@@ -50,60 +52,33 @@ public class SpawnEnemy : MonoBehaviour
     }
 
 
-    IEnumerator monsterSpawn1()
+    private void monsterSpawn(int _spawnCount)
     {
-
-        yield return new WaitForSeconds(0.5f);
-        GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Enemy, transform);
-        Vector2 screenVec = Vector2.zero;
-        int objPosiType = Random.Range(0, 4);
-        int h = Random.Range(0, Screen.height);
-        int w = Random.Range(0, Screen.width);
-        switch (objPosiType)
+        for (int i = 0; i < _spawnCount; i++)
         {
-            case 0:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(-100, h));
-                break;
-            case 1:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 100, h));
-                break;
-            case 2:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, -100));
-                break;
-            case 3:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, Screen.height + 100));
-                break;
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.SEnemy, transform);
+            Vector2 screenVec = Vector2.zero;
+            int objPosiType = Random.Range(0, 4);
+            int h = Random.Range(0, Screen.height);
+            int w = Random.Range(0, Screen.width);
+            switch (objPosiType)
+            {
+                case 0:
+                    screenVec = Camera.main.ScreenToWorldPoint(new Vector2(-100, h));
+                    break;
+                case 1:
+                    screenVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 100, h));
+                    break;
+                case 2:
+                    screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, -100));
+                    break;
+                case 3:
+                    screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, Screen.height + 100));
+                    break;
+            }
+
+            obj.transform.position = screenVec;
         }
-
-        obj.transform.position = screenVec;
-    }
-
-    private void monsterSpawn()
-    {
-
-        GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Enemy, transform);
-        Vector2 screenVec = Vector2.zero;
-        int objPosiType = Random.Range(0, 4);
-        int h = Random.Range(0, Screen.height);
-        int w = Random.Range(0, Screen.width);
-        switch (objPosiType)
-        {
-            case 0:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(-100, h));
-                break;
-            case 1:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 100, h));
-                break;
-            case 2:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, -100));
-                break;
-            case 3:
-                screenVec = Camera.main.ScreenToWorldPoint(new Vector2(w, Screen.height + 100));
-                break;
-        }
-
-        obj.transform.position = screenVec;
-
     }
 
 }

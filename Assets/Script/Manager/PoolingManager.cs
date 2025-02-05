@@ -39,6 +39,7 @@ public class PoolingManager : MonoBehaviour
         Magic20,
         Meteor,
         BulletA,
+        SEnemy,
     }
 
     [System.Serializable]
