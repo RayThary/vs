@@ -15,7 +15,7 @@ public class EnemyLastBoss : MonoBehaviour
 
     private bool movinStop = false;
 
-
+    private bool attackCheck = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
     [SerializeField] private bool SlowInPlayer = false;
@@ -57,10 +57,14 @@ public class EnemyLastBoss : MonoBehaviour
             }
         }
 
-        if (targetDistance < 0.5f)
+        if (targetDistance <= 0.1f)
         {
-            movinStop = true;
-            anim.SetTrigger("Attack");
+            if (attackCheck == false)
+            {
+                movinStop = true;
+                anim.SetTrigger("Attack");
+                attackCheck = true;
+            }
         }
 
 
@@ -70,6 +74,8 @@ public class EnemyLastBoss : MonoBehaviour
             {
                 return;
             }
+
+           
             transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
         }
 
@@ -133,7 +139,16 @@ public class EnemyLastBoss : MonoBehaviour
                 }
             }
         }
+        if (targetVec.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(-2, 2);
+        }
+        else if (targetVec.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(2, 2);
+        }
         movinStop = false;
+        attackCheck = false;
     }
 
 }
