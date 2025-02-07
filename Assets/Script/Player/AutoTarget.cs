@@ -6,7 +6,6 @@ using System.Linq;
 
 public class AutoTarget : MonoBehaviour
 {
-    public bool autoTarget = false;
     [SerializeField] private Transform target;
     public Transform GetTarget { get { return target; } }
 
@@ -20,7 +19,7 @@ public class AutoTarget : MonoBehaviour
 
     void Update()
     {
-        if (autoTarget)
+        if (GameManager.Instance.GetPlayer.Setting.Auto)
         {
             target.position = FindAutoTarget();
         }

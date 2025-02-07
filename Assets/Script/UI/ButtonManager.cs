@@ -34,7 +34,13 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     private GameObject soundWindow;
 
-    //guideWindow의 설정
+    //play 설정
+    [SerializeField]
+    private Toggle shaking;
+    [SerializeField]
+    private Toggle auto;
+
+    //graphic 설정
     [SerializeField]
     private Dropdown 해상도;
     private readonly List<Resolution> resolutions = new();
@@ -302,28 +308,32 @@ public class ButtonManager : MonoBehaviour
         baseWindow.SetActive(true);
     }
 
+    public void OnShakingToggle()
+    {
+        player.Setting.Shaking = shaking.isOn;
+    }
+    public void OnAutoTargetToggle()
+    {
+        player.Setting.Auto = auto.isOn;
+    }
+
     public void 해상도설정()
     {
         player.Setting.Resolution = resolutions[해상도.value];
-        Screen.SetResolution(resolutions[해상도.value].width, resolutions[해상도.value].height, (FullScreenMode)화면모드.value, resolutions[해상도.value].refreshRateRatio);
     }
 
     public void 프레임설정()
     {
         player.Setting.FrameRate = frameRate[프레임.value];
-        Application.targetFrameRate = frameRate[프레임.value];
     }
 
     public void 화면설정()
     {
         player.Setting.FullScreenMode = (FullScreenMode)화면모드.value;
-        Screen.SetResolution(resolutions[해상도.value].width, resolutions[해상도.value].height, (FullScreenMode)화면모드.value, resolutions[해상도.value].refreshRateRatio);
     }
 
     public void OnButton안티에일리어싱()
     {
-        UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
-        cameraData.antialiasing = (AntialiasingMode)안티에일리어싱.value;
         player.Setting.Antialiasing = (AntialiasingMode)안티에일리어싱.value;
     }
 

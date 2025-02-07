@@ -18,19 +18,25 @@ public class PlayerSetting
     //행상도
     [SerializeField]
     private Resolution resolution;
-    public Resolution Resolution { get {  return resolution; } set { resolution = value; } }
+    public Resolution Resolution { get {  return resolution; } set { resolution = value; Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio); } }
     //프레임
     [SerializeField]
     private int frameRate;
-    public int FrameRate { get {  return frameRate; } set {  frameRate = value; } }
+    public int FrameRate { get {  return frameRate; } set {  frameRate = value; Application.targetFrameRate = frameRate; } }
     //화면모드
     [SerializeField]
     private FullScreenMode fullScreenMode;
-    public FullScreenMode FullScreenMode { get {  return fullScreenMode; } set {  fullScreenMode = value; } }
+    public FullScreenMode FullScreenMode { get {  return fullScreenMode; } set {  fullScreenMode = value; Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio); } }
     //안티에일리어싱
     [SerializeField]
     private AntialiasingMode antialiasing;
-    public AntialiasingMode Antialiasing { get {  return antialiasing; } set {  antialiasing = value; } }
+    public AntialiasingMode Antialiasing { get {  return antialiasing; } 
+        set
+        {  
+            antialiasing = value; 
+            UniversalAdditionalCameraData cameraData = Camera.main.GetComponent<UniversalAdditionalCameraData>();
+            cameraData.antialiasing = antialiasing;
+        } }
 
     //스킬 투명도
     [SerializeField]
