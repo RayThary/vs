@@ -9,6 +9,7 @@ public class CharacterOne : Character
     private readonly float skillTimer = 5;
     private readonly float value = 3;
     private Coroutine coroutine;
+    //Ω∫≈≥¿Ã∆Â∆Æ
     [SerializeField]
     private Projective projective;
 

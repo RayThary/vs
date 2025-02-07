@@ -29,7 +29,7 @@ public class Magic_18 : IAddon
     //투사체 속도
     private readonly float speed;
     //대미지
-    private readonly float damage;
+    private float damage;
     //공격 딜레이
     private float delay;
 
@@ -44,7 +44,7 @@ public class Magic_18 : IAddon
         description = "하늘에서 떨어지면서 피해를 입힌다";
         this.player = player;
         speed = 10;
-        damage = 1;
+        damage = 10;
         delay = 5;
         level = 0;
         cam = Camera.main;
@@ -61,8 +61,8 @@ public class Magic_18 : IAddon
     public void LevelUp()
     {
         level++;
-
-        projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
+        damage += 3;
+        projectives.ForEach(x => x.transform.localScale += new Vector3(1f, 1f, 0));
         delay -= 0.5f;
         if (level == MaxLevel)
         {
@@ -79,9 +79,10 @@ public class Magic_18 : IAddon
     public void Remove()
     {
         level = 0;
+        damage = 10;
         //모든 발사체 삭제
         projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
-        projectives.ForEach(x => x.transform.localScale = new Vector3(1, 1, 1));
+        projectives.ForEach(x => x.transform.localScale = new Vector3(4, 4, 1));
         projectives.Clear();
         enhance = false;
     }

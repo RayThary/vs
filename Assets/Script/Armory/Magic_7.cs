@@ -32,7 +32,7 @@ public class Magic_7 : IAddon
         description = "플레이어의 주변에 회전하는 불꽃을 생성한다";
         this.player = player;
         level = 0;
-        damage = 4;
+        damage = 16;
     }
 
     public void Addon()

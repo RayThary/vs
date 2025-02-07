@@ -29,7 +29,7 @@ public class Magic_10 : IAddon
     //상대 이동속도 저하
     private float speed;
     //대미지
-    private readonly float damage;
+    private float damage;
 
     public Magic_10(Player player)
     {
@@ -37,7 +37,7 @@ public class Magic_10 : IAddon
         description = "플레이어 주위에 피해를 입히며 상대를 느려지게 한다";
         this.player = player;
         speed = 0.3f;
-        damage = 1;
+        damage = 5;
         level = 0;
     }
 
@@ -51,6 +51,7 @@ public class Magic_10 : IAddon
     {
         level++;
         speed += 0.1f;
+        damage += 1;
         if (level == MaxLevel)
         {
             //서로 짝이되는 강화가 있어야 함 19
@@ -67,6 +68,7 @@ public class Magic_10 : IAddon
     {
         level = 0;
         speed = 0.3f;
+        damage = 5;
         //모든 발사체 삭제
         projectives.ForEach(x => PoolingManager.Instance.RemovePoolingObject(x.gameObject));
         projectives.Clear();

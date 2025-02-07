@@ -3320,7 +3320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f57fae6591a7594a80dde387acfcc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemy: {fileID: 3423882143220969475, guid: 6a1fb6518c39386498a5c1996e2b421f, type: 3}
+  gameTime: 0
   testboss: {fileID: 0}
   istest: 0
 --- !u!114 &469116971
@@ -5549,7 +5549,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerExp: 8
   needExp: 10
-  selectCharacter: {fileID: 0}
   cardSelect: {fileID: 1773066330}
 --- !u!4 &656094452
 Transform:
@@ -7205,6 +7204,9 @@ MonoBehaviour:
     count: 100
     description: 
   - clip: {fileID: 5199382668032540707, guid: eb84f0d5172981241899906db98fdda3, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 4890220247707469362, guid: f756c8524f6343d4dbe4e445a7c3a16a, type: 3}
     count: 200
     description: 
 --- !u!1 &828302318

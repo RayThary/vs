@@ -38,7 +38,7 @@ public class Magic_8 : IAddon
         description = "벽에 튕기는 구체를 3발 발사한다";
         this.player = player;
         speed = 5;
-        damage = 1;
+        damage = 5;
         level = 0;
     }
 

@@ -38,7 +38,7 @@ public class Magic_Bullet : IAddon
         description = "총알의 갯수를 하나 늘린다.";
         this.player = player;
         level = 0;
-        damage = 1;
+        damage = 2;
         delay = 1;
     }
 
@@ -70,10 +70,9 @@ public class Magic_Bullet : IAddon
     private Coroutine coroutine;
     public void Update()
     {
+        //딜레이가 너무 짧으니까 그냥 계속 발사하고 있기
         if((player.Stat.AttackCount + level * 0.1f) >= timer + (delay - player.Stat.AttackCool))
         {
-            Debug.Log(player.Stat.AttackCount + level * 0.1f);
-            Debug.Log(timer + (delay - player.Stat.AttackCool));
             if (coroutine == null)
                 coroutine = GameManager.Instance.StartCoroutine(ContinuousFire());
         }
@@ -96,7 +95,11 @@ public class Magic_Bullet : IAddon
             //상대 방향
             Vector2 dir = GameManager.Instance.GetTargetTrs.position - player.SelectCharacter.transform.position;
             //각도에 랜덤성이 있어야 함
-            float angle = Vector2.Angle(Vector2.up, dir) + Random.Range(-10, 11);
+            float angle = Vector2.Angle(Vector2.up, dir);
+            //첫발은 근데 랜덤성 없어야 할듯
+            if (i != 0)
+                angle += Random.Range(-10, 11);
+
             if (GameManager.Instance.GetTargetTrs.position.x < player.SelectCharacter.transform.position.x)
             {
                 angle = -angle;
@@ -122,6 +125,7 @@ public class Magic_Bullet : IAddon
         timer = Time.time;
     }
 
+    //그냥 계속 발사
     private IEnumerator ContinuousFire()
     {
         while (true)

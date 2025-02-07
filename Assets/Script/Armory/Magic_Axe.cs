@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Magic_Axe : IAddon
@@ -38,7 +39,7 @@ public class Magic_Axe : IAddon
         description = "앞으로 도끼를 던진다";
         this.player = player;
         level = 0;
-        damage = 2; 
+        damage = 5; 
         delay = 3;
     }
 
@@ -82,14 +83,17 @@ public class Magic_Axe : IAddon
 
             projective.transform.position = player.SelectCharacter.transform.position;
             projective.Attributes.Add(new P_Move(projective, Vector2.up, 15));
-            if (GameManager.Instance.GetTargetTrs.position.x > player.SelectCharacter.transform.position.x)
+            P_Move move;
+            if (GameManager.Instance.GetTargetTrs.position.x < player.SelectCharacter.transform.position.x)
             {
-                projective.Attributes.Add(new P_Move(projective, Vector2.left, 5));
+                move = new P_Move(projective, Vector2.left, 5);
             }
             else
             {
-                projective.Attributes.Add(new P_Move(projective, Vector2.right, 5));
+                move = new P_Move(projective, Vector2.right, 5);
             }
+            projective.Attributes.Add(move);
+            projective.Attributes.Add(new P_AirResistance(move));
             projective.Attributes.Add(new P_Rotation(projective, 180));
             projective.Attributes.Add(new P_Gravity(projective));
             projective.Attributes.Add(new P_Damage(this, damage));

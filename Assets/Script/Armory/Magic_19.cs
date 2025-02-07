@@ -40,7 +40,7 @@ public class Magic_19 : IAddon
         description = "플레이어 주위에 피해를 입히며 상대를 느려지게 한다";
         this.player = player;
         speed = 0.3f;
-        damage = 2;
+        damage = 20;
         cycle = 1;
         level = 0;
     }

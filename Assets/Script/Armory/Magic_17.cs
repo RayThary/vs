@@ -36,7 +36,7 @@ public class Magic_17 : IAddon
         description = "벽에 튕기는 큰 구체를 하나를 발사한다";
         this.player = player;
         speed = 3;
-        damage = 3;
+        damage = 20;
         level = 0;
     }
 
