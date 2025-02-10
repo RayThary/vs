@@ -56,6 +56,8 @@ public class P_DamageTimer : IP_Attribute
                 //생명령 흡수
                 GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
                 enemies[i].Time = Time.time;
+                //사운드
+                SoundManager.instance.SFXCreate(SoundManager.Clips.UnitHit, SoundManager.instance.transform);
             }
         }
         

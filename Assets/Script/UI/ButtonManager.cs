@@ -80,6 +80,8 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     private Damage damage;
 
+    [SerializeField]
+    private Button optionClose;
 
     //캐릭터 3개 로딩
     private Character[] charactors;
@@ -268,6 +270,7 @@ public class ButtonManager : MonoBehaviour
     {
         baseWindow.SetActive(false);
         optionWindow.SetActive(true);
+        ingameOptionWindow.SetActive(false);
     }
 
     public void OnButton종료()
@@ -405,6 +408,15 @@ public class ButtonManager : MonoBehaviour
         //필드 몹 없애야 함
         MenuWindowActive();
         player.Armory.Clear();
+        //옵션 닫기 버튼에 대한 처리
+        optionClose.onClick.RemoveAllListeners();
+        optionClose.onClick.AddListener(OnButtonOptionClose);
+    }
+
+    public void OnButtonInOption()
+    {
+        optionWindow.SetActive(false);
+        ingameOptionWindow.SetActive(true);
     }
 
     public void OnButtonDamage()
@@ -416,14 +428,15 @@ public class ButtonManager : MonoBehaviour
         damage.Close();
     }
 
-
-
     public void OnButtonSelect(int id)
     {
         CharactorSelect.SetActive(false);
         InGameWindowActive();
         GameManager.Instance.GetPlayer.SelectCharacter = Instantiate(charactors[id]);
         GameManager.Instance.SetCharactor(GameManager.Instance.GetPlayer.SelectCharacter.transform);
+        //옵션 닫기 버튼에 대한 처리
+        optionClose.onClick.RemoveAllListeners();
+        optionClose.onClick.AddListener(OnButtonInOption);
     }
 
     public void OnButton돌아가기()

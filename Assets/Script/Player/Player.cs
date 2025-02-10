@@ -26,11 +26,13 @@ public class Player : MonoBehaviour
         if (LoadSaveManager.Instance.LoadJson(ref setting, "setting"))
         {
             //로드 성공
+            Debug.Log("로드성공");
             ButtonManager.Instance.Refresh(setting);
         }
         else
         {
             //로드 실패
+            Debug.Log("로드실패");
             setting = new PlayerSetting();
             ButtonManager.Instance.Refresh();
         }

@@ -17,8 +17,13 @@ public class PlayerSetting
 
     //행상도
     [SerializeField]
-    private Resolution resolution;
-    public Resolution Resolution { get {  return resolution; } set { resolution = value; Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio); } }
+    private int width;
+    [SerializeField]
+    private int height;
+    [SerializeField]
+    private RefreshRate refreshRate; 
+    public Resolution Resolution { get { return new Resolution() { width = width, height = height, refreshRateRatio = refreshRate }; } set { width = value.width; height = value.height; refreshRate = value.refreshRateRatio; } }
+
     //프레임
     [SerializeField]
     private int frameRate;
@@ -26,7 +31,7 @@ public class PlayerSetting
     //화면모드
     [SerializeField]
     private FullScreenMode fullScreenMode;
-    public FullScreenMode FullScreenMode { get {  return fullScreenMode; } set {  fullScreenMode = value; Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio); } }
+    public FullScreenMode FullScreenMode { get {  return fullScreenMode; } set {  fullScreenMode = value; Screen.SetResolution(width, height, fullScreenMode, refreshRate); } }
     //안티에일리어싱
     [SerializeField]
     private AntialiasingMode antialiasing;
