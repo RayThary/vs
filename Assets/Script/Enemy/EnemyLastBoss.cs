@@ -15,6 +15,9 @@ public class EnemyLastBoss : MonoBehaviour
 
     private bool movinStop = false;
 
+    [SerializeField]
+    private float hp = 100;
+
     private bool attackCheck = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
@@ -41,7 +44,6 @@ public class EnemyLastBoss : MonoBehaviour
     private void moving()
     {
 
-
         float targetDistance = Vector2.Distance(transform.position, targetVec);
 
         if (SlowInPlayer)
@@ -66,7 +68,6 @@ public class EnemyLastBoss : MonoBehaviour
                 attackCheck = true;
             }
         }
-
 
         if (player != null)
         {
@@ -97,6 +98,13 @@ public class EnemyLastBoss : MonoBehaviour
         }
     }
 
+    private void death()
+    {
+        if (hp <= 0)
+        {
+            anim.SetTrigger("Death");
+        }
+    }
 
     //소환될 개수
     IEnumerator meteor(int count)
@@ -119,6 +127,7 @@ public class EnemyLastBoss : MonoBehaviour
         return new Vector3(posX, posY, 0);
     }
 
+    //애니메이션 이벤트
     private void curveAttack()
     {
 
@@ -150,5 +159,9 @@ public class EnemyLastBoss : MonoBehaviour
         movinStop = false;
         attackCheck = false;
     }
-
+    //애니메이션 이벤트
+    private void enemyDeath()
+    {
+        PoolingManager.Instance.RemovePoolingObject(gameObject);
+    }
 }

@@ -21,6 +21,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float m_bgmStartDealy = 0.5f;
 
     private Transform pollingObjParentTrs;//풀링오브젝트의 부모위치
+    private Transform sfxParent;//부모설정없을경우 넣어줄곳
 
     //오디오클립이 들어간 비어있는 오디오소스
     [SerializeField] private GameObject SFXsource;
@@ -45,6 +46,7 @@ public class SoundManager : MonoBehaviour
 
         StartCoroutine(bgStart());
         pollingObjParentTrs = transform.GetChild(0);
+        sfxParent = transform.GetChild(1);
         initPoolingClip();
     }
 
@@ -90,6 +92,11 @@ public class SoundManager : MonoBehaviour
     {
         AudioClip clip = clips.Find(x => x.name == _clip.ToString());
         StartCoroutine(SFXPlaying(clip, 1, 0, _parent));
+    }
+    public void SFXCreate(Clips _clip)
+    {
+        AudioClip clip = clips.Find(x => x.name == _clip.ToString());
+        StartCoroutine(SFXPlaying(clip, 1, 0, sfxParent));
     }
 
     IEnumerator SFXPlaying(AudioClip clip, float _volum, float _SFXTime, Transform _parent)

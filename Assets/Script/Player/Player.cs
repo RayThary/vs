@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int playerExp = 8;
     [SerializeField] private int needExp = 10;
+    private int basicExp => needExp;
 
     private Character selectCharacter;
     public Character SelectCharacter { get { return selectCharacter; } set { selectCharacter = value; } }
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
             {
                 playerExp = 0;
             }
-            float nextExp = needExp * 1.1f;
+            double nextExp = basicExp * (Mathf.Pow(GameManager.Instance.GetStageLevel, 1.5f));
             needExp = (int)nextExp;
             cardSelect.On = true;
         }

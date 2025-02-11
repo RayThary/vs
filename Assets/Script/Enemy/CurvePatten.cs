@@ -48,7 +48,7 @@ public class CurvePatten : MonoBehaviour
 
             for (int i = 0; i < startTrsList.Count; i++)
             {
-                bulletObj.Add(PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TempCurveImage, transform));
+                bulletObj.Add(PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.CurveImage, transform));
                 bulletObj[i].transform.position = startTrsList[i];
             }
             setPostion();

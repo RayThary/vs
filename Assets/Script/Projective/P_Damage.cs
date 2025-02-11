@@ -22,6 +22,7 @@ public class P_Damage : IP_Attribute
             enemy.EnemyKnockback(0.2f, 1);
             addon.Statistics += damage;
             GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
+            SoundManager.instance.SFXCreate(SoundManager.Clips.UnitHit);
         }
     }
 

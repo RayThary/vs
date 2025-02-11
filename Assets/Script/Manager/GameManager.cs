@@ -35,11 +35,17 @@ public class GameManager : MonoBehaviour
     private Sprite arrow;
     public Sprite Arrow { get { return arrow; } }
 
+    [SerializeField]
+    private float gamePlayingTimer = 0;
+    public float GameTimer { get { return gamePlayingTimer; } }
 
-    private float gameTimer = 0;
-    public float GameTimer { get { return gameTimer; } }
+    private bool gameTime = false;
+    public bool SetGameTime { set { gameTime = value; } }
 
-    private bool playingGame = false;
+    private int stageLevel = 1;
+    public int GetStageLevel {  get { return stageLevel; } }
+
+    private int nextLevelTime = 90;
 
     private float timescale = 1;
 
@@ -79,9 +85,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (playingGame)
+        gamePlayingTime();
+    }
+
+    private void gamePlayingTime()
+    {
+        if (gameTime)
         {
-            gameTimer += Time.deltaTime;
+            gamePlayingTimer += Time.deltaTime;
+            if (gamePlayingTimer >= nextLevelTime)
+            {
+                nextLevelTime += 90;
+                stageLevel++;
+            }
         }
     }
 
@@ -90,7 +106,7 @@ public class GameManager : MonoBehaviour
         seletCharactor = _trs;
         Transform mirrorTrs = _trs.GetChild(0).transform;
         m_mirror.SetCharacter(_trs, mirrorTrs);
-        playingGame = true;
+        gameTime = true;
     }
 
 
