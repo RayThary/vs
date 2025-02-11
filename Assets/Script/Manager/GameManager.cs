@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour
     private Transform enemyParent;
     public Transform GetEnemyPoolingTemp {  get { return enemyParent; } }
 
+    [SerializeField]
+    private GameObject over;
     
     public bool TimeStop
     {
@@ -112,7 +114,16 @@ public class GameManager : MonoBehaviour
         gameTime = true;
     }
 
-
+    public void GameOver()
+    {
+        over.SetActive(true);
+        TimeStop = true;
+    }
+    public void GameOver2()
+    {
+        ButtonManager.Instance.OnButtonMainMenu();
+        over.SetActive(false);
+    }
 
 
 

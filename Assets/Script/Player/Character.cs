@@ -55,6 +55,10 @@ public class Character : MonoBehaviour
         {
             Skill();
         }
+        if(hp <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     protected virtual void Skill() { }
