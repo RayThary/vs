@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
 
     private Transform mirroTrs;
 
+    [SerializeField]
     private float maxHp;
     public float MaxHP { get { return maxHp; } set {  maxHp = value; } }
 
@@ -20,7 +21,6 @@ public class Character : MonoBehaviour
     private Sprite sprite;
     public Sprite Sprite { get { return sprite; } }
 
-    [SerializeField]
     private float hp;
     public float HP { get => hp; set => hp = value; }
 
@@ -36,6 +36,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        hp = maxHp;
         recover = Time.time;
         rigid2d = GetComponent<Rigidbody2D>();
         mirroTrs = transform.GetChild(0);

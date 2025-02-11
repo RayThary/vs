@@ -52,12 +52,15 @@ public class GameManager : MonoBehaviour
     public float TimeScale { get { return timescale; } set { Time.timeScale = value; timescale = value; } }
 
     private bool timeStop = false;
+
     [SerializeField] private Transform PoolingTemp;
     public Transform GetPoolingTemp { get { return PoolingTemp; } }
 
-    [SerializeField] private mirror m_mirror;
-    private int enemyCount = 0;
-    public int SetEnemyCount { set { enemyCount = value; } }
+    [SerializeField]
+    private Transform enemyParent;
+    public Transform GetEnemyPoolingTemp {  get { return enemyParent; } }
+
+    
     public bool TimeStop
     {
         get
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
 
         player = FindObjectOfType<Player>();
         autoTarget = transform.GetComponent<AutoTarget>();
+
     }
 
     private void Update()
@@ -105,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         seletCharactor = _trs;
         Transform mirrorTrs = _trs.GetChild(0).transform;
-        m_mirror.SetCharacter(_trs, mirrorTrs);
         gameTime = true;
     }
 

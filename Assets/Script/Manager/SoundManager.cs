@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
 
     public enum Clips
     {
-        Attack,
+        PlayerHit,
         UnitHit,
     }
 
@@ -50,13 +50,7 @@ public class SoundManager : MonoBehaviour
         initPoolingClip();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SFXCreate(Clips.Attack, transform);
-        }
-    }
+
 
     private void initPoolingClip()
     {

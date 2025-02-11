@@ -1584,8 +1584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSpeed: 3
+  maxHp: 0
   sprite: {fileID: 21300000, guid: 3dec0903d2a6f2140af5ea6b13fd5023, type: 3}
-  hp: 0
   sheild: 0
   projective: {fileID: 590844449307008111}
 --- !u!210 &8126368411145884099

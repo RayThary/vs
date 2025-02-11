@@ -12,18 +12,13 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField]
     private int nextLevel;
 
-    private Transform enemyParent;
+    private Transform enemyParent => GameManager.Instance.GetEnemyPoolingTemp;
 
-    public GameObject testboss;
-    public bool istest = false;
 
-    private List<Transform> spawnEnemyTrs = new List<Transform>();
 
     void Start()
     {
-        enemyParent = transform.Find("Enemy");
         nextLevel = level + 1;
-
     }
 
     void Update()
@@ -31,15 +26,7 @@ public class SpawnEnemy : MonoBehaviour
 
         spawnEnemy();
         spawnBossEnemy();
-        if (istest)
-        {
 
-            GameObject s = Instantiate(testboss);
-            s.transform.position = Vector3.zero;
-
-            istest = false;
-
-        }
     }
 
     private void spawnEnemy()

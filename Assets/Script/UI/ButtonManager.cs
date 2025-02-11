@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -408,6 +409,9 @@ public class ButtonManager : MonoBehaviour
         //필드 몹 없애야 함
         MenuWindowActive();
         player.Armory.Clear();
+        Destroy(player.SelectCharacter.gameObject);
+        PoolingManager.Instance.RemoveAllPoolingObject(GameManager.Instance.GetPoolingTemp.gameObject);
+        PoolingManager.Instance.RemoveAllPoolingObject(GameManager.Instance.GetEnemyPoolingTemp.gameObject);
         //옵션 닫기 버튼에 대한 처리
         optionClose.onClick.RemoveAllListeners();
         optionClose.onClick.AddListener(OnButtonOptionClose);

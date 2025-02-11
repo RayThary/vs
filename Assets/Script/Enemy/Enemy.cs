@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
     private float knockBackPower = 1;
     private SpriteColorControl sprColorControl;
 
+    private float timer = 0;
+
     private bool deathCheck = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,8 +43,9 @@ public class Enemy : MonoBehaviour
         {
             movingStop = true;
         }
-
     }
+
+
 
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -79,6 +82,7 @@ public class Enemy : MonoBehaviour
             enemyMoving();
         }
         enemyDie();
+        playerDamege();
     }
 
     private void enemyMoving()
@@ -111,6 +115,29 @@ public class Enemy : MonoBehaviour
         rigd2d.velocity = Vector2.zero;
     }
 
+    private void playerDamege()
+    {
+        if (movingStop)
+        {
+            timer += Time.deltaTime;
+            if (timer > 0.2f)
+            {
+                float damage;
+                damage = enemyExpType switch
+                {
+                    ExpType.Small => 1,
+                    ExpType.Medium => 1.5f,
+                    ExpType.Large => 2,
+                    ExpType.Boss => 3,
+                    _ => 0,
+                };
+
+                GameManager.Instance.GetPlayer.SelectCharacter.HP-= damage;
+                SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
+                timer = 0;
+            }
+        }
+    }
     private void enemyDie()
     {
         if (deathCheck == false)
