@@ -41,7 +41,7 @@ public class mirror : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            potalObj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Potal, GameManager.Instance.GetPoolingTemp);
+            
             potalObj.transform.position = charactor.position;
             potalObj.GetComponent<Potal>().PotalOpen = true;
             potalCheck = true;
@@ -99,8 +99,7 @@ public class mirror : MonoBehaviour
         {
             if (potalObj.transform.localScale.x >= 1)
             {
-                leftLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineLeft, GameManager.Instance.GetPoolingTemp);
-                rightLine = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.TapLineRight, GameManager.Instance.GetPoolingTemp);
+
 
                 leftLine.transform.position = new Vector2(-cameraLeftVec.x, cameraLeftVec.y);
                 rightLine.transform.position = cameraLeftVec;

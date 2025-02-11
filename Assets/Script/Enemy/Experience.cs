@@ -10,15 +10,17 @@ public class Experience : MonoBehaviour
         Small,
         Medium,
         Large,
+        Boss,
     }
     [SerializeField]
     private ExpType m_expType;
     private Player player;
     private Transform playerTrs;
-    private SpriteRenderer spr;
 
     private float playerDis;
     private bool playerCheck = false;
+
+    private int basicExp = 0;
 
     private float timer = 0;
 
@@ -26,18 +28,22 @@ public class Experience : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (m_expType == ExpType.Small)
+            basicExp = m_expType switch
             {
-                player.AddExp(1);
+                ExpType.Small => 5 * GameManager.Instance.GetStageLevel,
+                ExpType.Medium => 10 + (GameManager.Instance.GetStageLevel * 10),
+                ExpType.Large => 20 + ((GameManager.Instance.GetStageLevel - 1) * 20),
+                ExpType.Boss => 0,
+                _ => 1
+            };
+            if (basicExp == 0)
+            {
+                player.CardSelect.On = true;
             }
-            else if (m_expType == ExpType.Medium)
+            else
             {
-                player.AddExp(2);
-                
-            }
-            else if (m_expType == ExpType.Large)
-            {
-                player.AddExp(3);
+                player.AddExp(basicExp);
+
             }
 
             Destroy(gameObject);
@@ -45,23 +51,21 @@ public class Experience : MonoBehaviour
     }
     void Start()
     {
-        spr = GetComponent<SpriteRenderer>();
         player = GameManager.Instance.GetPlayer;
         playerTrs = GameManager.Instance.GetCharactor;
         playerDis = GameManager.Instance.GetExpDistance;
 
-        if (m_expType == ExpType.Small)
+
+        basicExp = m_expType switch
         {
-            spr.color = Color.green;
-        }
-        else if (m_expType == ExpType.Medium)
-        {
-            spr.color = Color.yellow;
-        }
-        else
-        {
-            spr.color = Color.cyan;
-        }
+            ExpType.Small => 5 * GameManager.Instance.GetStageLevel,
+            ExpType.Medium => 10 + (GameManager.Instance.GetStageLevel * 10),
+            ExpType.Large => 20 + ((GameManager.Instance.GetStageLevel - 1) * 20),
+            _ => 1
+        };
+
+
+
     }
 
     // Update is called once per frame
@@ -71,7 +75,6 @@ public class Experience : MonoBehaviour
         if (dis < playerDis)
         {
             playerCheck = true;
-
         }
 
         if (playerCheck)
@@ -80,7 +83,6 @@ public class Experience : MonoBehaviour
             if (timer > 0.1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, playerTrs.position, 10 * Time.deltaTime);
-
             }
             else
             {

@@ -6,57 +6,87 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     private float timer = 0;
-    [SerializeField] private float gameTime = 0;
+    [SerializeField] private float gameTime => GameManager.Instance.GameTimer;
 
-    private int level = 1;
-    private float levelUpCycle = 120;
+    private int level => GameManager.Instance.GetStageLevel;
+    [SerializeField]
+    private int nextLevel;
 
+    private Transform enemyParent;
 
     public GameObject testboss;
     public bool istest = false;
 
+    private List<Transform> spawnEnemyTrs = new List<Transform>();
+
     void Start()
     {
+        enemyParent = transform.Find("Enemy");
+        nextLevel = level + 1;
+
     }
 
     void Update()
     {
-        gameTime = GameManager.Instance.GameTimer;
-        if (gameTime > 0.5f)
-        {
-            timer += Time.deltaTime;
-        }
 
-        if (gameTime >= levelUpCycle)
-        {
-            level++;
-            levelUpCycle += 120;
-        }
-
-        if (timer >= (level >= 3 ? 0.5f : 1))
-        {
-            int sapwnMax = level + 2;
-            int spawnCount = Random.Range(1, sapwnMax);
-            monsterSpawn(spawnCount);
-            timer = 0;
-        }
-
-
+        spawnEnemy();
+        spawnBossEnemy();
         if (istest)
         {
+
             GameObject s = Instantiate(testboss);
             s.transform.position = Vector3.zero;
+
             istest = false;
 
         }
     }
 
+    private void spawnEnemy()
+    {
+        if (gameTime > 0.5f)
+        {
+            timer += Time.deltaTime;
+        }
+
+        if (timer >= (level <= 5 ? 1f : 3))
+        {
+            int spawnCount = Random.Range(1, level == 1 ? 2 : level);
+            monsterSpawn(spawnCount);
+            timer = 0;
+        }
+
+    }
 
     private void monsterSpawn(int _spawnCount)
     {
         for (int i = 0; i < _spawnCount; i++)
         {
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.SEnemy, transform);
+            GameObject obj;
+            PoolingManager.ePoolingObject spawnObject;
+            if (level >= 3)
+            {
+                int spawnType = Random.Range(0, 10);
+                if (level >= 6)
+                {
+                    if (spawnType >= 6)
+                        spawnObject = PoolingManager.ePoolingObject.LEnemy;
+                    else if (spawnType >= 2)
+                        spawnObject = PoolingManager.ePoolingObject.MEnemy;
+                    else
+                        spawnObject = PoolingManager.ePoolingObject.SEnemy;
+                }
+                else
+                {
+                    spawnObject = spawnType >= 6 ? PoolingManager.ePoolingObject.MEnemy : PoolingManager.ePoolingObject.SEnemy;
+                }
+            }
+            else
+            {
+                spawnObject = PoolingManager.ePoolingObject.SEnemy;
+            }
+            obj = PoolingManager.Instance.CreateObject(spawnObject, enemyParent);
+
             Vector2 screenVec = Vector2.zero;
             int objPosiType = Random.Range(0, 4);
             int h = Random.Range(0, Screen.height);
@@ -80,5 +110,39 @@ public class SpawnEnemy : MonoBehaviour
             obj.transform.position = screenVec;
         }
     }
+
+    private void spawnBossEnemy()
+    {
+        if (level >= nextLevel)
+        {
+            nextLevel++;
+
+
+            if (nextLevel != 6 || nextLevel != 11)
+            {
+                if (nextLevel % 2 == 0)
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyBoss, enemyParent);
+                }
+            }
+            else
+            {
+                if (nextLevel == 6)
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyMiddleBoss, enemyParent);
+                }
+                else
+                {
+                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyLastBoss, enemyParent);
+                }
+                GameManager.Instance.SetGameTime = false;
+                PoolingManager.Instance.RemoveAllPoolingObject(enemyParent.gameObject);
+            }
+
+        }
+
+    }
+
+
 
 }

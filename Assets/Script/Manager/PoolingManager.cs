@@ -8,11 +8,8 @@ public class PoolingManager : MonoBehaviour
     public enum ePoolingObject
     {
         Enemy,
-        Potal,
-        TapLineLeft,
-        TapLineRight,
         CurvePatten,
-        TempCurveImage,
+        CurveImage,
         SmallExp,
         MediumExp,
         LargeExp,
@@ -40,6 +37,12 @@ public class PoolingManager : MonoBehaviour
         Meteor,
         BulletA,
         SEnemy,
+        MEnemy,
+        LEnemy,
+        EnemyBoss,
+        EnemyMiddleBoss,
+        EnemyLastBoss,
+        BossExp,
     }
 
     [System.Serializable]

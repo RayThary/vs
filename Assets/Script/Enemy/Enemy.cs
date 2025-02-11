@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
         Small,
         Medium,
         Large,
+        Boss,
     }
     [SerializeField] private ExpType enemyExpType;
 
@@ -66,7 +67,10 @@ public class Enemy : MonoBehaviour
         sprColorControl = GetComponent<SpriteColorControl>();
         rigd2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        SetHp();
     }
+
+
 
     private void Update()
     {
@@ -124,15 +128,32 @@ public class Enemy : MonoBehaviour
                     obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.MediumExp, GameManager.Instance.GetPoolingTemp);
                     obj.transform.position = transform.position;
                 }
-                else
+                else if ((enemyExpType == ExpType.Large))
                 {
                     obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, GameManager.Instance.GetPoolingTemp);
                     obj.transform.position = transform.position;
                 }
+                else if ((enemyExpType == ExpType.Boss))
+                {
+
+                }
+
                 deathCheck = true;
                 anim.SetTrigger("Death");
             }
         }
+    }
+
+    private void SetHp()
+    {
+        hp = enemyExpType switch
+        {
+            ExpType.Small => GameManager.Instance.GetStageLevel * 10,
+            ExpType.Medium => GameManager.Instance.GetStageLevel * 20,
+            ExpType.Large => GameManager.Instance.GetStageLevel * 40,
+            ExpType.Boss => GameManager.Instance.GetStageLevel * 100,
+            _ => 20
+        };
     }
 
     /// <summary>
@@ -176,5 +197,6 @@ public class Enemy : MonoBehaviour
     private void EnemyDeath()
     {
         PoolingManager.Instance.RemovePoolingObject(gameObject);
+        SetHp();
     }
 }
