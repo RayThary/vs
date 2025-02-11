@@ -82,15 +82,15 @@ public class Magic_Axe : IAddon
             //움직임이 점점 느려져야 함
 
             projective.transform.position = player.SelectCharacter.transform.position;
-            projective.Attributes.Add(new P_Move(projective, Vector2.up, 15));
+            projective.Attributes.Add(new P_Move(projective, Vector2.up, 17));
             P_Move move;
             if (GameManager.Instance.GetTargetTrs.position.x < player.SelectCharacter.transform.position.x)
             {
-                move = new P_Move(projective, Vector2.left, 5);
+                move = new P_Move(projective, Vector2.left, 3);
             }
             else
             {
-                move = new P_Move(projective, Vector2.right, 5);
+                move = new P_Move(projective, Vector2.right, 3);
             }
             projective.Attributes.Add(move);
             projective.Attributes.Add(new P_AirResistance(move));

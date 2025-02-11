@@ -57,7 +57,7 @@ public class P_DamageTimer : IP_Attribute
                 GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
                 enemies[i].Time = Time.time;
                 //»ç¿îµå
-                SoundManager.instance.SFXCreate(SoundManager.Clips.UnitHit, SoundManager.instance.transform);
+                SoundManager.instance.SFXCreate(SoundManager.Clips.UnitHit);
             }
         }
         

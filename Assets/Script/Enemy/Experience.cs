@@ -36,6 +36,7 @@ public class Experience : MonoBehaviour
                 ExpType.Boss => 0,
                 _ => 1
             };
+
             if (basicExp == 0)
             {
                 player.CardSelect.On = true;
@@ -43,7 +44,6 @@ public class Experience : MonoBehaviour
             else
             {
                 player.AddExp(basicExp);
-
             }
 
             Destroy(gameObject);
@@ -56,13 +56,13 @@ public class Experience : MonoBehaviour
         playerDis = GameManager.Instance.GetExpDistance;
 
 
-        basicExp = m_expType switch
-        {
-            ExpType.Small => 5 * GameManager.Instance.GetStageLevel,
-            ExpType.Medium => 10 + (GameManager.Instance.GetStageLevel * 10),
-            ExpType.Large => 20 + ((GameManager.Instance.GetStageLevel - 1) * 20),
-            _ => 1
-        };
+        //basicExp = m_expType switch
+        //{
+        //    ExpType.Small => 5 * GameManager.Instance.GetStageLevel,
+        //    ExpType.Medium => 10 + (GameManager.Instance.GetStageLevel * 10),
+        //    ExpType.Large => 20 + ((GameManager.Instance.GetStageLevel - 1) * 20),
+        //    _ => 1
+        //};
 
 
 
