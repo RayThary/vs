@@ -167,6 +167,7 @@ public class ButtonManager : MonoBehaviour
         SoundManager.instance.SetBGMSound(BGM);
         SoundManager.instance.SetSFXSound(È¿°úÀ½);
 
+        optionClose.onClick.AddListener(OnButtonOptionClose);
     }
 
     public void Refresh()

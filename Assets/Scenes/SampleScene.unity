@@ -3859,6 +3859,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1401994638}
     - target: {fileID: 4968289813896661287, guid: 47e19b2dac13ccf4b8b80aef6c468e5b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968289813896661287, guid: 47e19b2dac13ccf4b8b80aef6c468e5b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1401994638}
@@ -3967,7 +3971,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1401994638}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8748804526905215194, guid: 47e19b2dac13ccf4b8b80aef6c468e5b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47e19b2dac13ccf4b8b80aef6c468e5b, type: 3}
@@ -5353,6 +5358,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 501507914}
   - {fileID: 824675260}
   - {fileID: 547880643}
   - {fileID: 1052823763}
@@ -5367,7 +5373,6 @@ RectTransform:
   - {fileID: 1798994496}
   - {fileID: 1964859454}
   - {fileID: 1931120386}
-  - {fileID: 501507914}
   - {fileID: 949562008}
   m_Father: {fileID: 0}
   m_RootOrder: 4
