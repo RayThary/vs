@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     public float HP { get => hp; set => hp = value; }
 
     private bool movingStop = false;
+    private bool playerHitCheck = false;
 
     private float enemySlowSpeed = 1;
 
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
     private float knockBackPower = 1;
     private SpriteColorControl sprColorControl;
 
-    private float timer = 0;
+    private float timer = 1;
 
     private bool deathCheck = false;
 
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             movingStop = true;
+            playerHitCheck = true;
         }
     }
 
@@ -56,7 +58,9 @@ public class Enemy : MonoBehaviour
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            playerHitCheck = false;
             movingStop = false;
+            timer = 1;
         }
     }
     private void Awake()
@@ -117,7 +121,7 @@ public class Enemy : MonoBehaviour
 
     private void playerDamege()
     {
-        if (movingStop)
+        if (playerHitCheck)
         {
             timer += Time.deltaTime;
             if (timer > 0.2f)
@@ -131,7 +135,6 @@ public class Enemy : MonoBehaviour
                     ExpType.Boss => 3,
                     _ => 0,
                 };
-
                 GameManager.Instance.GetPlayer.SelectCharacter.HP-= damage;
                 SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
                 timer = 0;
