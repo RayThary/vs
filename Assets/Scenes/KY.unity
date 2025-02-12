@@ -1560,6 +1560,7 @@ MonoBehaviour:
   gamePlayingTimer: 0
   PoolingTemp: {fileID: 1702632556}
   enemyParent: {fileID: 777214670}
+  over: {fileID: 0}
 --- !u!4 &469116972
 Transform:
   m_ObjectHideFlags: 0

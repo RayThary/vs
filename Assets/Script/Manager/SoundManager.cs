@@ -12,7 +12,6 @@ public class SoundManager : MonoBehaviour
     {
         PlayerHit,
         UnitHit,
-        test,
     }
 
     private AudioSource m_backGroundSource;
