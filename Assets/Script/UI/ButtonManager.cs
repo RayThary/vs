@@ -390,8 +390,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameOption()
     {
-        //시간 멈춰야 함
-        Debug.Log("시간 멈춰야 함");
+
         GameManager.Instance.TimeScale = 0;
         armory.gameObject.SetActive(false);
         viewArmory.Close();
@@ -401,8 +400,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameClose()
     {
-        //시간 흘러야 함
-        Debug.Log("시간 흘러야 함");
+
         GameManager.Instance.TimeScale = 1;
         armory.gameObject.SetActive(true);
         ingameOptionButton.gameObject.SetActive(true);
@@ -412,8 +410,6 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonMainMenu()
     {
-        //게임 초기화 해야함
-        Debug.Log("게임 초기화 해야함");
         //플레이어 무기 전부 없애야 함
         //필드 몹 없애야 함
         MenuWindowActive();

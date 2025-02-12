@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
         Small,
         Medium,
         Large,
+        MiniBoss,
         Boss,
     }
     [SerializeField] private ExpType enemyExpType;
@@ -81,16 +82,22 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (deathCheck == false)
+
+
+        enemyDie();
+        playerDamege();
+        if (enemyExpType != ExpType.Boss)
         {
             enemyMoving();
         }
-        enemyDie();
-        playerDamege();
     }
 
     private void enemyMoving()
     {
+        if (deathCheck)
+        {
+            return;
+        }
         float dis = Vector2.Distance(player.position, transform.position);
         if (player != null && movingStop == false)
         {
@@ -132,10 +139,11 @@ public class Enemy : MonoBehaviour
                     ExpType.Small => 1,
                     ExpType.Medium => 1.5f,
                     ExpType.Large => 2,
-                    ExpType.Boss => 3,
+                    ExpType.MiniBoss => 3,
+                    ExpType.Boss => 5,
                     _ => 0,
                 };
-                GameManager.Instance.GetPlayer.SelectCharacter.HP-= damage;
+                GameManager.Instance.GetPlayer.SelectCharacter.HP -= damage;
                 SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
                 timer = 0;
             }
@@ -193,7 +201,10 @@ public class Enemy : MonoBehaviour
     /// <param name="_kbPower">�˹鷮  Defalt : 1</param>
     public void EnemyKnockback(float _kbTime, float _kbPower)
     {
-        StartCoroutine(knockBack(_kbTime, _kbPower));
+        if (sprColorControl != null)
+        {
+            StartCoroutine(knockBack(_kbTime, _kbPower));
+        }
     }
 
     IEnumerator knockBack(float _kbTime, float _kbPower)

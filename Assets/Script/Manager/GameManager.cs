@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private bool gameTime = false;
     public bool SetGameTime { set { gameTime = value; } }
-
+    [SerializeField]
     private int stageLevel = 1;
     public int GetStageLevel {  get { return stageLevel; } }
 

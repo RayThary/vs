@@ -44,7 +44,6 @@ public class Experience : MonoBehaviour
             else
             {
                 player.AddExp(basicExp);
-                Debug.Log(basicExp);
             }
 
             Destroy(gameObject);

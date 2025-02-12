@@ -511,7 +511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  SlowInPlayer: 0
 --- !u!50 &6112935799344101195
 Rigidbody2D:
   serializedVersion: 4
