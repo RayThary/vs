@@ -163,6 +163,10 @@ public class ButtonManager : MonoBehaviour
 
         charactors = Resources.LoadAll<Character>("Character");
 
+        SoundManager.instance.SetMasterSound(전체음성);
+        SoundManager.instance.SetBGMSound(BGM);
+        SoundManager.instance.SetSFXSound(효과음);
+
     }
 
     public void Refresh()
@@ -195,6 +199,7 @@ public class ButtonManager : MonoBehaviour
             }
         }
         스킬투명도.value = 1;
+        효과음.value = 0.4f;
     }
 
     public void Refresh(PlayerSetting playerSetting)
@@ -216,6 +221,9 @@ public class ButtonManager : MonoBehaviour
         안티에일리어싱.value = (int)playerSetting.Antialiasing;
         cameraData.antialiasing = playerSetting.Antialiasing;
         스킬투명도.value = playerSetting.Transparency;
+        전체음성.value = playerSetting.FullSound * 0.01f;
+        BGM.value = playerSetting.FullSound * 0.01f;
+        효과음.value = playerSetting.SoundEffect * 0.01f;
     }
 
     private void MenuWindowOff()
