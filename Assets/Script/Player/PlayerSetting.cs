@@ -73,6 +73,7 @@ public class PlayerSetting
     {   get {  return bgm; } 
         set 
         {  
+
             bgm = value; 
             //사운드매니져
         }
