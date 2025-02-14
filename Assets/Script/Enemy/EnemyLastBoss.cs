@@ -150,11 +150,11 @@ public class EnemyLastBoss : MonoBehaviour
         }
         if (targetVec.x > transform.position.x)
         {
-            transform.localScale = new Vector2(-2, 2);
+            transform.localScale = new Vector2(-3, 3);
         }
         else if (targetVec.x < transform.position.x)
         {
-            transform.localScale = new Vector2(2, 2);
+            transform.localScale = new Vector2(3, 3);
         }
         movinStop = false;
         attackCheck = false;

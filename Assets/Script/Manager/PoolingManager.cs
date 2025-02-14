@@ -13,7 +13,6 @@ public class PoolingManager : MonoBehaviour
         SmallExp,
         MediumExp,
         LargeExp,
-        BossAttack,
         Arrow,
         Axe,
         Magic1,
@@ -43,6 +42,8 @@ public class PoolingManager : MonoBehaviour
         EnemyMiddleBoss,
         EnemyLastBoss,
         BossExp,
+        BossBullet,
+        BossBounceBullet,
     }
 
     [System.Serializable]
