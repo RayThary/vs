@@ -52,9 +52,5 @@ public class Armory : MonoBehaviour
     private void Update()
     {
         addonList.ForEach (x => x.Update());
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            player.AddExp(1);
-        }
     }
 }
