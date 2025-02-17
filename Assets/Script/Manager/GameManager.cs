@@ -117,7 +117,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         player.Armory.Clear();
-        Destroy(player.SelectCharacter.gameObject);
         PoolingManager.Instance.RemoveAllPoolingObject(GetPoolingTemp.gameObject);
         PoolingManager.Instance.RemoveAllPoolingObject(GetEnemyPoolingTemp.gameObject);
         //옵션 닫기 버튼에 대한 처리
