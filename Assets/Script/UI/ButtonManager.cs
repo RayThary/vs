@@ -410,6 +410,8 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonMainMenu()
     {
+        GameManager.Instance.GameTimer = 0;
+        GameManager.Instance.SetGameTime = false;
         //플레이어 무기 전부 없애야 함
         //필드 몹 없애야 함
         MenuWindowActive();

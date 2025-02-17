@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private float gamePlayingTimer = 0;
-    public float GameTimer { get { return gamePlayingTimer; } }
+    public float GameTimer { get { return gamePlayingTimer; } set { gamePlayingTimer = value; } }
 
     private bool gameTime = false;
     public bool SetGameTime { set { gameTime = value; } }
@@ -133,11 +134,14 @@ public class GameManager : MonoBehaviour
     {
         seletCharactor = _trs;
         Transform mirrorTrs = _trs.GetChild(0).transform;
+        gamePlayingTimer = 0;
         gameTime = true;
     }
 
     public void GameOver()
     {
+        gameTime = false;
+        gamePlayingTimer = 0;
         player.Armory.Clear();
         PoolingManager.Instance.RemoveAllPoolingObject(GetPoolingTemp.gameObject);
         PoolingManager.Instance.RemoveAllPoolingObject(GetEnemyPoolingTemp.gameObject);
