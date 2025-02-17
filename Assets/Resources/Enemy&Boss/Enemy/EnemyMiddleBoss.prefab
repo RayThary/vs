@@ -3411,7 +3411,7 @@ Transform:
   - {fileID: 5841314903013619246}
   - {fileID: 8944200293446037221}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
 --- !u!210 &2274732219062338869
 SortingGroup:
@@ -3435,7 +3435,7 @@ Animator:
   m_GameObject: {fileID: 8980461195576843756}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab937231d0600440fb0d8757568d78d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 128ca6a5af998ed4ab3f482a28bcf78f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

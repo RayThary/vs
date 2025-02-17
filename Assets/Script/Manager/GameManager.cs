@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public bool SetGameTime { set { gameTime = value; } }
     [SerializeField]
     private int stageLevel = 1;
-    public int GetStageLevel {  get { return stageLevel; } }
+    public int GetStageLevel { get { return stageLevel; } }
 
     private int nextLevelTime = 90;
 
@@ -58,11 +58,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform enemyParent;
-    public Transform GetEnemyPoolingTemp {  get { return enemyParent; } }
+    public Transform GetEnemyPoolingTemp { get { return enemyParent; } }
 
     [SerializeField]
     private GameObject over;
-    
+
     public bool TimeStop
     {
         get
@@ -89,9 +89,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public bool tes = true;
     private void Update()
     {
-        gamePlayingTime();
+        if (tes == false)
+        {
+            gamePlayingTime();
+
+        }
     }
 
     private void gamePlayingTime()

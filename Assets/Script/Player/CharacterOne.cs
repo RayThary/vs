@@ -43,4 +43,6 @@ public class CharacterOne : Character
         coroutine = null;
         projective.gameObject.SetActive(false);
     }
+
+
 }

@@ -55,9 +55,36 @@ public class EnemyMidBoss : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * 3 * Time.deltaTime);
         }
 
+        if (movingStop == false)
+        {
+            enemyScale();
+        }
+
         rigd2d.velocity = Vector2.zero;
     }
 
+    private void enemyScale()
+    {
+        if (targetVec.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(-3, 3);
+        }
+        else if (targetVec.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(3, 3);
+        }
+    }
+    private void enemyScalePlayer()
+    {
+        if (GameManager.Instance.GetCharactor.transform.position.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(-3, 3);
+        }
+        else if (GameManager.Instance.GetCharactor.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(3, 3);
+        }
+    }
 
     private void attack()
     {
@@ -77,37 +104,8 @@ public class EnemyMidBoss : MonoBehaviour
 
         if (targetChange)
         {
-            float x;
-            float y;
-            if (player.position.x > transform.position.x)
-            {
-                x = Random.Range(player.position.x + 1, player.position.x + 3);
-                if (x >= maxVec.x)
-                {
-                    x = maxVec.x;
-                }
-            }
-            else
-            {
-                x = Random.Range(player.position.x - 1, player.position.x - 3);
-                if (-maxVec.x >= x)
-                {
-                    x = -maxVec.x;
-                }
-            }
-            y = Random.Range(player.position.y - 3, player.position.y + 3);
-            if (y >= maxVec.y)
-            {
-                y = maxVec.y;
-            }
-            else if (y <= -maxVec.y)
-            {
-                y = -maxVec.y;
-            }
-
-            targetVec = new Vector2(x, y);
-
-
+            targetVec = findTarget();
+            enemyScale();
             targetChange = false;
             attackCheck = true;
         }
@@ -125,6 +123,7 @@ public class EnemyMidBoss : MonoBehaviour
                 {
                     dirX = 1;
                 }
+                enemyScalePlayer();
                 int attackType = Random.Range(0, 2);
                 if (attackType == 0)
                 {
@@ -134,37 +133,87 @@ public class EnemyMidBoss : MonoBehaviour
                 {
                     anim.SetTrigger("AttackType2");
                 }
+
                 attackCheck = false;
             }
         }
     }
 
+    private Vector2 findTarget()
+    {
+        float x;
+        float y;
+        if (player.position.x > transform.position.x)
+        {
+            x = Random.Range(player.position.x + 1, player.position.x + 3);
+            if (x >= maxVec.x)
+            {
+                x = maxVec.x;
+            }
+        }
+        else
+        {
+            x = Random.Range(player.position.x - 1, player.position.x - 3);
+            if (-maxVec.x >= x)
+            {
+                x = -maxVec.x;
+            }
+        }
+        y = Random.Range(player.position.y - 3, player.position.y + 3);
+        if (y >= maxVec.y)
+        {
+            y = maxVec.y;
+        }
+        else if (y <= -maxVec.y)
+        {
+            y = -maxVec.y;
+        }
+
+        return new Vector2(x, y);
+
+    }
+
+
+
     private void AttackType1()
     {
+
         float dirY = -1.5f;
 
         for (int i = 0; i < 7; i++)
         {
             Vector2 dir = new Vector2(dirX, dirY);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossAttack, GameManager.Instance.GetPoolingTemp);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossBullet, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = transform.position;
+            if (dirX == -1)
+            {
+                obj.transform.localScale = new Vector2(-1, 1);
+            }
             Projective tempBullet = obj.GetComponent<Projective>();
             tempBullet.Init();
             tempBullet.Attributes.Add(new P_Move(tempBullet, dir, 3));
             tempBullet.Attributes.Add(new P_EnemyAttackDelete(tempBullet));
-            tempBullet.Attributes.Add(new P_EnemyDamage(5));
+            tempBullet.Attributes.Add(new P_EnemyDamage(10));
             dirY += 0.5f;
         }
     }
 
     private void AttackType2()
     {
+        if (targetVec.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(-2, 2);
+        }
+        else if (targetVec.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(2, 2);
+        }
         float dirY = -1.5f;
 
         for (int i = 0; i < 7; i++)
         {
             Vector2 dir = new Vector2(dirX, dirY);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossAttack, GameManager.Instance.GetPoolingTemp);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossBounceBullet, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = transform.position;
             Projective tempBullet = obj.GetComponent<Projective>();
             tempBullet.Init();
@@ -179,7 +228,7 @@ public class EnemyMidBoss : MonoBehaviour
             dirY += 0.5f;
         }
     }
-    private void de()
+    private void animEnd()
     {
         attackCoolChekc = false;
         movingStop = false;
