@@ -418,8 +418,7 @@ public class ButtonManager : MonoBehaviour
         PoolingManager.Instance.RemoveAllPoolingObject(GameManager.Instance.GetPoolingTemp.gameObject);
         PoolingManager.Instance.RemoveAllPoolingObject(GameManager.Instance.GetEnemyPoolingTemp.gameObject);
         //옵션 닫기 버튼에 대한 처리
-        optionClose.onClick.RemoveAllListeners();
-        optionClose.onClick.AddListener(OnButtonOptionClose);
+        OptionButtonMainMenu();
     }
 
     public void OnButtonInOption()
@@ -444,13 +443,27 @@ public class ButtonManager : MonoBehaviour
         GameManager.Instance.GetPlayer.SelectCharacter = Instantiate(charactors[id]);
         GameManager.Instance.SetCharactor(GameManager.Instance.GetPlayer.SelectCharacter.transform);
         //옵션 닫기 버튼에 대한 처리
-        optionClose.onClick.RemoveAllListeners();
-        optionClose.onClick.AddListener(OnButtonInOption);
+        OptionButtonIngame();
     }
 
     public void OnButton돌아가기()
     {
         CharactorSelect.SetActive(false);
         MenuWindowActive();
+    }
+
+    //메인메뉴 들어갈때
+    public void OptionButtonMainMenu()
+    {
+        //옵션 닫기 버튼에 대한 처리
+        optionClose.onClick.RemoveAllListeners();
+        optionClose.onClick.AddListener(OnButtonOptionClose);
+    }
+    //인게임 들어갈때
+    public void OptionButtonIngame()
+    {
+        //옵션 닫기 버튼에 대한 처리
+        optionClose.onClick.RemoveAllListeners();
+        optionClose.onClick.AddListener(OnButtonInOption);
     }
 }

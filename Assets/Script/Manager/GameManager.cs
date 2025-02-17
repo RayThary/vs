@@ -116,6 +116,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        player.Armory.Clear();
+        Destroy(player.SelectCharacter.gameObject);
+        PoolingManager.Instance.RemoveAllPoolingObject(GetPoolingTemp.gameObject);
+        PoolingManager.Instance.RemoveAllPoolingObject(GetEnemyPoolingTemp.gameObject);
+        //옵션 닫기 버튼에 대한 처리
+        ButtonManager.Instance.OptionButtonMainMenu();
+
         over.SetActive(true);
         TimeStop = true;
     }
@@ -123,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         ButtonManager.Instance.OnButtonMainMenu();
         over.SetActive(false);
+        TimeStop = false;
     }
 
 
