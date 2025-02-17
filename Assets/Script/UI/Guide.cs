@@ -27,7 +27,6 @@ public class Guide : MonoBehaviour
     {
         for (int i = 0; i < cardSelect.Addons.Count; i++)
         {
-            Debug.Log("오브젝트풀링을 사용하지 않는 생성");
             ItemSlot slot = Instantiate(itemSlot, contant);
             slot.Init(this, cardSelect.Addons[i]);
         }

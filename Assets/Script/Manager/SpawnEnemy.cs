@@ -30,7 +30,7 @@ public class SpawnEnemy : MonoBehaviour
         spawnBossEnemy();
         if (spawn)
         {
-            s= PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyMiddleBoss, transform);
+            s = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyMiddleBoss, transform);
             s.transform.position = Vector3.zero;
             spawn = false;
 
@@ -44,9 +44,9 @@ public class SpawnEnemy : MonoBehaviour
             timer += Time.deltaTime;
         }
 
-        if (timer >= (level <= 5 ? 1f : 3))
+        if (timer >= (level <= 5 ? 0.5f : 2))
         {
-            int spawnCount = Random.Range(1, level == 1 ? 2 : level);
+            int spawnCount = Random.Range(level <= 5 ? 3 : 5, level == 1 ? 4 : 10);
             monsterSpawn(spawnCount);
             timer = 0;
         }

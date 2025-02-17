@@ -47,7 +47,6 @@ public class Damage : MonoBehaviour
             {
                 if (damageViews[i].Addon == addon)
                 {
-                    Debug.Log("오브젝트 풀링이 없는 삭제");
                     Destroy(damageViews[i].gameObject);
                     damageViews.RemoveAt(i);
                     return;

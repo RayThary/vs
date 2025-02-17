@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     private float timer = 1;
 
     private bool deathCheck = false;
+    private int stageLevel = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -83,7 +84,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
 
-
+        enemyHpCheck();
         enemyDie();
         playerDamege();
         if (enemyExpType != ExpType.Boss)
@@ -91,7 +92,14 @@ public class Enemy : MonoBehaviour
             enemyMoving();
         }
     }
-
+    private void enemyHpCheck()
+    {
+        if(stageLevel!=GameManager.Instance.GetStageLevel )
+        {
+            stageLevel = GameManager.Instance.GetStageLevel;
+            SetHp();
+        }
+    }
     private void enemyMoving()
     {
         if (deathCheck)
@@ -186,9 +194,10 @@ public class Enemy : MonoBehaviour
     {
         hp = enemyExpType switch
         {
-            ExpType.Small => GameManager.Instance.GetStageLevel * 10,
-            ExpType.Medium => GameManager.Instance.GetStageLevel * 20,
-            ExpType.Large => GameManager.Instance.GetStageLevel * 40,
+            ExpType.Small => GameManager.Instance.GetStageLevel * 5,
+            ExpType.Medium => GameManager.Instance.GetStageLevel * 15,
+            ExpType.Large => GameManager.Instance.GetStageLevel * 20,
+            ExpType.MiniBoss=> GameManager.Instance.GetStageLevel * 50,
             ExpType.Boss => GameManager.Instance.GetStageLevel * 100,
             _ => 20
         };

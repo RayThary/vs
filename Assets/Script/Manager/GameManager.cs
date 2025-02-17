@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +64,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject over;
 
+    [SerializeField]
+    private CinemachineImpulseSource shakingWindow;
+
+
+    private float charactorBeforHp = 0;
+
     public bool TimeStop
     {
         get
@@ -89,14 +96,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public bool tes = true;
     private void Update()
     {
-        if (tes == false)
-        {
-            gamePlayingTime();
+        gamePlayingTime();
+        SetShakingWindow();
 
-        }
     }
 
     private void gamePlayingTime()
@@ -108,6 +112,19 @@ public class GameManager : MonoBehaviour
             {
                 nextLevelTime += 90;
                 stageLevel++;
+            }
+        }
+    }
+
+    public void SetShakingWindow()
+    {
+        if (player.Setting.Shaking == true && seletCharactor != null)
+        {
+            float nowHp = seletCharactor.GetComponent<Character>().HP;
+            if (charactorBeforHp > nowHp && charactorBeforHp != 0)
+            {
+                charactorBeforHp = nowHp;
+                shakingWindow.GenerateImpulse();
             }
         }
     }
