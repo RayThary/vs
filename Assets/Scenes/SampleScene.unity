@@ -1512,8 +1512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 0
-  spawn: 0
-  s: {fileID: 505769230}
 --- !u!114 &469116971
 MonoBehaviour:
   m_ObjectHideFlags: 0
