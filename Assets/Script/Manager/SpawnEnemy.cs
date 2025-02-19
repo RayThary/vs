@@ -14,8 +14,6 @@ public class SpawnEnemy : MonoBehaviour
 
     private Transform enemyParent => GameManager.Instance.GetEnemyPoolingTemp;
 
-    public bool spawn = false;
-    public GameObject s;
 
 
     void Start()
@@ -28,13 +26,7 @@ public class SpawnEnemy : MonoBehaviour
 
         spawnEnemy();
         spawnBossEnemy();
-        if (spawn)
-        {
-            s = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyMiddleBoss, transform);
-            s.transform.position = Vector3.zero;
-            spawn = false;
-
-        }
+  
     }
 
     private void spawnEnemy()
