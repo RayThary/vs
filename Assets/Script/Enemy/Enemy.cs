@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
     }
     private void enemyHpCheck()
     {
-        if(stageLevel!=GameManager.Instance.GetStageLevel )
+        if (stageLevel != GameManager.Instance.GetStageLevel)
         {
             stageLevel = GameManager.Instance.GetStageLevel;
             SetHp();
@@ -179,9 +179,10 @@ public class Enemy : MonoBehaviour
                     obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.LargeExp, GameManager.Instance.GetPoolingTemp);
                     obj.transform.position = transform.position;
                 }
-                else if ((enemyExpType == ExpType.Boss))
+                else
                 {
-
+                    obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossExp, GameManager.Instance.GetPoolingTemp);
+                    obj.transform.position = transform.position;
                 }
 
                 deathCheck = true;
@@ -197,7 +198,7 @@ public class Enemy : MonoBehaviour
             ExpType.Small => GameManager.Instance.GetStageLevel * 5,
             ExpType.Medium => GameManager.Instance.GetStageLevel * 15,
             ExpType.Large => GameManager.Instance.GetStageLevel * 20,
-            ExpType.MiniBoss=> GameManager.Instance.GetStageLevel * 50,
+            ExpType.MiniBoss => GameManager.Instance.GetStageLevel * 50,
             ExpType.Boss => GameManager.Instance.GetStageLevel * 100,
             _ => 20
         };

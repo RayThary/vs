@@ -1036,9 +1036,6 @@ MonoBehaviour:
   - clip: {fileID: 3927828891495084372, guid: 1675e6a8290cd754d9074659d0bcd095, type: 3}
     count: 100
     description: 
-  - clip: {fileID: 2237873603211410713, guid: 6524398b4e1342d46a0574ad06ed25c8, type: 3}
-    count: 100
-    description: 
   - clip: {fileID: 2856292954560644172, guid: 2c559a3866a48f34184879e1376ec754, type: 3}
     count: 100
     description: 
@@ -1070,9 +1067,6 @@ MonoBehaviour:
     count: 100
     description: 
   - clip: {fileID: 6009193780505716250, guid: 78327ee16632c974c81d5a5f18aeb59e, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 6581188567141070657, guid: 1f707dcea497f5b4f9a72c09f03f41b9, type: 3}
     count: 100
     description: 
   - clip: {fileID: 556269396022390620, guid: abb61b17deef7114d8a6fab7f62029e9, type: 3}
@@ -1511,8 +1505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 0
-  spawn: 0
-  s: {fileID: 0}
 --- !u!114 &469116971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1554,7 +1546,7 @@ MonoBehaviour:
   PoolingTemp: {fileID: 1702632556}
   enemyParent: {fileID: 777214670}
   over: {fileID: 0}
-  tes: 1
+  shakingWindow: {fileID: 0}
 --- !u!4 &469116972
 Transform:
   m_ObjectHideFlags: 0

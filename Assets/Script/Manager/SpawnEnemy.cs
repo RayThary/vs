@@ -23,12 +23,11 @@ public class SpawnEnemy : MonoBehaviour
 
     void Update()
     {
-
+  
         spawnEnemy();
         spawnBossEnemy();
   
     }
-
     private void spawnEnemy()
     {
         if (gameTime > 0.5f)
