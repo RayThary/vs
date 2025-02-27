@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     private CinemachineImpulseSource shakingWindow;
 
 
-    private float charactorBeforHp = 0;
+    private float charactorBeforHp = 99;
 
     public bool TimeStop
     {
@@ -100,8 +100,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         gamePlayingTime();
-        SetShakingWindow();
-
     }
 
     private void gamePlayingTime()
@@ -119,15 +117,17 @@ public class GameManager : MonoBehaviour
 
     public void SetShakingWindow()
     {
-        if (player.Setting.Shaking == true && seletCharactor != null)
+        if (player.Setting.Shaking == true)
         {
-            float nowHp = seletCharactor.GetComponent<Character>().HP;
-            if (charactorBeforHp > nowHp && charactorBeforHp != 0)
-            {
-                charactorBeforHp = nowHp;
-                shakingWindow.GenerateImpulse();
-            }
+            shakingWindow.GenerateImpulse();
         }
+        //    float nowHp = seletCharactor.GetComponent<Character>().HP;
+
+        //    if (charactorBeforHp > nowHp && charactorBeforHp != 0)
+        //    {
+        //shakingWindow.GenerateImpulse();
+        //    }
+        //}
     }
 
     public void SetCharactor(Transform _trs)

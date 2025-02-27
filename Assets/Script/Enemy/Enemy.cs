@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        playerResetCheck();
 
         enemyHpCheck();
         enemyDie();
@@ -90,6 +91,13 @@ public class Enemy : MonoBehaviour
         if (enemyExpType != ExpType.Boss)
         {
             enemyMoving();
+        }
+    }
+    private void playerResetCheck()
+    {
+        if (player == null)
+        {
+            player = GameManager.Instance.GetCharactor;
         }
     }
     private void enemyHpCheck()
@@ -152,6 +160,7 @@ public class Enemy : MonoBehaviour
                     _ => 0,
                 };
                 GameManager.Instance.GetPlayer.SelectCharacter.HP -= damage;
+                GameManager.Instance.SetShakingWindow();
                 SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
                 timer = 0;
             }

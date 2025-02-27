@@ -854,162 +854,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244097395}
   m_CullTransparentMesh: 1
---- !u!1 &248632719
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 248632720}
-  - component: {fileID: 248632721}
-  m_Layer: 0
-  m_Name: PoolingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &248632720
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248632719}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 469116972}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &248632721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248632719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fee8450df3c9fb4b9f3ab0500617c68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listPoolingClip:
-  - clip: {fileID: 3423882143220969475, guid: 6a1fb6518c39386498a5c1996e2b421f, type: 3}
-    count: 600
-    description: 
-  - clip: {fileID: 1031612602837437144, guid: fd12cc9aca92faf4ab851db7f6e8be39, type: 3}
-    count: 5
-    description: 
-  - clip: {fileID: 3212617274605085966, guid: 48ac287a26ff7cc4f8bc3c1ea92c12ef, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 931133006596393357, guid: 7d2f30dbf0e4af84d91097ee2cf959c1, type: 3}
-    count: 600
-    description: 
-  - clip: {fileID: 931133006596393357, guid: 3d13c9fe389c20a4b9265aea3be165c2, type: 3}
-    count: 600
-    description: 
-  - clip: {fileID: 931133006596393357, guid: 0cf6ae3ead59d924194a15b47ed1a7fb, type: 3}
-    count: 600
-    description: 
-  - clip: {fileID: 6344502478067420776, guid: 43efd9b217be3d9408f03a3e1c655b5f, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 3006880016798639611, guid: b852567799bcdc04cbae21b694aad66a, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 3927828891495084372, guid: 1675e6a8290cd754d9074659d0bcd095, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 2237873603211410713, guid: 6524398b4e1342d46a0574ad06ed25c8, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 2856292954560644172, guid: 2c559a3866a48f34184879e1376ec754, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 1707099336351636261, guid: ade8629c1aab30a44b428b50fcb95ec6, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 1541922329193962443, guid: c3f50c9f5e7839d4a855f0dd535d8fae, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 5290088352028793716, guid: 9c2c857eccd543a48b9f0b1399178088, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 5258264119594358652, guid: 56e1b4284888adf4ab4018690f4b7237, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 2575329981671159265, guid: 5b3758fb187b09d43864f3115d4bc5ef, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 4566779083735873551, guid: 0ff4c2a2c10c4f64fad8e26c4bf3459d, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 6434516303148144795, guid: be7014c85ad275448a18a958ab562850, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 6238547816101887761, guid: 686843ff91dd939498e2ecec0ac48a9c, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 2248346343034938147, guid: 36583acb397667e40a6f135eebf1a24e, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 6009193780505716250, guid: 78327ee16632c974c81d5a5f18aeb59e, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 6581188567141070657, guid: 1f707dcea497f5b4f9a72c09f03f41b9, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 556269396022390620, guid: abb61b17deef7114d8a6fab7f62029e9, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 5815971195239490076, guid: 43680854b0b46f9449e1536d47960fed, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 295333061964633568, guid: 54454d2dd41809844b7e1d9235cac5e9, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 9084729128957285146, guid: 1bb72834d0e109c44b30718045722b6d, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 3549938091768959594, guid: 1c9afc896d539524e9db9039241a57a1, type: 3}
-    count: 100
-    description: 
-  - clip: {fileID: 5199382668032540707, guid: eb84f0d5172981241899906db98fdda3, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 4890220247707469362, guid: f756c8524f6343d4dbe4e445a7c3a16a, type: 3}
-    count: 1
-    description: 
-  - clip: {fileID: 5646841880518608248, guid: db4e8d088733a6742ba31a644e469f12, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 5933447329732400587, guid: 9734bc2a97dc7144182f9493bf2fb8de, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 7245681103027820584, guid: 28ba43f6fde820d458f9fffad2d20ff4, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 8980461195576843756, guid: e89743c89cfd7f947bc0c09427441a65, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 8822261941929383693, guid: 052e7b88c817ba64c869af2e99e06e80, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 2565667515623109420, guid: 148fe5eb1b425d740b56771b0846c961, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 3287836560781899071, guid: 3de4879b80ff9ef41b286b1bc4d4bfdd, type: 3}
-    count: 200
-    description: 
-  - clip: {fileID: 5318720704748967230, guid: cf0f5ee9f730275429433e6edfd1c66f, type: 3}
-    count: 200
-    description: 
 --- !u!1 &302801966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,7 +1412,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 564181526}
-  - {fileID: 248632720}
+  - {fileID: 1429707937}
   - {fileID: 775710355}
   - {fileID: 1702632556}
   - {fileID: 656094452}
@@ -1641,7 +1485,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -0.2, z: 0}
+  m_DefaultVelocity: {x: 0, y: -0.1, z: 0}
 --- !u!1 &481650231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5496,6 +5340,156 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1429707936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429707937}
+  - component: {fileID: 1429707938}
+  m_Layer: 0
+  m_Name: PoolingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429707937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429707936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 469116972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429707938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429707936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fee8450df3c9fb4b9f3ab0500617c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listPoolingClip:
+  - clip: {fileID: 3423882143220969475, guid: 6a1fb6518c39386498a5c1996e2b421f, type: 3}
+    count: 600
+    description: 
+  - clip: {fileID: 1031612602837437144, guid: fd12cc9aca92faf4ab851db7f6e8be39, type: 3}
+    count: 5
+    description: 
+  - clip: {fileID: 3212617274605085966, guid: 48ac287a26ff7cc4f8bc3c1ea92c12ef, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 931133006596393357, guid: 7d2f30dbf0e4af84d91097ee2cf959c1, type: 3}
+    count: 600
+    description: 
+  - clip: {fileID: 931133006596393357, guid: 3d13c9fe389c20a4b9265aea3be165c2, type: 3}
+    count: 600
+    description: 
+  - clip: {fileID: 931133006596393357, guid: 0cf6ae3ead59d924194a15b47ed1a7fb, type: 3}
+    count: 600
+    description: 
+  - clip: {fileID: 6344502478067420776, guid: 43efd9b217be3d9408f03a3e1c655b5f, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 3006880016798639611, guid: b852567799bcdc04cbae21b694aad66a, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 3927828891495084372, guid: 1675e6a8290cd754d9074659d0bcd095, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 2856292954560644172, guid: 2c559a3866a48f34184879e1376ec754, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 1707099336351636261, guid: ade8629c1aab30a44b428b50fcb95ec6, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 1541922329193962443, guid: c3f50c9f5e7839d4a855f0dd535d8fae, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 5290088352028793716, guid: 9c2c857eccd543a48b9f0b1399178088, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 5258264119594358652, guid: 56e1b4284888adf4ab4018690f4b7237, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 2575329981671159265, guid: 5b3758fb187b09d43864f3115d4bc5ef, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 4566779083735873551, guid: 0ff4c2a2c10c4f64fad8e26c4bf3459d, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 6434516303148144795, guid: be7014c85ad275448a18a958ab562850, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 6238547816101887761, guid: 686843ff91dd939498e2ecec0ac48a9c, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 2248346343034938147, guid: 36583acb397667e40a6f135eebf1a24e, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 6009193780505716250, guid: 78327ee16632c974c81d5a5f18aeb59e, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 556269396022390620, guid: abb61b17deef7114d8a6fab7f62029e9, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 5815971195239490076, guid: 43680854b0b46f9449e1536d47960fed, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 295333061964633568, guid: 54454d2dd41809844b7e1d9235cac5e9, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 9084729128957285146, guid: 1bb72834d0e109c44b30718045722b6d, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 3549938091768959594, guid: 1c9afc896d539524e9db9039241a57a1, type: 3}
+    count: 100
+    description: 
+  - clip: {fileID: 5199382668032540707, guid: eb84f0d5172981241899906db98fdda3, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 4890220247707469362, guid: f756c8524f6343d4dbe4e445a7c3a16a, type: 3}
+    count: 1
+    description: 
+  - clip: {fileID: 5646841880518608248, guid: db4e8d088733a6742ba31a644e469f12, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 5933447329732400587, guid: 9734bc2a97dc7144182f9493bf2fb8de, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 7245681103027820584, guid: 28ba43f6fde820d458f9fffad2d20ff4, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 8980461195576843756, guid: e89743c89cfd7f947bc0c09427441a65, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 8822261941929383693, guid: 052e7b88c817ba64c869af2e99e06e80, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 2565667515623109420, guid: 148fe5eb1b425d740b56771b0846c961, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 3287836560781899071, guid: 3de4879b80ff9ef41b286b1bc4d4bfdd, type: 3}
+    count: 200
+    description: 
+  - clip: {fileID: 5318720704748967230, guid: cf0f5ee9f730275429433e6edfd1c66f, type: 3}
+    count: 200
+    description: 
 --- !u!1 &1454261963
 GameObject:
   m_ObjectHideFlags: 0
