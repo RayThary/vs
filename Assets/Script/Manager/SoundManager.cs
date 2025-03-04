@@ -120,6 +120,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
+            return null;
             GameObject sfx = Instantiate(SFXsource);
             sfx.transform.SetParent(pollingObjParentTrs);
             sfx.SetActive(false);
