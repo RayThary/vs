@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Magic_10 : IAddon
 {
@@ -89,7 +90,8 @@ public class Magic_10 : IAddon
         Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic10, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
-        projective.transform.position = player.SelectCharacter.transform.position;
+        //projective.transform.position = player.SelectCharacter.transform.position;
+        projective.Attributes.Add(new P_Follow(projective, Vector2.up, player.SelectCharacter.transform));
         projective.Attributes.Add(new P_Damage(this, damage));
         projective.Attributes.Add(new P_SlowTimer(speed, 1));
         projectives.Add(projective);

@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CinemachineImpulseSource shakingWindow;
 
-
-    private float charactorBeforHp = 99;
-
     public bool TimeStop
     {
         get
