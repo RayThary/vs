@@ -31,12 +31,17 @@ public class Magic_10 : IAddon
     private float speed;
     //대미지
     private float damage;
+    //공격 딜레이
+    private readonly float delay;
+    //공격 딜레마 계산 타이머
+    private float timer;
 
     public Magic_10(Player player)
     {
         this.player = player;
         description = "플레이어 주위에 피해를 입히며 상대를 느려지게 한다";
         this.player = player;
+        delay = 5;
         speed = 0.3f;
         damage = 5;
         level = 0;
@@ -44,7 +49,7 @@ public class Magic_10 : IAddon
 
     public void Addon()
     {
-        Fire();
+        timer = Time.time;
         level = 1;
     }
 
@@ -77,6 +82,12 @@ public class Magic_10 : IAddon
 
     public void Update()
     {
+        //공격 딜레이가 되었는지
+        if (timer + (delay - player.Stat.AttackCool) <= Time.time)
+        {
+            Fire();
+        }
+
         if (projectives.Count > 0 && projectives[0].transform.GetChild(0).TryGetComponent(out Animator component))
         {
             if (component.speed != player.Stat.AttackSpeed)
@@ -90,10 +101,10 @@ public class Magic_10 : IAddon
         Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic10, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();
 
-        //projective.transform.position = player.SelectCharacter.transform.position;
         projective.Attributes.Add(new P_Follow(projective, Vector2.up, player.SelectCharacter.transform));
         projective.Attributes.Add(new P_Damage(this, damage));
         projective.Attributes.Add(new P_SlowTimer(speed, 1));
+        projective.Attributes.Add(new P_DeleteTimer(projective, 3));
         projectives.Add(projective);
     }
 }
