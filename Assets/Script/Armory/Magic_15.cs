@@ -49,8 +49,8 @@ public class Magic_15 : IAddon
     //크기 커지게
     public void LevelUp()
     {
-        projectives.ForEach(x => x.transform.localScale += new Vector3(0.5f, 0.5f, 0.5f));
-        projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.5f);
+        projectives.ForEach(x => x.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f));
+        projectives.ForEach(x => x.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.2f);
         level++;
         if (level == MaxLevel)
         {
@@ -62,6 +62,7 @@ public class Magic_15 : IAddon
                 player.Armory.Addon(new Magic_17(player));
             }
         }
+
     }
 
     public void Remove()
@@ -99,5 +100,8 @@ public class Magic_15 : IAddon
         projective.Attributes.Add(new P_Bounce(projective, projective.Attributes.OfType<P_Move>().FirstOrDefault(), 1));
         projective.Attributes.Add(new P_Damage(this, damage));
         projectives.Add(projective);
+        projective.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f) * level;
+        projective.Attributes.OfType<P_Bounce>().FirstOrDefault().Size += 0.2f * level;
+
     }
 }

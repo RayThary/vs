@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             {
                 playerExp = 0;
             }
-            double nextExp = basicExp * (Mathf.Pow(GameManager.Instance.GetStageLevel, 1.5f));
+            double nextExp = basicExp * (Mathf.Pow(GameManager.Instance.GetStageLevel, 2f));
             needExp = (int)nextExp;
             cardSelect.On = true;
         }

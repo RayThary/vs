@@ -37,7 +37,7 @@ public class SpawnEnemy : MonoBehaviour
 
         if (timer >= (level <= 5 ? 0.5f : 2))
         {
-            int spawnCount = Random.Range(level <= 5 ? 3 : 5, level == 1 ? 4 : 10);
+            int spawnCount = Random.Range(level <= 5 ? 1 : 5, level <= 5 ? 3 : level);
             monsterSpawn(spawnCount);
             timer = 0;
         }

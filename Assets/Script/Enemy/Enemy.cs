@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        playerResetCheck();
 
         enemyHpCheck();
         enemyDie();
@@ -90,6 +91,13 @@ public class Enemy : MonoBehaviour
         if (enemyExpType != ExpType.Boss)
         {
             enemyMoving();
+        }
+    }
+    private void playerResetCheck()
+    {
+        if (player == null)
+        {
+            player = GameManager.Instance.GetCharactor;
         }
     }
     private void enemyHpCheck()
@@ -109,20 +117,20 @@ public class Enemy : MonoBehaviour
         float dis = Vector2.Distance(player.position, transform.position);
         if (player != null && movingStop == false)
         {
-            if (dis > 5)
+            if (dis < 10 || enemyExpType == ExpType.MiniBoss)
             {
-                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * 2 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * 1.5f * Time.deltaTime);
             }
         }
         else if (movingStop && knockBackCheck)
         {
             if (dis > 5)
             {
-                transform.position = Vector3.MoveTowards(transform.position, player.position, -knockBackPower * 2 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.position, -knockBackPower * 1.5f * Time.deltaTime);
             }
             else
             {
@@ -152,6 +160,7 @@ public class Enemy : MonoBehaviour
                     _ => 0,
                 };
                 GameManager.Instance.GetPlayer.SelectCharacter.HP -= damage;
+                GameManager.Instance.SetShakingWindow();
                 SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
                 timer = 0;
             }
@@ -195,7 +204,7 @@ public class Enemy : MonoBehaviour
     {
         hp = enemyExpType switch
         {
-            ExpType.Small => GameManager.Instance.GetStageLevel * 5,
+            ExpType.Small => GameManager.Instance.GetStageLevel * 10,
             ExpType.Medium => GameManager.Instance.GetStageLevel * 15,
             ExpType.Large => GameManager.Instance.GetStageLevel * 20,
             ExpType.MiniBoss => GameManager.Instance.GetStageLevel * 50,

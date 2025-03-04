@@ -93,6 +93,7 @@ public class CardSelect : MonoBehaviour
                         .Where(x => x.Weapon)
                         .Concat(addons.Where(x => !x.Weapon).Where(x => x.Level < x.MaxLevel))
                         .Distinct(new AddonComparer()) // 중복 제거
+                        .Take(3)
                         .ToArray();
 
             for (int i = 0; i < candidate.Length; i++)
