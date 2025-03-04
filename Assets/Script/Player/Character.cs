@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     public Sprite Sprite { get { return sprite; } }
 
     private float hp;
-    public float HP { get => hp; set => hp = value; }
+    public float HP { get => hp; set { if(!GameManager.Instance.IsInvincibility) hp = value; } }
 
     private float maxSheild;
     public float MaxSheild { get {  return maxSheild; } set { maxSheild = value; } }

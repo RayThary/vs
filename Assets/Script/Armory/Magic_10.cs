@@ -97,6 +97,7 @@ public class Magic_10 : IAddon
 
     private void Fire()
     {
+        timer = Time.time;
         //투사체 설정
         Projective projective = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Magic10, GameManager.Instance.GetPoolingTemp).GetComponent<Projective>();
         projective.Init();

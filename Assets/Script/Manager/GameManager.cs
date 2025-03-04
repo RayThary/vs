@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CinemachineImpulseSource shakingWindow;
 
+    [SerializeField]
+    private bool isInvincibility;
+    public bool IsInvincibility { get => isInvincibility; }
+
     public bool TimeStop
     {
         get
