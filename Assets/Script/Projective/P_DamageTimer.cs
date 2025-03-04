@@ -54,7 +54,7 @@ public class P_DamageTimer : IP_Attribute
                 //무기가 준 피해량 측정
                 addon.Statistics += damage;
                 //생명령 흡수
-                GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption;
+                GameManager.Instance.GetPlayer.SelectCharacter.HP += damage * GameManager.Instance.GetPlayer.Stat.LifeAbsorption * 0.5f;
                 enemies[i].Time = Time.time;
                 //사운드
                 SoundManager.instance.SFXCreate(SoundManager.Clips.UnitHit);

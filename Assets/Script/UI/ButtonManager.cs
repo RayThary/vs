@@ -172,6 +172,8 @@ public class ButtonManager : MonoBehaviour
 
     public void Refresh()
     {
+        shaking.isOn = false;
+        auto.isOn = false;
         for (int i = 0; i < resolutions.Count; i++)
         {
             if (Screen.width == resolutions[i].width && Screen.height == resolutions[i].height)
@@ -205,6 +207,8 @@ public class ButtonManager : MonoBehaviour
 
     public void Refresh(PlayerSetting playerSetting)
     {
+        auto.isOn = playerSetting.Auto;
+        shaking.isOn = playerSetting.Shaking;
         for (int i = 0; i < resolutions.Count; i++)
         {
             if (playerSetting.Resolution.width == resolutions[i].width && playerSetting.Resolution.height == resolutions[i].height)
@@ -390,8 +394,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameOption()
     {
-
-        GameManager.Instance.TimeScale = 0;
+        GameManager.Instance.SetGameTime = true;
         armory.gameObject.SetActive(false);
         viewArmory.Close();
         ingameOptionButton.gameObject.SetActive(false);
@@ -400,8 +403,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameClose()
     {
-
-        GameManager.Instance.TimeScale = 1;
+        GameManager.Instance.SetGameTime = false;
         armory.gameObject.SetActive(true);
         ingameOptionButton.gameObject.SetActive(true);
         ingameOptionWindow.SetActive(false);
