@@ -1527,6 +1527,7 @@ MonoBehaviour:
   enemyParent: {fileID: 777214670}
   over: {fileID: 949562007}
   shakingWindow: {fileID: 469116974}
+  isInvincibility: 1
 --- !u!4 &469116972
 Transform:
   m_ObjectHideFlags: 0
