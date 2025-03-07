@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static PoolingManager;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
@@ -20,15 +23,22 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip m_BackGroundClip;
     [SerializeField] private float m_bgmStartDealy = 0.5f;
 
-    private Transform pollingObjParentTrs;//풀링오브젝트의 부모위치
+    private Transform poolingObjParentTrs;//풀링오브젝트의 부모위치
     private Transform sfxParent;//부모설정없을경우 넣어줄곳
 
     //오디오클립이 들어간 비어있는 오디오소스
     [SerializeField] private GameObject SFXsource;
     //클립들을 넣어주고 이넘에 클립이랑 이름을똑같이 넣어주어야함
-    [SerializeField] private List<AudioClip> clips = new List<AudioClip>();
-    [SerializeField] private int poolingCount = 50;
 
+
+    // Clip : 사용될 소리 , ClipCount : 소리의 최대사용개수
+    [System.Serializable]
+    public class PoolingClips
+    {
+        public AudioClip Clip;
+        public int ClipCount;
+    }
+    [SerializeField] private List<PoolingClips> clips;
 
     private void Awake()
     {
@@ -45,19 +55,38 @@ public class SoundManager : MonoBehaviour
         m_backGroundSource = GetComponent<AudioSource>();
 
         StartCoroutine(bgStart());
-        pollingObjParentTrs = transform.GetChild(0);
+        poolingObjParentTrs = transform.GetChild(0);
         sfxParent = transform.GetChild(1);
         initPoolingClip();
     }
 
-
-
     private void initPoolingClip()
     {
-        for (int i = 0; poolingCount > i; i++)
+        for (int i = 0; i < clips.Count; i++)
+        {
+            GameObject sfxParent = new GameObject();
+
+            PoolingClips data = clips[i];
+            string sfxName = data.Clip.name;
+            int sfxCount = data.ClipCount;
+
+            sfxParent.name = sfxName;
+            sfxParent.transform.SetParent(poolingObjParentTrs);
+
+
+            initPollingChild(sfxCount, sfxParent.transform, data);
+        }
+
+    }
+
+    private void initPollingChild(int _count, Transform _parent, PoolingClips _data)
+    {
+        for (int i = 0; i < _count; i++)
         {
             GameObject sfx = Instantiate(SFXsource);
-            sfx.transform.SetParent(pollingObjParentTrs);
+            sfx.GetComponent<AudioSource>().clip = _data.Clip;
+            sfx.name = _data.Clip.name;
+            sfx.transform.SetParent(_parent);
             sfx.SetActive(false);
         }
     }
@@ -79,79 +108,85 @@ public class SoundManager : MonoBehaviour
     /// <param name="_parent">오브젝트의 부모</param>
     public void SFXCreate(Clips _clip, float _volum, float _SFXTime, Transform _parent)
     {
-        AudioClip clip = clips.Find(x => x.name == _clip.ToString());
-        StartCoroutine(SFXPlaying(clip, _volum, _SFXTime, _parent));
+        string sClip = _clip.ToString();
+        Transform parent = poolingObjParentTrs.Find(sClip);
+        GameObject sfx = getPoolingObject(parent);
+
+        StartCoroutine(SFXPlaying(sfx.transform, _volum, _SFXTime));
     }
     public void SFXCreate(Clips _clip, Transform _parent)
     {
-        AudioClip clip = clips.Find(x => x.name == _clip.ToString());
-        StartCoroutine(SFXPlaying(clip, 1, 0, _parent));
+        string sClip = _clip.ToString();
+        Transform parent = poolingObjParentTrs.Find(sClip);
+        GameObject sfx = getPoolingObject(parent);
+        StartCoroutine(SFXPlaying(sfx.transform, 1, 0));
     }
     public void SFXCreate(Clips _clip)
     {
-        AudioClip clip = clips.Find(x => x.name == _clip.ToString());
-        StartCoroutine(SFXPlaying(clip, 1, 0, sfxParent));
+        string sClip = _clip.ToString();
+        Transform parent = poolingObjParentTrs.Find(sClip);
+        GameObject sfx = getPoolingObject(parent);
+        if (sfx != null)
+        {
+            sfx.transform.SetParent(sfxParent);
+            StartCoroutine(SFXPlaying(sfx.transform, 1, 0));
+        }
     }
 
-    IEnumerator SFXPlaying(AudioClip clip, float _volum, float _SFXTime, Transform _parent)
+    IEnumerator SFXPlaying(Transform clip, float _volum, float _SFXTime)
     {
-        GameObject SFXSource = getPoolingObject(_parent);
 
-        AudioSource m_sfxaudiosource = SFXSource.GetComponent<AudioSource>();
+
+        AudioSource m_sfxaudiosource = clip.GetComponent<AudioSource>();
 
         m_sfxaudiosource.outputAudioMixerGroup = m_mixer.FindMatchingGroups("SFX")[0];
-        m_sfxaudiosource.clip = clip;
         m_sfxaudiosource.loop = false;
         m_sfxaudiosource.volume = _volum;
         m_sfxaudiosource.time = _SFXTime;
         m_sfxaudiosource.Play();
-        yield return new WaitForSeconds(clip.length);
-        removePooling(SFXSource);
+        yield return new WaitForSeconds(m_sfxaudiosource.clip.length);
+        removePooling(clip.gameObject);
     }
 
     private GameObject getPoolingObject(Transform _parent)
     {
-        int parentCount = pollingObjParentTrs.childCount;
+
         GameObject obj = null;
-        if (parentCount > 0)
+        if (_parent.childCount > 0)
         {
-            obj = pollingObjParentTrs.GetChild(0).gameObject;
-
-        }
-        else
-        {
-            return null;
-            GameObject sfx = Instantiate(SFXsource);
-            sfx.transform.SetParent(pollingObjParentTrs);
-            sfx.SetActive(false);
-            obj = sfx;
+            obj = _parent.GetChild(0).gameObject;
+            obj.transform.SetParent(_parent);
+            obj.SetActive(true);
         }
 
-        obj.transform.SetParent(_parent);
-        obj.SetActive(true);
 
         return obj;
     }
 
     private void removePooling(GameObject _obj)
     {
+        string name = _obj.name;
+        Transform parent = poolingObjParentTrs.Find(name);
 
+        PoolingClips poolingObj = clips.Find(x => x.Clip.name == name);
+        int PoolingCount = poolingObj.ClipCount;
         //본인이 없는경우 채워넣어주고 만약 자식의 개수가 더많다면 삭제해준다.
-        if (pollingObjParentTrs.childCount < poolingCount)
+        if (poolingObjParentTrs.childCount < PoolingCount)
         {
             if (_obj == null)
             {
                 _obj = Instantiate(SFXsource);
             }
 
-            _obj.transform.SetParent(pollingObjParentTrs);
+            _obj.transform.SetParent(poolingObjParentTrs.Find(name));
             _obj.SetActive(false);
             _obj.transform.position = Vector3.zero;
-            _obj.GetComponent<AudioSource>().clip = null;
+            _obj.GetComponent<AudioSource>().time = 0;
 
         }
         else
         {
+            Debug.LogError("초과된오브젝트가 생성된경우");
             Destroy(_obj);
         }
     }

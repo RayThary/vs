@@ -2099,9 +2099,10 @@ MonoBehaviour:
   m_bgmStartDealy: 0.1
   SFXsource: {fileID: 6961405422786484838, guid: 268cda09d700038469a8417ca51db150, type: 3}
   clips:
-  - {fileID: 8300000, guid: b50e18f51549a7047b8e9025d23c2a48, type: 3}
-  - {fileID: 8300000, guid: 5ce3f4ad05f435c49ad9876ad3f1267f, type: 3}
-  poolingCount: 400
+  - Clip: {fileID: 8300000, guid: b50e18f51549a7047b8e9025d23c2a48, type: 3}
+    ClipCount: 50
+  - Clip: {fileID: 8300000, guid: 5ce3f4ad05f435c49ad9876ad3f1267f, type: 3}
+    ClipCount: 10
 --- !u!1 &574641235
 GameObject:
   m_ObjectHideFlags: 0
