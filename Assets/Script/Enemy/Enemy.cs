@@ -274,5 +274,7 @@ public class Enemy : MonoBehaviour
         PoolingManager.Instance.RemovePoolingObject(gameObject);
         SetHp();
         deathCheck=false;
+        knockBackCheck = false;
+        movingStop = false;
     }
 }

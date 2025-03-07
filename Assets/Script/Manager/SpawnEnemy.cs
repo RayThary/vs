@@ -15,7 +15,8 @@ public class SpawnEnemy : MonoBehaviour
     private Transform enemyParent => GameManager.Instance.GetEnemyPoolingTemp;
 
 
-
+    public bool test = false;
+    public bool spawn = false;
     void Start()
     {
         nextLevel = level + 1;
@@ -23,10 +24,19 @@ public class SpawnEnemy : MonoBehaviour
 
     void Update()
     {
-  
+        if (test)
+        {
+            if (spawn)
+            {
+
+                monsterSpawn(10);
+                spawn = false;
+            }
+            return;
+        }
         spawnEnemy();
         spawnBossEnemy();
-  
+
     }
     private void spawnEnemy()
     {

@@ -5808,7 +5808,7 @@ MonoBehaviour:
     count: 200
     description: 
   - clip: {fileID: 4890220247707469362, guid: f756c8524f6343d4dbe4e445a7c3a16a, type: 3}
-    count: 1000
+    count: 10
     description: 
   - clip: {fileID: 5646841880518608248, guid: db4e8d088733a6742ba31a644e469f12, type: 3}
     count: 1000
