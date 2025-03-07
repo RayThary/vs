@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     private GameObject over;
 
     [SerializeField]
+    private CinemachineVirtualCamera c_mainCamera;
     private CinemachineImpulseSource shakingWindow;
 
     [SerializeField]
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
+        shakingWindow = GetComponent<CinemachineImpulseSource>();
         player = FindObjectOfType<Player>();
         autoTarget = transform.GetComponent<AutoTarget>();
 
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameTime)
         {
-            gamePlayingTimer += Time.deltaTime * 2;
+            gamePlayingTimer += Time.deltaTime * 4;
             if (gamePlayingTimer >= nextLevelTime)
             {
                 nextLevelTime += 90;
@@ -122,13 +123,6 @@ public class GameManager : MonoBehaviour
         {
             shakingWindow.GenerateImpulse();
         }
-        //    float nowHp = seletCharactor.GetComponent<Character>().HP;
-
-        //    if (charactorBeforHp > nowHp && charactorBeforHp != 0)
-        //    {
-        //shakingWindow.GenerateImpulse();
-        //    }
-        //}
     }
 
     public void SetCharactor(Transform _trs)
@@ -137,6 +131,8 @@ public class GameManager : MonoBehaviour
         Transform mirrorTrs = _trs.GetChild(0).transform;
         gamePlayingTimer = 0;
         gameTime = true;
+        c_mainCamera.Follow = _trs;
+        c_mainCamera.LookAt = _trs;
     }
 
     public void GameOver()
@@ -180,5 +176,12 @@ public class GameManager : MonoBehaviour
             yMax = worldHeight * 0.5f
         };
         return rect;
+    }
+
+    public void ReSetCamera()
+    {
+        c_mainCamera.Follow = null;
+        c_mainCamera.LookAt = null;
+
     }
 }

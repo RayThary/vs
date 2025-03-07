@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
 
     private bool deathCheck = false;
     private int stageLevel = 1;
+    private Vector3 enemyScale;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -76,6 +77,7 @@ public class Enemy : MonoBehaviour
         sprColorControl = GetComponent<SpriteColorControl>();
         rigd2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        enemyScale = transform.localScale;
         SetHp();
     }
 
@@ -138,6 +140,19 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        if (player != null)
+        {
+            if (transform.position.x > player.transform.position.x)
+            {
+
+                transform.localScale = enemyScale;
+            }
+            else
+            {
+
+                transform.localScale = new Vector2(-enemyScale.x, enemyScale.y);
+            }
+        }
 
         rigd2d.velocity = Vector2.zero;
     }
@@ -258,5 +273,6 @@ public class Enemy : MonoBehaviour
     {
         PoolingManager.Instance.RemovePoolingObject(gameObject);
         SetHp();
+        deathCheck=false;
     }
 }

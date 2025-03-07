@@ -33,15 +33,10 @@ public class Character : MonoBehaviour
 
     private float recover;
     private float sheildRecover;
-    [SerializeField] private bool testMod = false;
     // Start is called before the first frame update
     protected void Start()
     {
         hp = maxHp;
-        if (testMod)
-        {
-            hp = 20000000f;
-        }
         recover = Time.time;
         rigid2d = GetComponent<Rigidbody2D>();
         mirroTrs = transform.GetChild(0);
