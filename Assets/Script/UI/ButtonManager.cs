@@ -394,7 +394,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameOption()
     {
-        GameManager.Instance.SetGameTime = true;
+        GameManager.Instance.TimeStop = true;
         armory.gameObject.SetActive(false);
         viewArmory.Close();
         ingameOptionButton.gameObject.SetActive(false);
@@ -403,7 +403,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnButtonIngameClose()
     {
-        GameManager.Instance.SetGameTime = false;
+        GameManager.Instance.TimeStop = false;
         armory.gameObject.SetActive(true);
         ingameOptionButton.gameObject.SetActive(true);
         ingameOptionWindow.SetActive(false);
@@ -413,7 +413,7 @@ public class ButtonManager : MonoBehaviour
     public void OnButtonMainMenu()
     {
         GameManager.Instance.GameTimer = 0;
-        GameManager.Instance.SetGameTime = false;
+        GameManager.Instance.TimeStop = false;
         //플레이어 무기 전부 없애야 함
         //필드 몹 없애야 함
         MenuWindowActive();
