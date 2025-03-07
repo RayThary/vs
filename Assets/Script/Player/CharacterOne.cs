@@ -13,6 +13,8 @@ public class CharacterOne : Character
     [SerializeField]
     private Projective projective;
 
+
+    
     // Start is called before the first frame update
     new void Start()
     {
