@@ -44,6 +44,7 @@ public class PoolingManager : MonoBehaviour
         BossExp,
         BossBullet,
         BossBounceBullet,
+        BossSpawnEffect,
     }
 
     [System.Serializable]

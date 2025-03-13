@@ -1356,6 +1356,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 0
+  enemyCount: 0
+  test: 0
+  spawn: 0
 --- !u!114 &469116971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,6 +1422,7 @@ Transform:
   - {fileID: 656094452}
   - {fileID: 777214670}
   - {fileID: 1358568220}
+  - {fileID: 1126480109}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &469116973
@@ -4605,6 +4609,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122245566}
   m_CullTransparentMesh: 1
+--- !u!1 &1126480108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126480109}
+  m_Layer: 0
+  m_Name: EnemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126480109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126480108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 469116972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1127167711
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,7 +5843,7 @@ MonoBehaviour:
     count: 200
     description: 
   - clip: {fileID: 4890220247707469362, guid: f756c8524f6343d4dbe4e445a7c3a16a, type: 3}
-    count: 10
+    count: 1000
     description: 
   - clip: {fileID: 5646841880518608248, guid: db4e8d088733a6742ba31a644e469f12, type: 3}
     count: 1000
@@ -5833,6 +5868,9 @@ MonoBehaviour:
     description: 
   - clip: {fileID: 5318720704748967230, guid: cf0f5ee9f730275429433e6edfd1c66f, type: 3}
     count: 200
+    description: 
+  - clip: {fileID: 2223066639703266655, guid: 13edf3201c2a98d47bebbac76446a605, type: 3}
+    count: 2
     description: 
 --- !u!1 &1454261963
 GameObject:

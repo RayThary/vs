@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameTime)
         {
-            gamePlayingTimer += Time.deltaTime * 4;
+            gamePlayingTimer += Time.deltaTime * 2;
             if (gamePlayingTimer >= nextLevelTime)
             {
                 nextLevelTime += 90;

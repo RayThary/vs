@@ -12,29 +12,45 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField]
     private int nextLevel;
 
-    private Transform enemyParent => GameManager.Instance.GetEnemyPoolingTemp;
-
-
+    private Transform enemyParent;
+    [SerializeField]
+    private int enemyCount = 0;
+    private int minSpawn = 1;
     public bool test = false;
     public bool spawn = false;
     void Start()
     {
         nextLevel = level + 1;
+        enemyParent = transform.Find("EnemyParent");
     }
 
     void Update()
     {
+
         if (test)
         {
             if (spawn)
             {
 
                 monsterSpawn(10);
+                spawnBossEnemy();
                 spawn = false;
             }
             return;
         }
-        spawnEnemy();
+
+        enemyCount = enemyParent.childCount;
+        if (enemyCount < 20)
+        {
+            minSpawn = level;
+            spawnEnemy();
+        }
+        else if (enemyCount <= 300)
+        {
+            minSpawn = level <= 5 ? 1 : 5;
+            spawnEnemy();
+        }
+
         spawnBossEnemy();
 
     }
@@ -44,10 +60,10 @@ public class SpawnEnemy : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
-
         if (timer >= (level <= 5 ? 0.5f : 2))
         {
-            int spawnCount = Random.Range(level <= 5 ? 1 : 5, level <= 5 ? 3 : level);
+
+            int spawnCount = Random.Range(level <= 5 ? minSpawn : level + 1, level <= minSpawn ? 3 : level);
             monsterSpawn(spawnCount);
             timer = 0;
         }
@@ -123,16 +139,18 @@ public class SpawnEnemy : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.SetGameTime = false;
+                PoolingManager.Instance.RemoveAllPoolingObject(enemyParent.gameObject);
                 if (nextLevel == 6)
                 {
-                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyMiddleBoss, enemyParent);
+                    GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossSpawnEffect, enemyParent);
+                    obj.GetComponent<BossSpawnEffect>().SetIsLastBoss = false;
                 }
                 else
                 {
-                    PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.EnemyLastBoss, enemyParent);
+                    GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossSpawnEffect, enemyParent);
+                    obj.GetComponent<BossSpawnEffect>().SetIsLastBoss = true;
                 }
-                GameManager.Instance.SetGameTime = false;
-                PoolingManager.Instance.RemoveAllPoolingObject(enemyParent.gameObject);
             }
 
         }

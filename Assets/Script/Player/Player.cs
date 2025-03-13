@@ -10,10 +10,12 @@ public class Player : MonoBehaviour
     public PlayerStat Stat { get { return stat; } }
     private Armory armory;
     public Armory Armory { get { return armory; } }
-
-    [SerializeField] private int playerExp = 8;
-    [SerializeField] private int needExp = 10;
+    [SerializeField]
+     private int playerExp = 0;
+    [SerializeField] private int needExp = 100;
     private int basicExp => needExp;
+
+    private int playerLevel = 1;
 
     private Character selectCharacter;
     public Character SelectCharacter { get { return selectCharacter; } set { selectCharacter = value; } }
@@ -63,9 +65,10 @@ public class Player : MonoBehaviour
             {
                 playerExp = 0;
             }
-            double nextExp = basicExp * (Mathf.Pow(GameManager.Instance.GetStageLevel, 2f));
+            double nextExp = basicExp * (Mathf.Pow(1.1f, playerLevel));
             needExp = (int)nextExp;
             cardSelect.On = true;
+            playerLevel++;
         }
     }
 
