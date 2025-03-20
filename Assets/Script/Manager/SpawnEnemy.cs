@@ -18,6 +18,7 @@ public class SpawnEnemy : MonoBehaviour
     private int minSpawn = 1;
     public bool test = false;
     public bool spawn = false;
+    public bool lastboss = false;
     void Start()
     {
         nextLevel = level + 1;
@@ -32,8 +33,11 @@ public class SpawnEnemy : MonoBehaviour
             if (spawn)
             {
 
-                monsterSpawn(10);
-                spawnBossEnemy();
+                //monsterSpawn(10);
+                GameManager.Instance.SetGameTime = false;
+                PoolingManager.Instance.RemoveAllPoolingObject(enemyParent.gameObject);
+                GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossSpawnEffect, enemyParent);
+                obj.GetComponent<BossSpawnEffect>().SetIsLastBoss = lastboss;
                 spawn = false;
             }
             return;

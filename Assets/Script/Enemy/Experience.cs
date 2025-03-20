@@ -30,9 +30,9 @@ public class Experience : MonoBehaviour
         {
             basicExp = m_expType switch
             {
-                ExpType.Small => 5 * GameManager.Instance.GetStageLevel,
-                ExpType.Medium => 10 + (GameManager.Instance.GetStageLevel * 10),
-                ExpType.Large => 20 + ((GameManager.Instance.GetStageLevel - 1) * 20),
+                ExpType.Small => 10 * GameManager.Instance.GetStageLevel,
+                ExpType.Medium => 20 + (GameManager.Instance.GetStageLevel * 13),
+                ExpType.Large => 50 + ((GameManager.Instance.GetStageLevel - 1) * 20),
                 ExpType.Boss => 0,
                 _ => 1
             };

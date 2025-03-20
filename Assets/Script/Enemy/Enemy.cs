@@ -220,10 +220,10 @@ public class Enemy : MonoBehaviour
         hp = enemyExpType switch
         {
             ExpType.Small => GameManager.Instance.GetStageLevel * 10,
-            ExpType.Medium => GameManager.Instance.GetStageLevel * 15,
-            ExpType.Large => GameManager.Instance.GetStageLevel * 20,
-            ExpType.MiniBoss => GameManager.Instance.GetStageLevel * 50,
-            ExpType.Boss => GameManager.Instance.GetStageLevel * 100,
+            ExpType.Medium => 50 + GameManager.Instance.GetStageLevel * 20,
+            ExpType.Large => 100 + GameManager.Instance.GetStageLevel * 40,
+            ExpType.MiniBoss => 1000,
+            ExpType.Boss => 2000,
             _ => 20
         };
     }
@@ -273,7 +273,7 @@ public class Enemy : MonoBehaviour
     {
         PoolingManager.Instance.RemovePoolingObject(gameObject);
         SetHp();
-        deathCheck=false;
+        deathCheck = false;
         knockBackCheck = false;
         movingStop = false;
     }

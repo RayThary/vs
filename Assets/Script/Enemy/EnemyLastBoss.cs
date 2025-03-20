@@ -15,12 +15,20 @@ public class EnemyLastBoss : MonoBehaviour
 
     private bool movinStop = false;
 
-    [SerializeField]
-    private float hp = 100;
+    private float maxHp;
+    private float hp => GetComponent<Enemy>().HP;
+
 
     private bool attackCheck = false;
-    private bool attackCoolChekc = false;
-    private float timer = 0;
+    private bool meteroAttackCoolChekc = false;
+    private float curveTimer = 0;
+
+    private bool laserPatten = false;
+
+    private bool laserAttackCheck = false;
+    private bool laserCheck = false;
+    private float laserTimer = 0;
+
     [SerializeField] private bool SlowInPlayer = false;
 
     private Vector3 mapSize;
@@ -30,7 +38,7 @@ public class EnemyLastBoss : MonoBehaviour
         rigd2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         basicSpeed = speed;
-
+        maxHp = hp;
         mapSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - 200, Screen.height - 200));
     }
 
@@ -38,7 +46,10 @@ public class EnemyLastBoss : MonoBehaviour
     {
         moving();
         attack();
-
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            anim.SetTrigger("LaserAttack");
+        }
     }
 
     private void moving()
@@ -59,13 +70,16 @@ public class EnemyLastBoss : MonoBehaviour
             }
         }
 
-        if (targetDistance <= 0.1f)
+        if (!laserCheck)
         {
-            if (attackCheck == false)
+            if (targetDistance <= 0.1f)
             {
-                movinStop = true;
-                anim.SetTrigger("Attack");
-                attackCheck = true;
+                if (attackCheck == false)
+                {
+                    movinStop = true;
+                    anim.SetTrigger("Attack");
+                    attackCheck = true;
+                }
             }
         }
 
@@ -76,7 +90,7 @@ public class EnemyLastBoss : MonoBehaviour
                 return;
             }
 
-           
+
             transform.position = Vector3.MoveTowards(transform.position, targetVec, speed * Time.deltaTime);
         }
 
@@ -86,25 +100,41 @@ public class EnemyLastBoss : MonoBehaviour
     private void attack()
     {
 
-        if (!attackCoolChekc)
+        if (!meteroAttackCoolChekc)
         {
-            timer += Time.deltaTime;
-            if (timer > 3.5f)
+            curveTimer += Time.deltaTime;
+            if (curveTimer > 3)
             {
-                timer = 0;
-                attackCoolChekc = true;
-                StartCoroutine(meteor(8));
+                curveTimer = 0;
+                meteroAttackCoolChekc = true;
+                int meteorCount = Random.Range(6, 10);
+                StartCoroutine(meteor(meteorCount));
             }
         }
+
+        if (!laserAttackCheck && laserPatten)
+        {
+            laserTimer += Time.deltaTime;
+
+            if (laserTimer > 3)
+            {
+                Debug.Log("작동");
+                laserAttackCheck = true;
+                laserCheck = true;
+                anim.SetTrigger("LaserAttack");
+                laserTimer = 0;
+            }
+
+        }
+
+        if (hp <= maxHp * 0.5f && !laserPatten)
+        {
+            laserPatten = true;
+        }
+
     }
 
-    private void death()
-    {
-        if (hp <= 0)
-        {
-            anim.SetTrigger("Death");
-        }
-    }
+
 
     //소환될 개수
     IEnumerator meteor(int count)
@@ -112,11 +142,11 @@ public class EnemyLastBoss : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Vector3 spawnPos = SetSpawnPos();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
             GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.Meteor, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = spawnPos;
         }
-        attackCoolChekc = false;
+        meteroAttackCoolChekc = false;
     }
 
     private Vector3 SetSpawnPos()
@@ -158,6 +188,29 @@ public class EnemyLastBoss : MonoBehaviour
         }
         movinStop = false;
         attackCheck = false;
+    }
+
+    private void laserAttack()
+    {
+        Debug.Log("소환");
+        GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossLaser, GameManager.Instance.GetEnemyPoolingTemp);
+        Vector3 dir = (player.position - transform.position).normalized;
+        obj.transform.position = transform.position + (dir * 1);
+
+        dir = player.position - obj.transform.position;
+        dir = dir.normalized;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        obj.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+
+    }
+
+    private void laserEnd()
+    {
+        laserAttackCheck = false;
+        laserCheck = false;
+        Debug.Log("레이저끝");
     }
     //애니메이션 이벤트
     private void enemyDeath()

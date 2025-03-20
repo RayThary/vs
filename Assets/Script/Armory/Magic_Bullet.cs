@@ -38,7 +38,7 @@ public class Magic_Bullet : IAddon
         description = "ÃÑ¾ËÀÇ °¹¼ö¸¦ ÇÏ³ª ´Ã¸°´Ù.";
         this.player = player;
         level = 0;
-        damage = 2;
+        damage = 3;
         delay = 1;
     }
 

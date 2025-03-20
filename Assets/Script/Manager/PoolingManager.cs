@@ -16,7 +16,6 @@ public class PoolingManager : MonoBehaviour
         Arrow,
         Axe,
         Magic1,
-        Magic3,
         Magic4,
         Magic5,
         Magic6,
@@ -42,9 +41,10 @@ public class PoolingManager : MonoBehaviour
         EnemyMiddleBoss,
         EnemyLastBoss,
         BossExp,
-        BossBullet,
         BossBounceBullet,
         BossSpawnEffect,
+        BossSplitBullet,
+        BossLaser,
     }
 
     [System.Serializable]

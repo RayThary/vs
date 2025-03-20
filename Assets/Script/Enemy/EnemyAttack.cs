@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public enum AttackType
+    
+    
+    [SerializeField] private float attackDamage = 2;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        LineAttack,
-
-    }
-    [SerializeField] private AttackType attackType;
-    [SerializeField] private float attackSpeed = 2;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        if(attackType == AttackType.LineAttack)
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            transform.position += transform.forward * Time.deltaTime * attackSpeed;
+            GameManager.Instance.GetPlayer.SelectCharacter.HP -= attackDamage;
+            GameManager.Instance.SetShakingWindow();
+            SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
         }
     }
 }

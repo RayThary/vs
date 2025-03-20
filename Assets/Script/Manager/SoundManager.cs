@@ -51,7 +51,6 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //DontDestroyOnLoad(gameObject);
         m_backGroundSource = GetComponent<AudioSource>();
 
         StartCoroutine(bgStart());
@@ -111,16 +110,13 @@ public class SoundManager : MonoBehaviour
         string sClip = _clip.ToString();
         Transform parent = poolingObjParentTrs.Find(sClip);
         GameObject sfx = getPoolingObject(parent);
+        if (sfx != null)
+        {
+            sfx.transform.SetParent(sfxParent);
+            StartCoroutine(SFXPlaying(sfx.transform, _volum, _SFXTime));
+        }
+    }
 
-        StartCoroutine(SFXPlaying(sfx.transform, _volum, _SFXTime));
-    }
-    public void SFXCreate(Clips _clip, Transform _parent)
-    {
-        string sClip = _clip.ToString();
-        Transform parent = poolingObjParentTrs.Find(sClip);
-        GameObject sfx = getPoolingObject(parent);
-        StartCoroutine(SFXPlaying(sfx.transform, 1, 0));
-    }
     public void SFXCreate(Clips _clip)
     {
         string sClip = _clip.ToString();

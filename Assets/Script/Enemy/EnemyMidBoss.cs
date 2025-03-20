@@ -20,6 +20,7 @@ public class EnemyMidBoss : MonoBehaviour
     private bool movingStop = false;
     private bool attackCoolChekc = false;
     private float timer = 0;
+    private float attackTime = 3;
 
     //[SerializeField] private bool SlowInPlayer = false;
 
@@ -92,13 +93,14 @@ public class EnemyMidBoss : MonoBehaviour
         if (!attackCoolChekc)
         {
             timer += Time.deltaTime;
-            //테스트용 3초
-            if (timer > 3)
+            
+            if (timer > attackTime)
             {
                 timer = 0;
                 attackCoolChekc = true;
                 targetChange = true;
                 movingStop = true;
+                attackTime = Random.Range(2, 4);
             }
         }
 
@@ -183,17 +185,10 @@ public class EnemyMidBoss : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Vector2 dir = new Vector2(dirX, dirY);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossBullet, GameManager.Instance.GetPoolingTemp);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossBounceBullet, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = transform.position;
-            if (dirX == -1)
-            {
-                obj.transform.localScale = new Vector2(-1, 1);
-            }
-            Projective tempBullet = obj.GetComponent<Projective>();
-            tempBullet.Init();
-            tempBullet.Attributes.Add(new P_Move(tempBullet, dir, 3));
-            tempBullet.Attributes.Add(new P_EnemyAttackDelete(tempBullet));
-            tempBullet.Attributes.Add(new P_EnemyDamage(10));
+            BounceBullet tempBullet = obj.GetComponent<BounceBullet>();
+            tempBullet.SetDir = (dir, 4, 5, 2);
             dirY += 0.5f;
         }
     }
@@ -213,17 +208,11 @@ public class EnemyMidBoss : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             Vector2 dir = new Vector2(dirX, dirY);
-            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossBounceBullet, GameManager.Instance.GetPoolingTemp);
+            GameObject obj = PoolingManager.Instance.CreateObject(PoolingManager.ePoolingObject.BossSplitBullet, GameManager.Instance.GetPoolingTemp);
             obj.transform.position = transform.position;
-            Projective tempBullet = obj.GetComponent<Projective>();
-            tempBullet.Init();
-            P_Move move = new P_Move(tempBullet, dir, 5);
-            tempBullet.Attributes.Add(move);
-            tempBullet.Attributes.Add(new P_Bounce(tempBullet, move, 3));
-            tempBullet.Attributes.Add(new P_EnemyAttackDelete(tempBullet));
-            tempBullet.Attributes.Add(new P_DeleteTimer(tempBullet, 5));
-            tempBullet.Attributes.Add(new P_EnemyDamage(5));
-            //데미지 5 일단적용
+            BounceBullet tempBullet = obj.GetComponent<BounceBullet>();
+            tempBullet.SetDir = (dir, 2, 10, 1);
+
 
             dirY += 0.5f;
         }
