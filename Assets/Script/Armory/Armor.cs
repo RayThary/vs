@@ -7,7 +7,7 @@ public class Armor : IAddon
     public string AddonName => "Armor";
 
     private float hap;
-
+    public float Hap { get { return hap; } }
     private Sprite sprite;
     public Sprite Sprite => sprite;
 

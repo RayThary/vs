@@ -50,7 +50,7 @@ public class BounceBullet : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            GameManager.Instance.GetPlayer.SelectCharacter.HP -= damage;
+            GameManager.Instance.GetPlayer.SelectCharacter.SetHit(damage);
             GameManager.Instance.SetShakingWindow();
             SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
         }

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -11,21 +13,21 @@ public class Character : MonoBehaviour
 
     [SerializeField] private float characterSpeed = 3;
 
-    private Transform mirroTrs;
 
     [SerializeField]
     private float maxHp;
-    public float MaxHP { get { return maxHp; } set {  maxHp = value; } }
+    public float MaxHP { get { return maxHp; } set { maxHp = value; } }
 
     [SerializeField]
     private Sprite sprite;
     public Sprite Sprite { get { return sprite; } }
 
     private float hp;
-    public float HP { get => hp; set { if(!GameManager.Instance.IsInvincibility) hp = value; } }
+    public float HP { get => hp; set { if (!GameManager.Instance.IsInvincibility) hp = value; } }
+    private float armor { get { return GameManager.Instance.GetPlayer.Stat.Armor; } }
 
     private float maxSheild;
-    public float MaxSheild { get {  return maxSheild; } set { maxSheild = value; } }
+    public float MaxSheild { get { return maxSheild; } set { maxSheild = value; } }
 
     [SerializeField]
     private float sheild;
@@ -39,7 +41,6 @@ public class Character : MonoBehaviour
         hp = maxHp;
         recover = Time.time;
         rigid2d = GetComponent<Rigidbody2D>();
-        mirroTrs = transform.GetChild(0);
     }
 
     // Update is called once per frame
@@ -47,16 +48,16 @@ public class Character : MonoBehaviour
     {
         characterMoving();
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ButtonManager.Instance.ESC();
         }
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Skill();
         }
-        if(hp <= 0)
-        {     
+        if (hp <= 0)
+        {
             GameManager.Instance.GameOver();
         }
     }
@@ -80,7 +81,11 @@ public class Character : MonoBehaviour
 
         Vector2 playerVec = transform.position;
         playerVec.x *= -1;
-        mirroTrs.position = playerVec;
+    }
+
+    public void SetHit(float _Damage)
+    {
+        hp -= Mathf.Max(_Damage - armor, 1);
     }
 
     public void HPRecovery()

@@ -44,9 +44,6 @@ public class CardSelect : MonoBehaviour
             new HPRecovery(),
             new LifeAbsorption(),
             new ShieldPoint(),
-            new SkillAmp(),
-            new SkillCool(),
-            new SkillDamage(),
             new Speed(),
 
         };

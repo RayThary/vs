@@ -15,7 +15,7 @@ public class P_EnemyDamage : IP_Attribute
     {
         if (collider2D.TryGetComponent(out Character character))
         {
-            character.HP -= m_Damage;
+            character.SetHit(m_Damage);
             SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
         }
     }

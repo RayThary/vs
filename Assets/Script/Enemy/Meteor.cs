@@ -40,7 +40,7 @@ public class Meteor : MonoBehaviour
             {
                 if (circle2d.IsTouchingLayers(LayerMask.GetMask("Player")))
                 {
-                        GameManager.Instance.GetPlayer.SelectCharacter.HP -= attackDamage;
+                    GameManager.Instance.GetPlayer.SelectCharacter.SetHit(attackDamage);
                     GameManager.Instance.SetShakingWindow();
                     SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
 

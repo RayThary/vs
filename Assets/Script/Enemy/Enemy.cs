@@ -174,7 +174,7 @@ public class Enemy : MonoBehaviour
                     ExpType.Boss => 5,
                     _ => 0,
                 };
-                GameManager.Instance.GetPlayer.SelectCharacter.HP -= damage;
+                GameManager.Instance.GetPlayer.SelectCharacter.SetHit(damage);
                 GameManager.Instance.SetShakingWindow();
                 SoundManager.instance.SFXCreate(SoundManager.Clips.PlayerHit);
                 timer = 0;
